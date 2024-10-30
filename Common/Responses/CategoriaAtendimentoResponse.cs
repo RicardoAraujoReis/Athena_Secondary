@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Common.Responses;
+
+public class CategoriaAtendimentoResponse
+{
+    public int Cat_identi { get; set; }
+    public int Cat_catpai { get; set; }
+    public int Cat_nivel { get; set; }
+    public String Cat_valor { get; set; }
+    public String Cat_usubdd { get; set; }
+    public int Cat_usucri { get; set; }
+    public int Cat_usualt { get; set; }
+    public DateTime Cat_datcri { get; set; }
+    public DateTime Cat_datalt { get; set; }
+}

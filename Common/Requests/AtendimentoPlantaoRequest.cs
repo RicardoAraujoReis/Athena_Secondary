@@ -1,0 +1,53 @@
+﻿namespace Common.Requests;
+
+public record CreateAtendimentoPlantao(
+    int atd_usu_identi,
+    int atd_ptd_identi,
+    int atd_cli_identi,
+    String atd_tipatd,
+    int atd_cat_identi,
+    String atd_resumo,
+    String atd_respn2,
+    String atd_crijir,
+    String atd_issue,
+    String atd_critic,
+    String atd_resplt,
+    String atd_ren1hm,
+    String atd_resn1,
+    String atd_evoln1,
+    String atd_observ,
+    String atd_usubdd,
+    DateTime atd_datatd,
+    String atd_nomal2,
+    String atd_status,
+    int atd_usucri,
+    int atd_usualt,
+    DateTime atd_datcri,
+    DateTime atd_datalt
+);
+
+public record UpdateAtendimentoPlantao(
+    int atd_identi,
+    int atd_usu_identi,        
+    int atd_cli_identi,
+    String atd_tipatd,
+    int atd_cat_identi,
+    String atd_resumo,
+    String atd_respn2,
+    String atd_crijir,
+    String atd_issue,
+    String atd_critic,
+    String atd_resplt,
+    String atd_ren1hm,
+    String atd_resn1,
+    String atd_evoln1,
+    String atd_observ,
+    String atd_usubdd,
+    DateTime atd_datatd,
+    String atd_nomal2,
+    String atd_status,
+    int atd_usucri,
+    int atd_usualt,
+    DateTime atd_datcri,
+    DateTime atd_datalt
+);
