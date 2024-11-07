@@ -22,12 +22,17 @@ public class GetTipoDadosListasHandlerById : IRequestHandler<GetTipoDadosListasB
 
     public async Task<ResponseWrapper<TipoDadosListasResponse>> Handle(GetTipoDadosListasById request, CancellationToken cancellationToken)
     {
-        var tipoDadosListasToFind = await _unitOfWork.ReadDataFor<TipoDadosListas>().GetByIdAsync(request.Tid_identi);
+        var tipoDadosListasToFind = await _unitOfWork.ReadDataFor<TipoDadosListas>().GetByIdAsync(request.Id);
 
         if (tipoDadosListasToFind is not null)
         {
-            return new ResponseWrapper<TipoDadosListasResponse>().Success(tipoDadosListasToFind.Adapt<TipoDadosListasResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<TipoDadosListasResponse>().
+                Success(tipoDadosListasToFind.
+                Adapt<TipoDadosListasResponse>()));
         }
-        return new ResponseWrapper<TipoDadosListasResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<TipoDadosListasResponse>().
+                Failed("Registro não encontrado"));
     }
 }

@@ -10,7 +10,7 @@ public record CreateTipoDadosListas(
 );
 
 public record UpdateTipoDadosListas(
-    int Tid_identi,
+    int Id,
     String Tid_descri,
     String Tid_usubdd,
     DateTime Tid_datcri,

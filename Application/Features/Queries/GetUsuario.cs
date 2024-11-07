@@ -16,7 +16,7 @@ public class GetUsuarioAll : IRequest<ResponseWrapper<List<UsuarioResponse>>>
 
 public class GetUsuarioById : IRequest<ResponseWrapper<UsuarioResponse>>
 {
-    public int Usu_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

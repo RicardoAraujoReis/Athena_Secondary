@@ -16,7 +16,7 @@ public class GetDepFuncAll : IRequest<ResponseWrapper<List<DepFuncResponse>>>
 
 public class GetDepFuncById : IRequest<ResponseWrapper<DepFuncResponse>>
 {
-    public int Dfc_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

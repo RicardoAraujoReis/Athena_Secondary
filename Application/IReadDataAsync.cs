@@ -10,5 +10,6 @@ namespace Application;
 public interface IReadDataAsync<T, in TId> where T : class, IEntity<TId>
 {
     Task<List<T>> GetAllAsync();
-    Task<T> GetByIdAsync(TId id);        
+    Task<T> GetByIdAsync(TId id);
+    IQueryable<T> Entities { get; }
 }

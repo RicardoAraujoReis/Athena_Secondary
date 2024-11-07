@@ -16,7 +16,16 @@ public class GetLinhaNegocioAll : IRequest<ResponseWrapper<List<LinhaNegocioResp
 
 public class GetLinhaNegocioById : IRequest<ResponseWrapper<LinhaNegocioResponse>>
 {
-    public int Lhn_identi { get; set; }
+    public int Id { get; set; }
 }
 
+public class GetLinhaNegocioByStatus : IRequest<ResponseWrapper<LinhaNegocioResponse>>
+{
+    public String LinhaNegocioByStatus { get; set; }
+}
 
+public class GetLinhaNegocioBySearchParameters : IRequest<ResponseWrapper<LinhaNegocioResponse>>
+{
+    public int Id { get; set; }
+    public String LinhaNegocioByStatus { get; set; }
+}

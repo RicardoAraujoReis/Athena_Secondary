@@ -16,7 +16,7 @@ public class GetTipoDadosListasAll : IRequest<ResponseWrapper<List<TipoDadosList
 
 public class GetTipoDadosListasById : IRequest<ResponseWrapper<TipoDadosListasResponse>>
 {
-    public int Tid_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

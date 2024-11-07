@@ -26,8 +26,13 @@ public class GetClienteHandlerAll : IRequestHandler<GetClienteAll, ResponseWrapp
 
         if (clienteToFind.Count > 0)
         {
-            return new ResponseWrapper<List<ClienteResponse>>().Success(clienteToFind.Adapt<List<ClienteResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<ClienteResponse>>().
+                Success(clienteToFind.
+                Adapt<List<ClienteResponse>>()));
         }
-        return new ResponseWrapper<List<ClienteResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+            FromResult(new ResponseWrapper<List<ClienteResponse>>().
+            Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

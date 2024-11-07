@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    [Migration("20241023020844_CriandoEstrutura")]
-    partial class CriandoEstrutura
+    [Migration("20241102150744_RecriandoEstrutura")]
+    partial class RecriandoEstrutura
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,765 +21,744 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.20")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Athena.Models.AtendimentoPlantao", b =>
                 {
-                    b.Property<int>("atd_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("atd_identi"));
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Atd_identi");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Atd_cat_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("atd_cat_identi")
+                    b.Property<int>("Atd_cli_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("atd_cli_identi")
-                        .HasColumnType("int");
-
-                    b.Property<string>("atd_crijir")
+                    b.Property<string>("Atd_crijir")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se foi criado Jira a partir deste Atendimento (1 - SIM / 0 - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se foi criado Jira a partir deste Atendimento (1 - SIM / 0 - NÃO)");
 
-                    b.Property<string>("atd_critic")
+                    b.Property<string>("Atd_critic")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
+                        .HasAnnotation("CustomAnnotation", "Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
 
-                    b.Property<DateTime>("atd_datalt")
+                    b.Property<DateTime>("Atd_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("atd_datatd")
+                    b.Property<DateTime>("Atd_datatd")
                         .HasColumnType("datetime2")
-                        .HasComment("Data do Plantão");
+                        .HasAnnotation("CustomAnnotation", "Data do Plantão");
 
-                    b.Property<DateTime>("atd_datcri")
+                    b.Property<DateTime>("Atd_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("atd_evoln1")
+                    b.Property<string>("Atd_evoln1")
                         .HasMaxLength(65)
                         .HasColumnType("nvarchar(65)")
-                        .HasComment("Tema em que o N1 precisa evoluir");
+                        .HasAnnotation("CustomAnnotation", "Tema em que o N1 precisa evoluir");
 
-                    b.Property<string>("atd_issue")
+                    b.Property<string>("Atd_issue")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Número do JIRA");
+                        .HasAnnotation("CustomAnnotation", "Número do JIRA");
 
-                    b.Property<string>("atd_nomal2")
+                    b.Property<string>("Atd_nomal2")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Nome do analista N2 caso não seja o mesmo usuário a preencher o formulário");
+                        .HasAnnotation("CustomAnnotation", "Nome do analista N2 caso não seja o mesmo usuário a preencher o formulário");
 
-                    b.Property<string>("atd_observ")
+                    b.Property<string>("Atd_observ")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Observação");
+                        .HasAnnotation("CustomAnnotation", "Observação");
 
-                    b.Property<int>("atd_ptd_identi")
+                    b.Property<int>("Atd_ptd_identi")
                         .HasColumnType("int");
 
-                    b.Property<string>("atd_ren1hm")
+                    b.Property<string>("Atd_ren1hm")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Resolveria se o N1 tivesse testado em HOM? (1 - SIM / 0 - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Resolveria se o N1 tivesse testado em HOM? (1 - SIM / 0 - NÃO)");
 
-                    b.Property<string>("atd_resn1")
+                    b.Property<string>("Atd_resn1")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Resolveria N1? (1 - SIM / 0 - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Resolveria N1? (1 - SIM / 0 - NÃO)");
 
-                    b.Property<string>("atd_resplt")
+                    b.Property<string>("Atd_resplt")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Tema resolvido no mesmo plantão? (1 - SIM / 0 - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Tema resolvido no mesmo plantão? (1 - SIM / 0 - NÃO)");
 
-                    b.Property<string>("atd_respn2")
+                    b.Property<string>("Atd_respn2")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Resposta do N2 ao Tema");
+                        .HasAnnotation("CustomAnnotation", "Resposta do N2 ao Tema");
 
-                    b.Property<string>("atd_resumo")
+                    b.Property<string>("Atd_resumo")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Resumo do Tema");
+                        .HasAnnotation("CustomAnnotation", "Resumo do Tema");
 
-                    b.Property<string>("atd_status")
+                    b.Property<string>("Atd_status")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Status do Atendimento");
+                        .HasAnnotation("CustomAnnotation", "Status do Atendimento");
 
-                    b.Property<string>("atd_tipatd")
+                    b.Property<string>("Atd_tipatd")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Tipo do Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
+                        .HasAnnotation("CustomAnnotation", "Tipo do Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
 
-                    b.Property<int>("atd_usu_identi")
+                    b.Property<int>("Atd_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("atd_usualt")
+                    b.Property<int>("Atd_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("atd_usubdd")
+                    b.Property<string>("Atd_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("atd_usucri")
+                    b.Property<int>("Atd_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("atd_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("atd_cat_identi");
+                    b.HasIndex("Atd_cat_identi");
 
-                    b.HasIndex("atd_cli_identi");
+                    b.HasIndex("Atd_cli_identi");
 
-                    b.HasIndex("atd_ptd_identi")
+                    b.HasIndex("Atd_ptd_identi")
                         .IsUnique();
 
-                    b.HasIndex("atd_usu_identi");
+                    b.HasIndex("Atd_usu_identi");
 
                     b.ToTable("AtendimentoPlantao", "Athena");
                 });
 
             modelBuilder.Entity("Athena.Models.CategoriaAtendimento", b =>
                 {
-                    b.Property<int>("cat_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cat_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Cat_identi");
 
-                    b.Property<int>("cat_catpai")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cat_catpai")
                         .HasMaxLength(10)
                         .HasColumnType("int")
-                        .HasComment("ID da Categoria referência no nível anterior");
+                        .HasAnnotation("CustomAnnotation", "ID da Categoria referência no nível anterior");
 
-                    b.Property<DateTime>("cat_datalt")
+                    b.Property<DateTime>("Cat_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("cat_datcri")
+                    b.Property<DateTime>("Cat_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("cat_nivel")
+                    b.Property<int>("Cat_nivel")
                         .HasMaxLength(1)
                         .HasColumnType("int")
-                        .HasComment("Nível da Categoria");
+                        .HasAnnotation("CustomAnnotation", "Nível da Categoria");
 
-                    b.Property<int>("cat_usualt")
+                    b.Property<int>("Cat_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("cat_usubdd")
+                    b.Property<string>("Cat_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("cat_usucri")
+                    b.Property<int>("Cat_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("cat_valor")
+                    b.Property<string>("Cat_valor")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
-                        .HasComment("Valor da Categoria");
+                        .HasAnnotation("CustomAnnotation", "Valor da Categoria");
 
-                    b.HasKey("cat_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("CategoriaAtendimento", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.Cliente", b =>
                 {
-                    b.Property<int>("cli_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("cli_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Cli_identi");
 
-                    b.Property<string>("cli_ativo")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cli_ativo")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se o Cliente está ativo ou não (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se o Cliente está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime>("cli_datalt")
+                    b.Property<DateTime>("Cli_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("cli_datcri")
+                    b.Property<DateTime>("Cli_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("cli_descri")
+                    b.Property<string>("Cli_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Descrição do Cliente");
+                        .HasAnnotation("CustomAnnotation", "Descrição do Cliente");
 
-                    b.Property<int>("cli_lhn_identi")
+                    b.Property<int>("Cli_lhn_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("cli_usualt")
+                    b.Property<int>("Cli_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("cli_usubdd")
+                    b.Property<string>("Cli_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("cli_usucri")
+                    b.Property<int>("Cli_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("cli_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("cli_lhn_identi");
+                    b.HasIndex("Cli_lhn_identi");
 
                     b.ToTable("Cliente", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.DadosListas", b =>
                 {
-                    b.Property<int>("dal_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("dal_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Dal_identi");
 
-                    b.Property<DateTime>("dal_datalt")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Dal_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("dal_datcri")
+                    b.Property<DateTime>("Dal_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("dal_tid_identi")
+                    b.Property<int>("Dal_tid_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("dal_usualt")
+                    b.Property<int>("Dal_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("dal_usubdd")
+                    b.Property<string>("Dal_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("dal_usucri")
+                    b.Property<int>("Dal_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("dal_valor")
+                    b.Property<string>("Dal_valor")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Valor a ser exibido no campo de lista");
+                        .HasAnnotation("CustomAnnotation", "Valor a ser exibido no campo de lista");
 
-                    b.HasKey("dal_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("dal_tid_identi");
+                    b.HasIndex("Dal_tid_identi");
 
                     b.ToTable("DadosListas", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.DepFunc", b =>
                 {
-                    b.Property<int>("dfc_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("dfc_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Dfc_identi");
 
-                    b.Property<DateTime>("dfc_datalt")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Dfc_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("dfc_datcri")
+                    b.Property<DateTime>("Dfc_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("dfc_dpt_identi")
+                    b.Property<int>("Dfc_dpt_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("dfc_fnc_identi")
+                    b.Property<int>("Dfc_fnc_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("dfc_usu_identi")
+                    b.Property<int>("Dfc_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("dfc_usualt")
+                    b.Property<int>("Dfc_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("dfc_usubdd")
+                    b.Property<string>("Dfc_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("dfc_usucri")
+                    b.Property<int>("Dfc_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("dfc_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("dfc_dpt_identi");
+                    b.HasIndex("Dfc_dpt_identi");
 
-                    b.HasIndex("dfc_fnc_identi");
+                    b.HasIndex("Dfc_fnc_identi");
 
-                    b.HasIndex("dfc_usu_identi");
+                    b.HasIndex("Dfc_usu_identi");
 
                     b.ToTable("DepFunc", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.Departamento", b =>
                 {
-                    b.Property<int>("dpt_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("dpt_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Dpt_identi");
 
-                    b.Property<string>("dpt_ativo")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Dpt_ativo")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se o Departamento está ativo ou não (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se o Departamento está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime>("dpt_datalt")
+                    b.Property<DateTime>("Dpt_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("dpt_datcri")
+                    b.Property<DateTime>("Dpt_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("dpt_descri")
+                    b.Property<string>("Dpt_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Nome do Departamento");
+                        .HasAnnotation("CustomAnnotation", "Nome do Departamento");
 
-                    b.Property<int>("dpt_usualt")
+                    b.Property<int>("Dpt_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("dpt_usubdd")
+                    b.Property<string>("Dpt_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("dpt_usucri")
+                    b.Property<int>("Dpt_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("dpt_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("Departamento", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.Funcao", b =>
                 {
-                    b.Property<int>("fnc_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("fnc_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Fnc_identi");
 
-                    b.Property<string>("fnc_ativo")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Fnc_ativo")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se a Função está ativa ou não (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se a Função está ativa ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime>("fnc_datalt")
+                    b.Property<DateTime>("Fnc_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("fnc_datcri")
+                    b.Property<DateTime>("Fnc_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("fnc_descri")
+                    b.Property<string>("Fnc_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Descrição da Função");
+                        .HasAnnotation("CustomAnnotation", "Descrição da Função");
 
-                    b.Property<int>("fnc_usualt")
+                    b.Property<int>("Fnc_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("fnc_usubdd")
+                    b.Property<string>("Fnc_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("fnc_usucri")
+                    b.Property<int>("Fnc_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("fnc_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("Funcao", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.LinhaNegocio", b =>
                 {
-                    b.Property<int>("lhn_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("lhn_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Lhn_identi");
 
-                    b.Property<string>("lhn_ativo")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Lhn_ativo")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se a Linha de Negócio está ativa ou não (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se a Linha de Negócio está ativa ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime>("lhn_datalt")
+                    b.Property<DateTime>("Lhn_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("lhn_datcri")
+                    b.Property<DateTime>("Lhn_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("lhn_descri")
+                    b.Property<string>("Lhn_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Descrição da Linha de Negócio");
+                        .HasAnnotation("CustomAnnotation", "Descrição da Linha de Negócio");
 
-                    b.Property<int>("lhn_usualt")
+                    b.Property<int>("Lhn_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("lhn_usubdd")
+                    b.Property<string>("Lhn_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("lhn_usucri")
+                    b.Property<int>("Lhn_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("lhn_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("LinhaNegocio", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.PreAtendimentoPlantao", b =>
                 {
-                    b.Property<int>("ptd_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ptd_identi"));
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Ptd_identi");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Ptd_cli_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("ptd_cli_identi")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ptd_critic")
+                    b.Property<string>("Ptd_critic")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
+                        .HasAnnotation("CustomAnnotation", "Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
 
-                    b.Property<DateTime>("ptd_datalt")
+                    b.Property<DateTime>("Ptd_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ptd_datcri")
+                    b.Property<DateTime>("Ptd_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ptd_datptd")
+                    b.Property<DateTime>("Ptd_datptd")
                         .HasColumnType("datetime2")
-                        .HasComment("Data do Pré Atendimento");
+                        .HasAnnotation("CustomAnnotation", "Data do Pré Atendimento");
 
-                    b.Property<string>("ptd_diagn1")
+                    b.Property<string>("Ptd_diagn1")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Análise realizada pelo N1");
+                        .HasAnnotation("CustomAnnotation", "Análise realizada pelo N1");
 
-                    b.Property<string>("ptd_jirarl")
+                    b.Property<string>("Ptd_jirarl")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Existe Jira relacionado? (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Existe Jira relacionado? (S - SIM / N - NÃO)");
 
-                    b.Property<string>("ptd_nomal1")
+                    b.Property<string>("Ptd_nomal1")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Nome do analista N1 caso não seja o mesmo usuário a preencher o formulário");
+                        .HasAnnotation("CustomAnnotation", "Nome do analista N1 caso não seja o mesmo usuário a preencher o formulário");
 
-                    b.Property<int>("ptd_numatd")
+                    b.Property<int>("Ptd_numatd")
                         .HasMaxLength(10)
                         .HasColumnType("int")
-                        .HasComment("Número do Atendimento gerado (se houver)");
+                        .HasAnnotation("CustomAnnotation", "Número do Atendimento gerado (se houver)");
 
-                    b.Property<string>("ptd_numcha")
+                    b.Property<string>("Ptd_numcha")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Número do chamado");
+                        .HasAnnotation("CustomAnnotation", "Número do chamado");
 
-                    b.Property<string>("ptd_numjir")
+                    b.Property<string>("Ptd_numjir")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Número do Jira");
+                        .HasAnnotation("CustomAnnotation", "Número do Jira");
 
-                    b.Property<string>("ptd_observ")
+                    b.Property<string>("Ptd_observ")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Observação");
+                        .HasAnnotation("CustomAnnotation", "Observação");
 
-                    b.Property<string>("ptd_resumo")
+                    b.Property<string>("Ptd_resumo")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Resumo do Tema");
+                        .HasAnnotation("CustomAnnotation", "Resumo do Tema");
 
-                    b.Property<string>("ptd_reton2")
+                    b.Property<string>("Ptd_reton2")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
-                        .HasComment("Resposta do N2");
+                        .HasAnnotation("CustomAnnotation", "Resposta do N2");
 
-                    b.Property<string>("ptd_status")
+                    b.Property<string>("Ptd_status")
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Status do Pré Atendimento");
+                        .HasAnnotation("CustomAnnotation", "Status do Pré Atendimento");
 
-                    b.Property<string>("ptd_tipptd")
+                    b.Property<string>("Ptd_tipptd")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Tipo do Pré Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
+                        .HasAnnotation("CustomAnnotation", "Tipo do Pré Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
 
-                    b.Property<int>("ptd_usu_identi")
+                    b.Property<int>("Ptd_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("ptd_usualt")
+                    b.Property<int>("Ptd_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("ptd_usubdd")
+                    b.Property<string>("Ptd_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("ptd_usucri")
+                    b.Property<int>("Ptd_usucri")
                         .HasColumnType("int");
 
-                    b.HasKey("ptd_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ptd_cli_identi");
+                    b.HasIndex("Ptd_cli_identi");
 
-                    b.HasIndex("ptd_usu_identi");
+                    b.HasIndex("Ptd_usu_identi");
 
                     b.ToTable("PreAtendimentoPlantao", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.TipoDadosListas", b =>
                 {
-                    b.Property<int>("tid_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("tid_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Tid_identi");
 
-                    b.Property<DateTime>("tid_datalt")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Tid_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("tid_datcri")
+                    b.Property<DateTime>("Tid_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("tid_descri")
+                    b.Property<string>("Tid_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Descrição do tipo de dados de listas");
+                        .HasAnnotation("CustomAnnotation", "Descrição do tipo de dados de listas");
 
-                    b.Property<int>("tid_usualt")
+                    b.Property<int>("Tid_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("tid_usubdd")
+                    b.Property<string>("Tid_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("tid_usucri")
+                    b.Property<int>("Tid_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("tid_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("TipoDadosListas", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.UsuLhn", b =>
                 {
-                    b.Property<int>("uln_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("uln_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Uln_identi");
 
-                    b.Property<DateTime>("uln_datalt")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Uln_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("uln_datcri")
+                    b.Property<DateTime>("Uln_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("uln_lhn_identi")
+                    b.Property<int>("Uln_lhn_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("uln_usu_identi")
+                    b.Property<int>("Uln_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int>("uln_usualt")
+                    b.Property<int>("Uln_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("uln_usubdd")
+                    b.Property<string>("Uln_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("uln_usucri")
+                    b.Property<int>("Uln_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("uln_identi");
+                    b.HasKey("Id");
 
-                    b.HasIndex("uln_lhn_identi");
+                    b.HasIndex("Uln_lhn_identi");
 
-                    b.HasIndex("uln_usu_identi");
+                    b.HasIndex("Uln_usu_identi");
 
                     b.ToTable("UsuLhn", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.Usuario", b =>
                 {
-                    b.Property<int>("usu_identi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("usu_identi"));
-
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Usu_identi");
 
-                    b.Property<string>("usu_ativo")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Usu_ativo")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se o usuário está ativo ou não (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se o Usuário está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime>("usu_datalt")
+                    b.Property<DateTime>("Usu_datalt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("usu_datcri")
+                    b.Property<DateTime>("Usu_datcri")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("usu_descri")
+                    b.Property<string>("Usu_descri")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("Nome completo do usuário");
+                        .HasAnnotation("CustomAnnotation", "Nome completo do Usuário");
 
-                    b.Property<string>("usu_email")
+                    b.Property<string>("Usu_email")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("E-mail do usuário");
+                        .HasAnnotation("CustomAnnotation", "E-mail do Usuário");
 
-                    b.Property<string>("usu_login")
+                    b.Property<string>("Usu_login")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Login do usuário");
+                        .HasAnnotation("CustomAnnotation", "Login do Usuário");
 
-                    b.Property<string>("usu_master")
+                    b.Property<string>("Usu_master")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se o usuário é super usuário (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se o Usuário é super Usuário (S - SIM / N - NÃO)");
 
-                    b.Property<string>("usu_senha")
+                    b.Property<string>("Usu_senha")
                         .IsRequired()
                         .HasMaxLength(65)
                         .HasColumnType("nvarchar(65)")
-                        .HasComment("Senha do usuário");
+                        .HasAnnotation("CustomAnnotation", "Senha do Usuário");
 
-                    b.Property<string>("usu_status")
+                    b.Property<string>("Usu_status")
                         .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)")
-                        .HasComment("Indica se o usuário está bloqueado (S - SIM / N - NÃO)");
+                        .HasAnnotation("CustomAnnotation", "Indica se o Usuário está bloqueado (S - SIM / N - NÃO)");
 
-                    b.Property<string>("usu_tipusu")
+                    b.Property<string>("Usu_tipusu")
                         .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
-                        .HasComment("Tipo do usuário (N1 - 0, N2 - 1, ADM - 2)");
+                        .HasAnnotation("CustomAnnotation", "Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2)");
 
-                    b.Property<int>("usu_usualt")
+                    b.Property<int>("Usu_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<string>("usu_usubdd")
+                    b.Property<string>("Usu_usubdd")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("usu_usucri")
+                    b.Property<int>("Usu_usucri")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.HasKey("usu_identi");
+                    b.HasKey("Id");
 
                     b.ToTable("Usuario", (string)null);
                 });
@@ -788,31 +767,31 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.CategoriaAtendimento", "CategoriaAtendimento")
                         .WithMany("Atendimentos")
-                        .HasForeignKey("atd_cat_identi")
+                        .HasForeignKey("Atd_cat_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("atd_cat_identi");
+                        .HasConstraintName("Atd_cat_identi");
 
                     b.HasOne("Athena.Models.Cliente", "Cliente")
                         .WithMany("Atendimentos")
-                        .HasForeignKey("atd_cli_identi")
+                        .HasForeignKey("Atd_cli_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("atd_cli_identi");
+                        .HasConstraintName("Atd_cli_identi");
 
                     b.HasOne("Athena.Models.PreAtendimentoPlantao", "PreAtendimentoPlantao")
                         .WithOne("AtendimentoPlantao")
-                        .HasForeignKey("Athena.Models.AtendimentoPlantao", "atd_ptd_identi")
+                        .HasForeignKey("Athena.Models.AtendimentoPlantao", "Atd_ptd_identi")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("atd_ptd_identi");
+                        .HasConstraintName("Atd_ptd_identi");
 
                     b.HasOne("Athena.Models.Usuario", "Usuario")
                         .WithMany("Atendimentos")
-                        .HasForeignKey("atd_usu_identi")
+                        .HasForeignKey("Atd_usu_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("atd_usu_identi");
+                        .HasConstraintName("Atd_usu_identi");
 
                     b.Navigation("CategoriaAtendimento");
 
@@ -827,10 +806,10 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.LinhaNegocio", "LinhaNegocio")
                         .WithMany("Clientes")
-                        .HasForeignKey("cli_lhn_identi")
+                        .HasForeignKey("Cli_lhn_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("cli_lhn_identi");
+                        .HasConstraintName("Cli_lhn_identi");
 
                     b.Navigation("LinhaNegocio");
                 });
@@ -839,10 +818,10 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.TipoDadosListas", "TipoDadosListas")
                         .WithMany("DadosListas")
-                        .HasForeignKey("dal_tid_identi")
+                        .HasForeignKey("Dal_tid_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("dal_tid_identi");
+                        .HasConstraintName("Dal_tid_identi");
 
                     b.Navigation("TipoDadosListas");
                 });
@@ -851,24 +830,24 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.Departamento", "Departamento")
                         .WithMany("DepFuncs")
-                        .HasForeignKey("dfc_dpt_identi")
+                        .HasForeignKey("Dfc_dpt_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("dfc_dpt_identi");
+                        .HasConstraintName("Dfc_dpt_identi");
 
                     b.HasOne("Athena.Models.Funcao", "Funcao")
                         .WithMany("DepFuncs")
-                        .HasForeignKey("dfc_fnc_identi")
+                        .HasForeignKey("Dfc_fnc_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("dfc_fnc_identi");
+                        .HasConstraintName("Dfc_fnc_identi");
 
                     b.HasOne("Athena.Models.Usuario", "Usuario")
                         .WithMany("DepFuncs")
-                        .HasForeignKey("dfc_usu_identi")
+                        .HasForeignKey("Dfc_usu_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("dfc_usu_identi");
+                        .HasConstraintName("Dfc_usu_identi");
 
                     b.Navigation("Departamento");
 
@@ -881,17 +860,17 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.Cliente", "Cliente")
                         .WithMany("PreAtendimentos")
-                        .HasForeignKey("ptd_cli_identi")
+                        .HasForeignKey("Ptd_cli_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("ptd_cli_identi");
+                        .HasConstraintName("Ptd_cli_identi");
 
                     b.HasOne("Athena.Models.Usuario", "Usuario")
                         .WithMany("PreAtendimentos")
-                        .HasForeignKey("ptd_usu_identi")
+                        .HasForeignKey("Ptd_usu_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("ptd_usu_identi");
+                        .HasConstraintName("Ptd_usu_identi");
 
                     b.Navigation("Cliente");
 
@@ -902,17 +881,17 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Athena.Models.LinhaNegocio", "LinhaNegocio")
                         .WithMany("UsuLhn")
-                        .HasForeignKey("uln_lhn_identi")
+                        .HasForeignKey("Uln_lhn_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("uln_lhn_identi");
+                        .HasConstraintName("Uln_lhn_identi");
 
                     b.HasOne("Athena.Models.Usuario", "Usuario")
                         .WithMany("UsuLhn")
-                        .HasForeignKey("uln_usu_identi")
+                        .HasForeignKey("Uln_usu_identi")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
-                        .HasConstraintName("uln_usu_identi");
+                        .HasConstraintName("Uln_usu_identi");
 
                     b.Navigation("LinhaNegocio");
 

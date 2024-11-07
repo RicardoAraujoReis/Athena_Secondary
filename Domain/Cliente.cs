@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class Cliente : BaseEntity<int>
-{
-    public int Cli_identi { get; set; }    
+{    
     public String Cli_descri { get; set; }
     public String Cli_ativo { get; set; }
     public String Cli_usubdd { get; set; }
@@ -18,7 +17,7 @@ public class Cliente : BaseEntity<int>
     public virtual List<PreAtendimentoPlantao> PreAtendimentos { get; set; }
 
     public Cliente UpdateCliente(
-        int cli_identi, 
+        int id, 
         String cli_descri,
         String cli_ativo,
         String cli_usubdd,
@@ -28,6 +27,7 @@ public class Cliente : BaseEntity<int>
         DateTime cli_datalt,
         int cli_lhn_identi)
     {
+        Id = id;
         Cli_descri = cli_descri;
         Cli_ativo = cli_ativo;
         Cli_usubdd = cli_usubdd;

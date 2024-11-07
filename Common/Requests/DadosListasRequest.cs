@@ -11,7 +11,7 @@ public record CreateDadosListas(
 );
 
 public record UpdateDadosListas(
-    int Dal_identi,
+    int Id,
     int Dal_tid_identi,
     String Dal_valor,
     String Dal_usubdd,

@@ -10,8 +10,8 @@ public record CreateLinhaNegocio(
     DateTime Lhn_datalt
 );
 
-public record UpdateLinhaNegocio(
-    int Lhn_identi,
+public record UpdateLinhaNegocio(    
+    int Id,
     String Lhn_descri,
     String Lhn_ativo,
     String Lhn_usubdd,

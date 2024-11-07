@@ -66,7 +66,7 @@ public class TipoDadosListasController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTipoDadosListasByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetTipoDadosListasById { Tid_identi = id });
+        var response = await Sender.Send(new GetTipoDadosListasById { Id = id });
 
         if (!response.IsSuccessful)
         {

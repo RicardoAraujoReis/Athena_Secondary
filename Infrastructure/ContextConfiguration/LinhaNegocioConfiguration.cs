@@ -9,10 +9,11 @@ internal class LinhaNegocioConfiguration : IEntityTypeConfiguration<LinhaNegocio
     public void Configure(EntityTypeBuilder<LinhaNegocio> builder)
     {
         builder.ToTable("LinhaNegocio");
-        builder.HasKey(x => x.Lhn_identi);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Lhn_descri).IsRequired().HasMaxLength(100).HasComment("Descrição da Linha de Negócio");
-        builder.Property(x => x.Lhn_ativo).IsRequired().HasMaxLength(1).HasComment("Indica se a Linha de Negócio está ativa ou não (S - SIM / N - NÃO)");
+        builder.Property(x => x.Id).HasColumnName("Lhn_identi");
+        builder.Property(x => x.Lhn_descri).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Descrição da Linha de Negócio");
+        builder.Property(x => x.Lhn_ativo).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se a Linha de Negócio está ativa ou não (S - SIM / N - NÃO)");
         builder.Property(x => x.Lhn_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Lhn_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Lhn_usualt).HasMaxLength(10);

@@ -33,7 +33,7 @@ internal class UnitOfWork<TId> : IUnitOfWork<TId>
             _instances = new Hashtable();
         }
 
-        var type = typeof(T).Name;
+        var type = $"{typeof(T).Name}_Read";
 
         if (!_instances.ContainsKey(type))
         {
@@ -52,7 +52,7 @@ internal class UnitOfWork<TId> : IUnitOfWork<TId>
             _instances = new Hashtable();
         }
 
-        var type = typeof(T).Name;
+        var type = $"{typeof(T).Name}_Write";
 
         if (!_instances.ContainsKey(type))
         {

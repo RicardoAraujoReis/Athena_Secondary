@@ -66,7 +66,7 @@ public class DadosListasController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDadosListasByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetDadosListasById { Dal_identi = id });
+        var response = await Sender.Send(new GetDadosListasById { Id = id });
 
         if (!response.IsSuccessful)
         {

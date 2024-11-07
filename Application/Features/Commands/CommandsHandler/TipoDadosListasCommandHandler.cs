@@ -26,7 +26,7 @@ public class CreateTipoDadosListasCommandsHandler : IRequestHandler<CreateTipoDa
         await _unitOfWork.WriteDataFor<TipoDadosListas>().AddAsync(TipoDadosListas);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(TipoDadosListas.Tid_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(TipoDadosListas.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,24 +41,25 @@ public class UpdateTipoDadosListasCommandsHandler : IRequestHandler<UpdateTipoDa
 
     public async Task<ResponseWrapper<int>> Handle(UpdateTipoDadosListasCommand request, CancellationToken cancellationToken)
     {
-        var TipoDadosListasToFind = await _unitOfWork.ReadDataFor<TipoDadosListas>().GetByIdAsync(request.UpdateTipoDadosListas.Tid_identi);
+        var TipoDadosListasToFind = await _unitOfWork.ReadDataFor<TipoDadosListas>().GetByIdAsync(request.UpdateTipoDadosListas.Id);
 
         if (TipoDadosListasToFind is not null)
         {
-            var updateTipoDadosListas = TipoDadosListasToFind.UpdateTipoDadosListas(
-                request.UpdateTipoDadosListas.Tid_identi,
-                request.UpdateTipoDadosListas.Tid_descri,
-                request.UpdateTipoDadosListas.Tid_usubdd,
-                request.UpdateTipoDadosListas.Tid_datcri,
-                request.UpdateTipoDadosListas.Tid_datalt,
-                request.UpdateTipoDadosListas.Tid_usucri,
-                request.UpdateTipoDadosListas.Tid_usualt
-            );
+            var updateTipoDadosListas = new TipoDadosListas
+            {
+                Id = request.UpdateTipoDadosListas.Id,
+                Tid_descri = request.UpdateTipoDadosListas.Tid_descri,
+                Tid_usubdd = request.UpdateTipoDadosListas.Tid_usubdd,
+                Tid_datcri = request.UpdateTipoDadosListas.Tid_datcri,
+                Tid_datalt = request.UpdateTipoDadosListas.Tid_datalt,
+                Tid_usucri = request.UpdateTipoDadosListas.Tid_usucri,
+                Tid_usualt = request.UpdateTipoDadosListas.Tid_usualt
+            };                           
 
             await _unitOfWork.WriteDataFor<TipoDadosListas>().UpdateAsync(updateTipoDadosListas);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateTipoDadosListas.Tid_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateTipoDadosListas.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -69,6 +70,11 @@ public class DeleteTipoDadosListasCommandsHandler : IRequestHandler<DeleteTipoDa
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteTipoDadosListasCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteTipoDadosListasCommand request, CancellationToken cancellationToken)
     {
         var TipoDadosListasToFind = await _unitOfWork.ReadDataFor<TipoDadosListas>().GetByIdAsync(request.IdTipoDadosListasToDelete);
@@ -78,7 +84,7 @@ public class DeleteTipoDadosListasCommandsHandler : IRequestHandler<DeleteTipoDa
             await _unitOfWork.WriteDataFor<TipoDadosListas>().DeleteAsync(TipoDadosListasToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(TipoDadosListasToFind.Tid_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(TipoDadosListasToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

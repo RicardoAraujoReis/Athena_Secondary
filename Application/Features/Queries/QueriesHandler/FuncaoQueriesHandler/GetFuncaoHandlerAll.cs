@@ -26,8 +26,13 @@ public class GetFuncaoHandlerAll : IRequestHandler<GetFuncaoAll, ResponseWrapper
 
         if (funcaoToFind.Count > 0)
         {
-            return new ResponseWrapper<List<FuncaoResponse>>().Success(funcaoToFind.Adapt<List<FuncaoResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<FuncaoResponse>>().
+                Success(funcaoToFind.
+                Adapt<List<FuncaoResponse>>()));
         }
-        return new ResponseWrapper<List<FuncaoResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<FuncaoResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

@@ -16,7 +16,7 @@ public class GetUsuLhnAll : IRequest<ResponseWrapper<List<UsuLhnResponse>>>
 
 public class GetUsuLhnById : IRequest<ResponseWrapper<UsuLhnResponse>>
 {
-    public int Uln_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

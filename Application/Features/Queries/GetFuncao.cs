@@ -16,7 +16,7 @@ public class GetFuncaoAll : IRequest<ResponseWrapper<List<FuncaoResponse>>>
 
 public class GetFuncaoById : IRequest<ResponseWrapper<FuncaoResponse>>
 {
-    public int Fnc_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

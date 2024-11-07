@@ -1,8 +1,11 @@
 ﻿using Application.Features.Commands;
 using Application.Features.Queries;
 using Athena.WebApi.Controllers.BaseApi;
+using Azure;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Athena.WebApi.Controllers;
 
@@ -37,7 +40,7 @@ public class LinhaNegocioController : BaseApiController
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateLinhaNegocioAsync([FromBody] UpdateLinhaNegocio updateLinhaNegocio)
+    public async Task<IActionResult> UpdateLinhaNegocioAsync([FromBody] UpdateLinhaNegocio updateLinhaNegocio)//, [FromRoute] int id)
     {
         var response = await Sender.Send(new UpdateLinhaNegocioCommand { UpdateLinhaNegocio = updateLinhaNegocio });
 
@@ -91,16 +94,88 @@ public class LinhaNegocioController : BaseApiController
     /// <param name="GetLinhaNegocioByIdAsync">Objeto com os campos necessários para busca da Linha de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("{id}")]
+    /*[HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetLinhaNegocioById { Lhn_identi = id });
+        var response = await Sender.Send(new GetLinhaNegocioById { Id = id });
 
         if (!response.IsSuccessful)
         {
             return NotFound();
         }                        
         return Ok(response);
+    }
+
+    [HttpGet("{status}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetLinhaNegocioByStatusAsync(String status)
+    {
+        var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
+
+        if (!response.IsSuccessful)
+        {
+            return NotFound(response);
+        }
+        return Ok(response);
+    }*/
+
+    [HttpGet("id")]
+    public async Task<IActionResult> GetLinhaNegocioBySearchParameters(int? id, string status = null)
+    {
+        try
+        {
+            /*var request = new GetLinhaNegocioBySearchParameters
+            {
+                Id = id.Value,
+                LinhaNegocioByStatus = status
+            };
+            
+            var results = await Sender.Send(request);
+
+            if (results.IsSuccessful)
+            {
+                return Ok(results);
+            }
+            return NotFound();*/
+
+            String message = null;
+
+            if (id.HasValue)
+            {
+                var response = await Sender.Send(new GetLinhaNegocioById { Id = id.Value });
+
+                if (!response.IsSuccessful)
+                {
+                    return NotFound(response);
+                    message = "false";
+                }
+                return Ok(response);
+                message = "true";
+            }
+
+            if (status is not null)
+            {
+                var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
+
+                if (!response.IsSuccessful)
+                {
+                    return NotFound(response);
+                    message = "false";
+                }
+                return Ok(response);
+                message = "true";
+            }
+
+            if(message == "true")
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
     }
 }

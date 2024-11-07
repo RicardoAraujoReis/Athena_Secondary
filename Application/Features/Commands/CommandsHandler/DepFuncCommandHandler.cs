@@ -26,7 +26,7 @@ public class CreateDepFuncCommandsHandler : IRequestHandler<CreateDepFuncCommand
         await _unitOfWork.WriteDataFor<DepFunc>().AddAsync(DepFunc);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(DepFunc.Dfc_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(DepFunc.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,26 +41,27 @@ public class UpdateDepFuncCommandsHandler : IRequestHandler<UpdateDepFuncCommand
 
     public async Task<ResponseWrapper<int>> Handle(UpdateDepFuncCommand request, CancellationToken cancellationToken)
     {
-        var DepFuncToFind = await _unitOfWork.ReadDataFor<DepFunc>().GetByIdAsync(request.UpdateDepFunc.Dfc_identi);
+        var DepFuncToFind = await _unitOfWork.ReadDataFor<DepFunc>().GetByIdAsync(request.UpdateDepFunc.Id);
 
         if (DepFuncToFind is not null)
         {
-            var updateDepFunc = DepFuncToFind.UpdateDepFunc(
-                request.UpdateDepFunc.Dfc_identi,
-                request.UpdateDepFunc.Dfc_dpt_identi,
-                request.UpdateDepFunc.Dfc_fnc_identi,
-                request.UpdateDepFunc.Dfc_usu_identi,
-                request.UpdateDepFunc.Dfc_usubdd,
-                request.UpdateDepFunc.Dfc_usucri,
-                request.UpdateDepFunc.Dfc_usualt,
-                request.UpdateDepFunc.Dfc_datcri,
-                request.UpdateDepFunc.Dfc_datalt
-            );
+            var updateDepFunc = new DepFunc
+            {
+                Id = request.UpdateDepFunc.Id,
+                Dfc_dpt_identi = request.UpdateDepFunc.Dfc_dpt_identi,
+                Dfc_fnc_identi = request.UpdateDepFunc.Dfc_fnc_identi,
+                Dfc_usu_identi = request.UpdateDepFunc.Dfc_usu_identi,
+                Dfc_usubdd = request.UpdateDepFunc.Dfc_usubdd,
+                Dfc_usucri = request.UpdateDepFunc.Dfc_usucri,
+                Dfc_usualt = request.UpdateDepFunc.Dfc_usualt,
+                Dfc_datcri = request.UpdateDepFunc.Dfc_datcri,
+                Dfc_datalt = request.UpdateDepFunc.Dfc_datalt
+            };                            
 
             await _unitOfWork.WriteDataFor<DepFunc>().UpdateAsync(updateDepFunc);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateDepFunc.Dfc_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateDepFunc.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -71,6 +72,11 @@ public class DeleteDepFuncCommandsHandler : IRequestHandler<DeleteDepFuncCommand
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteDepFuncCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteDepFuncCommand request, CancellationToken cancellationToken)
     {
         var DepFuncToFind = await _unitOfWork.ReadDataFor<DepFunc>().GetByIdAsync(request.IdDepFuncToDelete);
@@ -80,7 +86,7 @@ public class DeleteDepFuncCommandsHandler : IRequestHandler<DeleteDepFuncCommand
             await _unitOfWork.WriteDataFor<DepFunc>().DeleteAsync(DepFuncToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(DepFuncToFind.Dfc_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(DepFuncToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

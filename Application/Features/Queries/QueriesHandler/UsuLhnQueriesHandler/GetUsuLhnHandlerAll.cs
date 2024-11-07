@@ -26,8 +26,13 @@ public class GetUsuLhnHandlerAll : IRequestHandler<GetUsuLhnAll, ResponseWrapper
 
         if (usuLhnToFind.Count > 0)
         {
-            return new ResponseWrapper<List<UsuLhnResponse>>().Success(usuLhnToFind.Adapt<List<UsuLhnResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<UsuLhnResponse>>().
+                Success(usuLhnToFind.
+                Adapt<List<UsuLhnResponse>>()));
         }
-        return new ResponseWrapper<List<UsuLhnResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<UsuLhnResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

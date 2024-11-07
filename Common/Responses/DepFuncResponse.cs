@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class DepFuncResponse
 {
-    public int Dfc_identi { get; set; }
+    public int Id { get; set; }
     public int Dfc_dpt_identi { get; set; }
     public int Dfc_fnc_identi { get; set; }
     public int Dfc_usu_identi { get; set; }

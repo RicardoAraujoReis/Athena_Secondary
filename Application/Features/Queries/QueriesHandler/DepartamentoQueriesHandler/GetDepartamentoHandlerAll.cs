@@ -26,8 +26,13 @@ public class GetDepartamentoHandlerAll : IRequestHandler<GetDepartamentoAll, Res
 
         if (departamentoToFind.Count > 0)
         {
-            return new ResponseWrapper<List<DepartamentoResponse>>().Success(departamentoToFind.Adapt<List<DepartamentoResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<DepartamentoResponse>>().
+                Success(departamentoToFind.
+                Adapt<List<DepartamentoResponse>>()));
         }
-        return new ResponseWrapper<List<DepartamentoResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<DepartamentoResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

@@ -11,7 +11,7 @@ public record CreateDepartamento(
 );
 
 public record UpdateDepartamento(
-    int Dpt_identi,
+    int Id,
     String Dpt_descri,
     String Dpt_ativo,
     String Dpt_usubdd,

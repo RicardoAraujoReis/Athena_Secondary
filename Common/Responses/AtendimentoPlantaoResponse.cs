@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class AtendimentoPlantaoResponse
 {
-    public int Atd_identi { get; set; }
+    public int Id { get; set; }
     public int Atd_usu_identi { get; set; }
     public int Atd_ptd_identi { get; set; }
     public int Atd_cli_identi { get; set; }

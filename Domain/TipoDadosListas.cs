@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class TipoDadosListas : BaseEntity<int>
-{
-    public int Tid_identi { get; set; }
+{    
     public String Tid_descri { get; set; }
     public String Tid_usubdd { get; set; }
     public DateTime Tid_datcri { get; set; }
@@ -14,7 +13,7 @@ public class TipoDadosListas : BaseEntity<int>
     public virtual List<DadosListas> DadosListas { get; set; }
 
     public TipoDadosListas UpdateTipoDadosListas(
-        int tid_identi,
+        int id,
         String tid_descri,
         String tid_usubdd,
         DateTime tid_datcri,
@@ -22,7 +21,8 @@ public class TipoDadosListas : BaseEntity<int>
         int tid_usucri,
         int tid_usualt
     )
-    {        
+    {
+        Id = id;
         Tid_descri = tid_descri;
         Tid_usubdd = tid_usubdd;
         Tid_datcri = tid_datcri;

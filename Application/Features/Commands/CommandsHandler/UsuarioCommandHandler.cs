@@ -26,7 +26,7 @@ public class CreateUsuarioCommandsHandler : IRequestHandler<CreateUsuarioCommand
         await _unitOfWork.WriteDataFor<Usuario>().AddAsync(Usuario);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(Usuario.Usu_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(Usuario.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,31 +41,32 @@ public class UpdateUsuarioCommandsHandler : IRequestHandler<UpdateUsuarioCommand
 
     public async Task<ResponseWrapper<int>> Handle(UpdateUsuarioCommand request, CancellationToken cancellationToken)
     {
-        var UsuarioToFind = await _unitOfWork.ReadDataFor<Usuario>().GetByIdAsync(request.UpdateUsuario.Usu_identi);
+        var UsuarioToFind = await _unitOfWork.ReadDataFor<Usuario>().GetByIdAsync(request.UpdateUsuario.Id);
 
         if (UsuarioToFind is not null)
         {
-            var updateUsuario = UsuarioToFind.UpdateUsuario(
-                request.UpdateUsuario.Usu_identi,
-                request.UpdateUsuario.Usu_descri,
-                request.UpdateUsuario.Usu_login,
-                request.UpdateUsuario.Usu_senha,
-                request.UpdateUsuario.Usu_email,
-                request.UpdateUsuario.Usu_ativo,
-                request.UpdateUsuario.Usu_status,
-                request.UpdateUsuario.Usu_master,
-                request.UpdateUsuario.Usu_tipusu,
-                request.UpdateUsuario.Usu_usubdd,
-                request.UpdateUsuario.Usu_usucri,
-                request.UpdateUsuario.Usu_usualt,
-                request.UpdateUsuario.Usu_datcri,
-                request.UpdateUsuario.Usu_datalt
-            );
+            var updateUsuario = new Usuario
+            {
+                Id = request.UpdateUsuario.Id,
+                Usu_descri = request.UpdateUsuario.Usu_descri,
+                Usu_login = request.UpdateUsuario.Usu_login,
+                Usu_senha = request.UpdateUsuario.Usu_senha,
+                Usu_email = request.UpdateUsuario.Usu_email,
+                Usu_ativo = request.UpdateUsuario.Usu_ativo,
+                Usu_status = request.UpdateUsuario.Usu_status,
+                Usu_master = request.UpdateUsuario.Usu_master,
+                Usu_tipusu = request.UpdateUsuario.Usu_tipusu,
+                Usu_usubdd = request.UpdateUsuario.Usu_usubdd,
+                Usu_usucri = request.UpdateUsuario.Usu_usucri,
+                Usu_usualt = request.UpdateUsuario.Usu_usualt,
+                Usu_datcri = request.UpdateUsuario.Usu_datcri,
+                Usu_datalt = request.UpdateUsuario.Usu_datalt
+            };
 
             await _unitOfWork.WriteDataFor<Usuario>().UpdateAsync(updateUsuario);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateUsuario.Usu_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateUsuario.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -76,6 +77,11 @@ public class DeleteUsuarioCommandsHandler : IRequestHandler<DeleteUsuarioCommand
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteUsuarioCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
     {
         var UsuarioToFind = await _unitOfWork.ReadDataFor<Usuario>().GetByIdAsync(request.IdUsuarioToDelete);
@@ -85,7 +91,7 @@ public class DeleteUsuarioCommandsHandler : IRequestHandler<DeleteUsuarioCommand
             await _unitOfWork.WriteDataFor<Usuario>().DeleteAsync(UsuarioToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(UsuarioToFind.Usu_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(UsuarioToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

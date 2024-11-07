@@ -26,7 +26,7 @@ public class CreateCategoriaAtendimentoCommandsHandler : IRequestHandler<CreateC
         await _unitOfWork.WriteDataFor<CategoriaAtendimento>().AddAsync(CategoriaAtendimento);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(CategoriaAtendimento.Cat_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(CategoriaAtendimento.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,26 +41,27 @@ public class UpdateCategoriaAtendimentoCommandsHandler : IRequestHandler<UpdateC
 
     public async Task<ResponseWrapper<int>> Handle(UpdateCategoriaAtendimentoCommand request, CancellationToken cancellationToken)
     {
-        var CategoriaAtendimentoToFind = await _unitOfWork.ReadDataFor<CategoriaAtendimento>().GetByIdAsync(request.UpdateCategoriaAtendimento.cat_identi);
+        var CategoriaAtendimentoToFind = await _unitOfWork.ReadDataFor<CategoriaAtendimento>().GetByIdAsync(request.UpdateCategoriaAtendimento.Id);
 
         if (CategoriaAtendimentoToFind is not null)
         {
-            var updateCategoriaAtendimento = CategoriaAtendimentoToFind.UpdateCategoriaAtendimento(
-                request.UpdateCategoriaAtendimento.cat_identi,
-                request.UpdateCategoriaAtendimento.cat_catpai,
-                request.UpdateCategoriaAtendimento.cat_nivel,
-                request.UpdateCategoriaAtendimento.cat_valor,
-                request.UpdateCategoriaAtendimento.cat_usubdd,
-                request.UpdateCategoriaAtendimento.cat_usucri,
-                request.UpdateCategoriaAtendimento.cat_usualt,
-                request.UpdateCategoriaAtendimento.cat_datcri,
-                request.UpdateCategoriaAtendimento.cat_datalt
-            );
+            var updateCategoriaAtendimento = new CategoriaAtendimento
+            {
+                Id = request.UpdateCategoriaAtendimento.Id,
+                Cat_catpai = request.UpdateCategoriaAtendimento.Cat_catpai,
+                Cat_nivel = request.UpdateCategoriaAtendimento.Cat_nivel,
+                Cat_valor = request.UpdateCategoriaAtendimento.Cat_valor,
+                Cat_usubdd = request.UpdateCategoriaAtendimento.Cat_usubdd,
+                Cat_usucri = request.UpdateCategoriaAtendimento.Cat_usucri,
+                Cat_usualt = request.UpdateCategoriaAtendimento.Cat_usualt,
+                Cat_datcri = request.UpdateCategoriaAtendimento.Cat_datcri,
+                Cat_datalt = request.UpdateCategoriaAtendimento.Cat_datalt
+            };                            
 
             await _unitOfWork.WriteDataFor<CategoriaAtendimento>().UpdateAsync(updateCategoriaAtendimento);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateCategoriaAtendimento.Cat_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateCategoriaAtendimento.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -71,6 +72,11 @@ public class DeleteCategoriaAtendimentoCommandsHandler : IRequestHandler<DeleteC
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteCategoriaAtendimentoCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteCategoriaAtendimentoCommand request, CancellationToken cancellationToken)
     {
         var CategoriaAtendimentoToFind = await _unitOfWork.ReadDataFor<CategoriaAtendimento>().GetByIdAsync(request.IdCategoriaAtendimentoToDelete);
@@ -80,7 +86,7 @@ public class DeleteCategoriaAtendimentoCommandsHandler : IRequestHandler<DeleteC
             await _unitOfWork.WriteDataFor<CategoriaAtendimento>().DeleteAsync(CategoriaAtendimentoToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(CategoriaAtendimentoToFind.Cat_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(CategoriaAtendimentoToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

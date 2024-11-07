@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class UsuLhnResponse
 {
-    public int Uln_identi { get; set; }
+    public int Id { get; set; }
     public int Uln_usu_identi { get; set; }
     public int Uln_lhn_identi { get; set; }
     public String Uln_usubdd { get; set; }

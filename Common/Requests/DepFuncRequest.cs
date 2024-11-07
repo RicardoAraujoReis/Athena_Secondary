@@ -12,7 +12,7 @@ public record CreateDepFunc(
 );
 
 public record UpdateDepFunc(
-    int Dfc_identi,
+    int Id,
     int Dfc_dpt_identi,
     int Dfc_fnc_identi,
     int Dfc_usu_identi,

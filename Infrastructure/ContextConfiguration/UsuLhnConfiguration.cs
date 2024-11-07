@@ -9,8 +9,9 @@ internal class UsuLhnConfiguration : IEntityTypeConfiguration<UsuLhn>
     public void Configure(EntityTypeBuilder<UsuLhn> builder)
     {
         builder.ToTable("UsuLhn");
-        builder.HasKey(x => x.Uln_identi);
+        builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.Id).HasColumnName("Uln_identi");
         builder.Property(x => x.Uln_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Uln_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Uln_usualt).HasMaxLength(10);

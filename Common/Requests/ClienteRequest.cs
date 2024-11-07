@@ -1,4 +1,4 @@
-﻿namespace Common.Requests;
+﻿namespace common.Requests;
 
 public record CreateCliente(        
     String Cli_descri,
@@ -12,7 +12,7 @@ public record CreateCliente(
 );
 
 public record UpdateCliente(
-    int Cli_identi,
+    int Id,
     String Cli_descri,
     String Cli_ativo,
     String Cli_usubdd,

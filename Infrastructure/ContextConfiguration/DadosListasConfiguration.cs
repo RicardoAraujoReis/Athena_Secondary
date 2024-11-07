@@ -9,9 +9,10 @@ internal class DadosListasConfiguration : IEntityTypeConfiguration<DadosListas>
     public void Configure(EntityTypeBuilder<DadosListas> builder)
     {
         builder.ToTable("DadosListas");
-        builder.HasKey(x => x.Dal_identi);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Dal_valor).IsRequired().HasMaxLength(100).HasComment("Valor a ser exibido no campo de lista");
+        builder.Property(x => x.Id).HasColumnName("Dal_identi");
+        builder.Property(x => x.Dal_valor).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Valor a ser exibido no campo de lista");
         builder.Property(x => x.Dal_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dal_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dal_usualt).HasMaxLength(10);

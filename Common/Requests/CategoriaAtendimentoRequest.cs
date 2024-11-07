@@ -1,24 +1,24 @@
 ﻿namespace Common.Requests;
 
 public record CreateCategoriaAtendimento(        
-    int cat_catpai,
-    int cat_nivel,
-    String cat_valor,
-    String cat_usubdd,
-    int cat_usucri,
-    int cat_usualt,
-    DateTime cat_datcri, 
-    DateTime cat_datalt 
+    int Cat_catpai,
+    int Cat_nivel,
+    String Cat_valor,
+    String Cat_usubdd,
+    int Cat_usucri,
+    int Cat_usualt,
+    DateTime Cat_datcri, 
+    DateTime Cat_datalt 
 );
 
 public record UpdateCategoriaAtendimento(
-    int cat_identi,
-    int cat_catpai,
-    int cat_nivel,
-    String cat_valor,
-    String cat_usubdd,
-    int cat_usucri,
-    int cat_usualt,
-    DateTime cat_datcri,
-    DateTime cat_datalt
+    int Id,
+    int Cat_catpai,
+    int Cat_nivel,
+    String Cat_valor,
+    String Cat_usubdd,
+    int Cat_usucri,
+    int Cat_usualt,
+    DateTime Cat_datcri,
+    DateTime Cat_datalt
 );

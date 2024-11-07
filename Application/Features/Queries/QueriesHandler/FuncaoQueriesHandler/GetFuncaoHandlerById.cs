@@ -22,12 +22,17 @@ public class GetFuncaoHandlerById : IRequestHandler<GetFuncaoById, ResponseWrapp
 
     public async Task<ResponseWrapper<FuncaoResponse>> Handle(GetFuncaoById request, CancellationToken cancellationToken)
     {
-        var funcaoToFind = await _unitOfWork.ReadDataFor<Funcao>().GetByIdAsync(request.Fnc_identi);
+        var funcaoToFind = await _unitOfWork.ReadDataFor<Funcao>().GetByIdAsync(request.Id);
 
         if (funcaoToFind is not null)
         {
-            return new ResponseWrapper<FuncaoResponse>().Success(funcaoToFind.Adapt<FuncaoResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<FuncaoResponse>().
+                Success(funcaoToFind.
+                Adapt<FuncaoResponse>()));
         }
-        return new ResponseWrapper<FuncaoResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<FuncaoResponse>().
+                Failed("Registro não encontrado"));
     }
 }

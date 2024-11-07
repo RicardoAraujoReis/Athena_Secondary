@@ -26,8 +26,13 @@ public class GetUsuarioHandlerAll : IRequestHandler<GetUsuarioAll, ResponseWrapp
 
         if (usuarioToFind.Count > 0)
         {
-            return new ResponseWrapper<List<UsuarioResponse>>().Success(usuarioToFind.Adapt<List<UsuarioResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<UsuarioResponse>>().
+                Success(usuarioToFind.
+                Adapt<List<UsuarioResponse>>()));
         }
-        return new ResponseWrapper<List<UsuarioResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<UsuarioResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

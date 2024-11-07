@@ -16,7 +16,7 @@ public class GetCategoriaAtendimentoAll : IRequest<ResponseWrapper<List<Categori
 
 public class GetCategoriaAtendimentoById : IRequest<ResponseWrapper<CategoriaAtendimentoResponse>>
 {
-    public int Cat_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

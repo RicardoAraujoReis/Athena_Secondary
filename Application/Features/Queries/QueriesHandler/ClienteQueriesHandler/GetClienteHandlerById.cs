@@ -22,7 +22,7 @@ public class GetClienteHandlerById : IRequestHandler<GetClienteById, ResponseWra
 
     public async Task<ResponseWrapper<ClienteResponse>> Handle(GetClienteById request, CancellationToken cancellationToken)
     {
-        var clienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.Cli_identi);
+        var clienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.Id);
 
         if (clienteToFind is not null)
         {

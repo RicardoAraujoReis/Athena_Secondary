@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class Departamento : BaseEntity<int>
-{
-    public int Dpt_identi { get; set; }
+{   
     public String Dpt_descri { get; set; }
     public String Dpt_ativo { get; set; }
     public String Dpt_usubdd { get; set; }
@@ -15,7 +14,7 @@ public class Departamento : BaseEntity<int>
     public virtual List<DepFunc> DepFuncs { get; set; }
 
     public Departamento UpdateDepartamento(
-        int dpt_identi,
+        int id,
         String dpt_descri,
         String dpt_ativo,
         String dpt_usubdd,
@@ -25,6 +24,7 @@ public class Departamento : BaseEntity<int>
         DateTime dpt_datalt
     )
     {
+        Id = id;
         Dpt_descri = dpt_descri;
         Dpt_ativo = dpt_ativo;
         Dpt_usubdd = dpt_usubdd;

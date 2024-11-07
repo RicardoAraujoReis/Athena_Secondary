@@ -26,7 +26,7 @@ public class CreatePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Create
         await _unitOfWork.WriteDataFor<PreAtendimentoPlantao>().AddAsync(PreAtendimentoPlantao);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(PreAtendimentoPlantao.Ptd_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(PreAtendimentoPlantao.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,38 +41,39 @@ public class UpdatePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Update
 
     public async Task<ResponseWrapper<int>> Handle(UpdatePreAtendimentoPlantaoCommand request, CancellationToken cancellationToken)
     {
-        var PreAtendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<PreAtendimentoPlantao>().GetByIdAsync(request.UpdatePreAtendimentoPlantao.Ptd_identi);
+        var PreAtendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<PreAtendimentoPlantao>().GetByIdAsync(request.UpdatePreAtendimentoPlantao.Id);
 
         if (PreAtendimentoPlantaoToFind is not null)
         {
-            var updatePreAtendimentoPlantao = PreAtendimentoPlantaoToFind.UpdatePreAtendimentoPlantao(
-                request.UpdatePreAtendimentoPlantao.Ptd_identi,
-                request.UpdatePreAtendimentoPlantao.Ptd_datptd,
-                request.UpdatePreAtendimentoPlantao.Ptd_usu_identi,
-                request.UpdatePreAtendimentoPlantao.Ptd_cli_identi,
-                request.UpdatePreAtendimentoPlantao.Ptd_tipptd,
-                request.UpdatePreAtendimentoPlantao.Ptd_critic,
-                request.UpdatePreAtendimentoPlantao.Ptd_resumo,
-                request.UpdatePreAtendimentoPlantao.Ptd_numcha,
-                request.UpdatePreAtendimentoPlantao.Ptd_jirarl,
-                request.UpdatePreAtendimentoPlantao.Ptd_numjir,
-                request.UpdatePreAtendimentoPlantao.Ptd_diagn1,
-                request.UpdatePreAtendimentoPlantao.Ptd_status,
-                request.UpdatePreAtendimentoPlantao.Ptd_reton2,
-                request.UpdatePreAtendimentoPlantao.Ptd_observ,
-                request.UpdatePreAtendimentoPlantao.Ptd_nomal1,
-                request.UpdatePreAtendimentoPlantao.Ptd_numatd,
-                request.UpdatePreAtendimentoPlantao.Ptd_usubdd,
-                request.UpdatePreAtendimentoPlantao.Ptd_datcri,
-                request.UpdatePreAtendimentoPlantao.Ptd_datalt,
-                request.UpdatePreAtendimentoPlantao.Ptd_usucri,
-                request.UpdatePreAtendimentoPlantao.Ptd_usualt
-            );
+            var updatePreAtendimentoPlantao = new PreAtendimentoPlantao
+            {
+                Id = request.UpdatePreAtendimentoPlantao.Id,
+                Ptd_datptd = request.UpdatePreAtendimentoPlantao.Ptd_datptd,
+                Ptd_usu_identi = request.UpdatePreAtendimentoPlantao.Ptd_usu_identi,
+                Ptd_cli_identi = request.UpdatePreAtendimentoPlantao.Ptd_cli_identi,
+                Ptd_tipptd = request.UpdatePreAtendimentoPlantao.Ptd_tipptd,
+                Ptd_critic = request.UpdatePreAtendimentoPlantao.Ptd_critic,
+                Ptd_resumo = request.UpdatePreAtendimentoPlantao.Ptd_resumo,
+                Ptd_numcha = request.UpdatePreAtendimentoPlantao.Ptd_numcha,
+                Ptd_jirarl = request.UpdatePreAtendimentoPlantao.Ptd_jirarl,
+                Ptd_numjir = request.UpdatePreAtendimentoPlantao.Ptd_numjir,
+                Ptd_diagn1 = request.UpdatePreAtendimentoPlantao.Ptd_diagn1,
+                Ptd_status = request.UpdatePreAtendimentoPlantao.Ptd_status,
+                Ptd_reton2 = request.UpdatePreAtendimentoPlantao.Ptd_reton2,
+                Ptd_observ = request.UpdatePreAtendimentoPlantao.Ptd_observ,
+                Ptd_nomal1 = request.UpdatePreAtendimentoPlantao.Ptd_nomal1,
+                Ptd_numatd = request.UpdatePreAtendimentoPlantao.Ptd_numatd,
+                Ptd_usubdd = request.UpdatePreAtendimentoPlantao.Ptd_usubdd,
+                Ptd_datcri = request.UpdatePreAtendimentoPlantao.Ptd_datcri,
+                Ptd_datalt = request.UpdatePreAtendimentoPlantao.Ptd_datalt,
+                Ptd_usucri = request.UpdatePreAtendimentoPlantao.Ptd_usucri,
+                Ptd_usualt = request.UpdatePreAtendimentoPlantao.Ptd_usualt
+            };                            
 
             await _unitOfWork.WriteDataFor<PreAtendimentoPlantao>().UpdateAsync(updatePreAtendimentoPlantao);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updatePreAtendimentoPlantao.Ptd_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updatePreAtendimentoPlantao.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -83,6 +84,11 @@ public class DeletePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Delete
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeletePreAtendimentoPlantaoCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeletePreAtendimentoPlantaoCommand request, CancellationToken cancellationToken)
     {
         var PreAtendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<PreAtendimentoPlantao>().GetByIdAsync(request.IdPreAtendimentoPlantaoToDelete);
@@ -92,7 +98,7 @@ public class DeletePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Delete
             await _unitOfWork.WriteDataFor<PreAtendimentoPlantao>().DeleteAsync(PreAtendimentoPlantaoToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(PreAtendimentoPlantaoToFind.Ptd_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(PreAtendimentoPlantaoToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

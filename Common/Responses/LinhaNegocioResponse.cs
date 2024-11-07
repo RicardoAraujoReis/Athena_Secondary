@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class LinhaNegocioResponse
 {
-    public int Lhn_identi { get; set; }
+    public int Id { get; set; }
     public String Lhn_descri { get; set; }
     public String Lhn_ativo { get; set; }
     public String Lhn_usubdd { get; set; }
