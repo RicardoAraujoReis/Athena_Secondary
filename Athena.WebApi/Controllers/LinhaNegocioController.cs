@@ -94,7 +94,7 @@ public class LinhaNegocioController : BaseApiController
     /// <param name="GetLinhaNegocioByIdAsync">Objeto com os campos necessários para busca da Linha de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    /*[HttpGet("{id}")]
+    [HttpGet("LinhaNegocio-id/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioByIdAsync(int id)
     {
@@ -107,7 +107,7 @@ public class LinhaNegocioController : BaseApiController
         return Ok(response);
     }
 
-    [HttpGet("{status}")]
+    [HttpGet("LinhaNegocio-status/{status}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioByStatusAsync(String status)
     {
@@ -118,9 +118,9 @@ public class LinhaNegocioController : BaseApiController
             return NotFound(response);
         }
         return Ok(response);
-    }*/
+    }
 
-    [HttpGet("id")]
+    [HttpGet("LinhaNegocio-parameters")]
     public async Task<IActionResult> GetLinhaNegocioBySearchParameters(int? id, string status = null)
     {
         try
