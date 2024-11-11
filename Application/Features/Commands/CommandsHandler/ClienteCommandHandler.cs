@@ -26,7 +26,7 @@ public class CreateClienteCommandsHandler : IRequestHandler<CreateClienteCommand
         await _unitOfWork.WriteDataFor<Cliente>().AddAsync(Cliente);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(Cliente.Cli_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(Cliente.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,26 +41,28 @@ public class UpdateClienteCommandsHandler : IRequestHandler<UpdateClienteCommand
 
     public async Task<ResponseWrapper<int>> Handle(UpdateClienteCommand request, CancellationToken cancellationToken)
     {
-        var ClienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.UpdateCliente.Cli_identi);
+        var ClienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.UpdateCliente.Id);
 
         if (ClienteToFind is not null)
         {
-            var updateCliente = ClienteToFind.UpdateCliente(
-                request.UpdateCliente.Cli_identi,
-                request.UpdateCliente.Cli_descri,
-                request.UpdateCliente.Cli_ativo,
-                request.UpdateCliente.Cli_usubdd,
-                request.UpdateCliente.Cli_usucri,
-                request.UpdateCliente.Cli_usualt,
-                request.UpdateCliente.Cli_datcri,
-                request.UpdateCliente.Cli_datalt,
-                request.UpdateCliente.Cli_lhn_identi
-            );
+            var updateCliente = new Cliente
+            {
+                Id = request.UpdateCliente.Id,
+                Cli_descri = request.UpdateCliente.Cli_descri,
+                Cli_ativo = request.UpdateCliente.Cli_ativo,
+                Cli_usubdd = request.UpdateCliente.Cli_usubdd,
+                Cli_usucri = request.UpdateCliente.Cli_usucri,
+                Cli_usualt = request.UpdateCliente.Cli_usualt,
+                Cli_datcri = request.UpdateCliente.Cli_datcri,
+                Cli_datalt = request.UpdateCliente.Cli_datalt,
+                Cli_lhn_identi = request.UpdateCliente.Cli_lhn_identi
+            };
+                           
 
             await _unitOfWork.WriteDataFor<Cliente>().UpdateAsync(updateCliente);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateCliente.Cli_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateCliente.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -71,6 +73,11 @@ public class DeleteClienteCommandsHandler : IRequestHandler<DeleteClienteCommand
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteClienteCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteClienteCommand request, CancellationToken cancellationToken)
     {
         var ClienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.IdClienteToDelete);
@@ -80,7 +87,7 @@ public class DeleteClienteCommandsHandler : IRequestHandler<DeleteClienteCommand
             await _unitOfWork.WriteDataFor<Cliente>().DeleteAsync(ClienteToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(ClienteToFind.Cli_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(ClienteToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

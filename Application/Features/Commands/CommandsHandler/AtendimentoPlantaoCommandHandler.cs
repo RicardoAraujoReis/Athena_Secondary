@@ -26,7 +26,7 @@ public class CreateAtendimentoPlantaoCommandsHandler : IRequestHandler<CreateAte
         await _unitOfWork.WriteDataFor<AtendimentoPlantao>().AddAsync(atendimentoPlantao);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(atendimentoPlantao.Atd_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(atendimentoPlantao.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,40 +41,40 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
 
     public async Task<ResponseWrapper<int>> Handle(UpdateAtendimentoPlantaoCommand request, CancellationToken cancellationToken)
     {
-        var atendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<AtendimentoPlantao>().GetByIdAsync(request.UpdateAtendimentoPlantao.atd_identi);
+        var atendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<AtendimentoPlantao>().GetByIdAsync(request.UpdateAtendimentoPlantao.Id);
 
         if (atendimentoPlantaoToFind is not null)
         {
-            var updateAtendimentoPlantao = atendimentoPlantaoToFind.UpdateAtendimentoPlantao(
-                request.UpdateAtendimentoPlantao.atd_identi,
-                request.UpdateAtendimentoPlantao.atd_usu_identi,
-                request.UpdateAtendimentoPlantao.atd_cli_identi,
-                request.UpdateAtendimentoPlantao.atd_tipatd,
-                request.UpdateAtendimentoPlantao.atd_cat_identi,
-                request.UpdateAtendimentoPlantao.atd_resumo,
-                request.UpdateAtendimentoPlantao.atd_respn2,
-                request.UpdateAtendimentoPlantao.atd_crijir,
-                request.UpdateAtendimentoPlantao.atd_issue,
-                request.UpdateAtendimentoPlantao.atd_critic,
-                request.UpdateAtendimentoPlantao.atd_resplt,
-                request.UpdateAtendimentoPlantao.atd_ren1hm,
-                request.UpdateAtendimentoPlantao.atd_resn1,
-                request.UpdateAtendimentoPlantao.atd_evoln1,
-                request.UpdateAtendimentoPlantao.atd_observ,
-                request.UpdateAtendimentoPlantao.atd_usubdd,
-                request.UpdateAtendimentoPlantao.atd_datatd,
-                request.UpdateAtendimentoPlantao.atd_nomal2,
-                request.UpdateAtendimentoPlantao.atd_status,
-                request.UpdateAtendimentoPlantao.atd_usucri,
-                request.UpdateAtendimentoPlantao.atd_usualt,
-                request.UpdateAtendimentoPlantao.atd_datcri,
-                request.UpdateAtendimentoPlantao.atd_datalt
-            );
+            var updateAtendimentoPlantao = new AtendimentoPlantao
+            {
+                Id = request.UpdateAtendimentoPlantao.Id,
+                Atd_cli_identi = request.UpdateAtendimentoPlantao.Atd_cli_identi,
+                Atd_tipatd = request.UpdateAtendimentoPlantao.Atd_tipatd,
+                Atd_cat_identi = request.UpdateAtendimentoPlantao.Atd_cat_identi,
+                Atd_resumo = request.UpdateAtendimentoPlantao.Atd_resumo,
+                Atd_respn2 = request.UpdateAtendimentoPlantao.Atd_respn2,
+                Atd_crijir = request.UpdateAtendimentoPlantao.Atd_crijir,
+                Atd_issue = request.UpdateAtendimentoPlantao.Atd_issue,
+                Atd_critic = request.UpdateAtendimentoPlantao.Atd_critic,
+                Atd_resplt = request.UpdateAtendimentoPlantao.Atd_resplt,
+                Atd_ren1hm = request.UpdateAtendimentoPlantao.Atd_ren1hm,
+                Atd_resn1 = request.UpdateAtendimentoPlantao.Atd_resn1,
+                Atd_evoln1 = request.UpdateAtendimentoPlantao.Atd_evoln1,
+                Atd_observ = request.UpdateAtendimentoPlantao.Atd_observ,
+                Atd_usubdd = request.UpdateAtendimentoPlantao.Atd_usubdd,
+                Atd_datatd = request.UpdateAtendimentoPlantao.Atd_datatd,
+                Atd_nomal2 = request.UpdateAtendimentoPlantao.Atd_nomal2,
+                Atd_status = request.UpdateAtendimentoPlantao.Atd_status,
+                Atd_usucri = request.UpdateAtendimentoPlantao.Atd_usucri,
+                Atd_usualt = request.UpdateAtendimentoPlantao.Atd_usualt,
+                Atd_datcri = request.UpdateAtendimentoPlantao.Atd_datcri,
+                Atd_datalt = request.UpdateAtendimentoPlantao.Atd_datalt
+            };            
 
             await _unitOfWork.WriteDataFor<AtendimentoPlantao>().UpdateAsync(updateAtendimentoPlantao);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateAtendimentoPlantao.Atd_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateAtendimentoPlantao.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -85,6 +85,11 @@ public class DeleteAtendimentoPlantaoCommandsHandler : IRequestHandler<DeleteAte
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteAtendimentoPlantaoCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteAtendimentoPlantaoCommand request, CancellationToken cancellationToken)
     {
         var atendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<AtendimentoPlantao>().GetByIdAsync(request.IdAtendimentoPlantaoToDelete);
@@ -94,7 +99,7 @@ public class DeleteAtendimentoPlantaoCommandsHandler : IRequestHandler<DeleteAte
             await _unitOfWork.WriteDataFor<AtendimentoPlantao>().DeleteAsync(atendimentoPlantaoToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(atendimentoPlantaoToFind.Atd_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(atendimentoPlantaoToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

@@ -11,7 +11,7 @@ public record CreateUsuLhn(
 );
 
 public record UpdateUsuLhn(
-    int Uln_identi,
+    int Id,
     int Uln_usu_identi,
     int Uln_lhn_identi,
     String Uln_usubdd,

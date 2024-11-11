@@ -1,6 +1,7 @@
 ﻿using Application.Features.Commands;
 using Application.Features.Queries;
 using Athena.WebApi.Controllers.BaseApi;
+using common.Requests;
 using Common.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -95,7 +96,7 @@ public class ClienteController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetClienteByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetClienteById { Cli_identi = id });
+        var response = await Sender.Send(new GetClienteById { Id = id });
 
         if (!response.IsSuccessful)
         {

@@ -95,7 +95,7 @@ public class PreAtendimentoPlantaoController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPreAtendimentoPlantaoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetPreAtendimentoPlantaoById { Ptd_identi = id });
+        var response = await Sender.Send(new GetPreAtendimentoPlantaoById { Id = id });
 
         if (!response.IsSuccessful)
         {

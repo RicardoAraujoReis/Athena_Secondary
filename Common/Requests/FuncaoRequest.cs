@@ -11,7 +11,7 @@ public record CreateFuncao(
 );
 
 public record UpdateFuncao(
-    int Fnc_identi,
+    int Id,
     String Fnc_descri,
     String Fnc_ativo,
     String Fnc_usubdd,

@@ -26,8 +26,13 @@ public class GetPreAtendimentoPlantaoHandlerAll : IRequestHandler<GetPreAtendime
 
         if (preAtendimentoPlantaoToFind.Count > 0)
         {
-            return new ResponseWrapper<List<PreAtendimentoPlantaoResponse>>().Success(preAtendimentoPlantaoToFind.Adapt<List<PreAtendimentoPlantaoResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<PreAtendimentoPlantaoResponse>>().
+                Success(preAtendimentoPlantaoToFind.
+                Adapt<List<PreAtendimentoPlantaoResponse>>()));
         }
-        return new ResponseWrapper<List<PreAtendimentoPlantaoResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<PreAtendimentoPlantaoResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

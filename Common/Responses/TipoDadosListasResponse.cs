@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class TipoDadosListasResponse
 {
-    public int Tid_identi { get; set; }
+    public int Id { get; set; }
     public String Tid_descri { get; set; }
     public String Tid_usubdd { get; set; }
     public DateTime Tid_datcri { get; set; }

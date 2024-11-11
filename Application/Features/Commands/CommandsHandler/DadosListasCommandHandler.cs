@@ -26,7 +26,7 @@ public class CreateDadosListasCommandsHandler : IRequestHandler<CreateDadosLista
         await _unitOfWork.WriteDataFor<DadosListas>().AddAsync(DadosListas);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(DadosListas.Dal_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(DadosListas.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,25 +41,26 @@ public class UpdateDadosListasCommandsHandler : IRequestHandler<UpdateDadosLista
 
     public async Task<ResponseWrapper<int>> Handle(UpdateDadosListasCommand request, CancellationToken cancellationToken)
     {
-        var DadosListasToFind = await _unitOfWork.ReadDataFor<DadosListas>().GetByIdAsync(request.UpdateDadosListas.Dal_identi);
+        var DadosListasToFind = await _unitOfWork.ReadDataFor<DadosListas>().GetByIdAsync(request.UpdateDadosListas.Id);
 
         if (DadosListasToFind is not null)
         {
-            var updateDadosListas = DadosListasToFind.UpdateDadosListas(
-                request.UpdateDadosListas.Dal_identi,
-                request.UpdateDadosListas.Dal_tid_identi,
-                request.UpdateDadosListas.Dal_valor,
-                request.UpdateDadosListas.Dal_usubdd,
-                request.UpdateDadosListas.Dal_datcri,
-                request.UpdateDadosListas.Dal_datalt,
-                request.UpdateDadosListas.Dal_usucri,
-                request.UpdateDadosListas.Dal_usualt
-            );
+            var updateDadosListas = new DadosListas
+            {
+                Id = request.UpdateDadosListas.Id,
+                Dal_tid_identi = request.UpdateDadosListas.Dal_tid_identi,
+                Dal_valor = request.UpdateDadosListas.Dal_valor,
+                Dal_usubdd = request.UpdateDadosListas.Dal_usubdd,
+                Dal_datcri = request.UpdateDadosListas.Dal_datcri,
+                Dal_datalt = request.UpdateDadosListas.Dal_datalt,
+                Dal_usucri = request.UpdateDadosListas.Dal_usucri,
+                Dal_usualt = request.UpdateDadosListas.Dal_usualt
+            };                           
 
             await _unitOfWork.WriteDataFor<DadosListas>().UpdateAsync(updateDadosListas);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateDadosListas.Dal_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateDadosListas.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -70,6 +71,11 @@ public class DeleteDadosListasCommandsHandler : IRequestHandler<DeleteDadosLista
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteDadosListasCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteDadosListasCommand request, CancellationToken cancellationToken)
     {
         var DadosListasToFind = await _unitOfWork.ReadDataFor<DadosListas>().GetByIdAsync(request.IdDadosListasToDelete);
@@ -79,7 +85,7 @@ public class DeleteDadosListasCommandsHandler : IRequestHandler<DeleteDadosLista
             await _unitOfWork.WriteDataFor<DadosListas>().DeleteAsync(DadosListasToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(DadosListasToFind.Dal_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(DadosListasToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

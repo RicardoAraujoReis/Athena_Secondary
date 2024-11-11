@@ -28,4 +28,6 @@ public class ReadDataAsync<T, TId> : IReadDataAsync<T, TId> where T : BaseEntity
     {
         return await _context.Set<T>().FindAsync(id);
     }
+
+    public IQueryable<T> Entities => _context.Set<T>();
 }

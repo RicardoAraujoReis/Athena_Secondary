@@ -16,7 +16,7 @@ public class GetClienteAll : IRequest<ResponseWrapper<List<ClienteResponse>>>
 
 public class GetClienteById : IRequest<ResponseWrapper<ClienteResponse>>
 {
-    public int Cli_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

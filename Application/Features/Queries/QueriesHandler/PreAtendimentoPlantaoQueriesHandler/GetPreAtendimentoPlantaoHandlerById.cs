@@ -22,12 +22,17 @@ public class GetPreAtendimentoPlantaoHandlerById : IRequestHandler<GetPreAtendim
 
     public async Task<ResponseWrapper<PreAtendimentoPlantaoResponse>> Handle(GetPreAtendimentoPlantaoById request, CancellationToken cancellationToken)
     {
-        var preAtendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<PreAtendimentoPlantao>().GetByIdAsync(request.Ptd_identi);
+        var preAtendimentoPlantaoToFind = await _unitOfWork.ReadDataFor<PreAtendimentoPlantao>().GetByIdAsync(request.Id);
 
         if (preAtendimentoPlantaoToFind is not null)
         {
-            return new ResponseWrapper<PreAtendimentoPlantaoResponse>().Success(preAtendimentoPlantaoToFind.Adapt<PreAtendimentoPlantaoResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<PreAtendimentoPlantaoResponse>().
+                Success(preAtendimentoPlantaoToFind.
+                Adapt<PreAtendimentoPlantaoResponse>()));
         }
-        return new ResponseWrapper<PreAtendimentoPlantaoResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<PreAtendimentoPlantaoResponse>().
+                Failed("Registro não encontrado"));
     }
 }

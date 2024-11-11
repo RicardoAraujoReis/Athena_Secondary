@@ -17,7 +17,7 @@ public record CreateUsuario(
 );
 
 public record UpdateUsuario(
-    int Usu_identi,
+    int Id,
     String Usu_descri,
     String Usu_login,
     String Usu_senha,

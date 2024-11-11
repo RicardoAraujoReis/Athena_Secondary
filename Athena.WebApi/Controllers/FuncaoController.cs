@@ -95,7 +95,7 @@ public class FuncaoController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFuncaoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetFuncaoById { Fnc_identi = id });
+        var response = await Sender.Send(new GetFuncaoById { Id = id });
 
         if (!response.IsSuccessful)
         {

@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class UsuarioResponse
 {
-    public int Usu_identi { get; set; }
+    public int Id { get; set; }
     public String Usu_descri { get; set; }
     public String Usu_login { get; set; }
     public String Usu_senha { get; set; }

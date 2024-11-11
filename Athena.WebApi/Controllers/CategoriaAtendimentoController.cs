@@ -95,7 +95,7 @@ public class CategoriaAtendimentoController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCategoriaAtendimentoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetCategoriaAtendimentoById { Cat_identi = id });
+        var response = await Sender.Send(new GetCategoriaAtendimentoById { Id = id });
 
         if (!response.IsSuccessful)
         {

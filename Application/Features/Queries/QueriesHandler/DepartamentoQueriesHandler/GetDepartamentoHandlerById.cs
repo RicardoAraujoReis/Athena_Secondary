@@ -22,12 +22,17 @@ public class GetDepartamentoHandlerById : IRequestHandler<GetDepartamentoById, R
 
     public async Task<ResponseWrapper<DepartamentoResponse>> Handle(GetDepartamentoById request, CancellationToken cancellationToken)
     {
-        var departamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.Dpt_identi);
+        var departamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.Id);
 
         if (departamentoToFind is not null)
         {
-            return new ResponseWrapper<DepartamentoResponse>().Success(departamentoToFind.Adapt<DepartamentoResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<DepartamentoResponse>().
+                Success(departamentoToFind.
+                Adapt<DepartamentoResponse>()));
         }
-        return new ResponseWrapper<DepartamentoResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<DepartamentoResponse>().
+                Failed("Registro não encontrado"));
     }
 }

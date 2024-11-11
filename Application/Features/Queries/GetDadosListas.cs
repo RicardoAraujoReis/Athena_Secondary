@@ -16,7 +16,7 @@ public class GetDadosListasAll : IRequest<ResponseWrapper<List<DadosListasRespon
 
 public class GetDadosListasById : IRequest<ResponseWrapper<DadosListasResponse>>
 {
-    public int Dal_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

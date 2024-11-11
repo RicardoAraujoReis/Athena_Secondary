@@ -26,8 +26,13 @@ public class GetAtendimentoPlantaoHandlerAll : IRequestHandler<GetAtendimentoPla
 
         if (atendimentoPlantaoToFind.Count > 0)
         {
-            return new ResponseWrapper<List<AtendimentoPlantaoResponse>>().Success(atendimentoPlantaoToFind.Adapt<List<AtendimentoPlantaoResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<AtendimentoPlantaoResponse>>().
+                Success(atendimentoPlantaoToFind.
+                Adapt<List<AtendimentoPlantaoResponse>>()));
         }
-        return new ResponseWrapper<List<AtendimentoPlantaoResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+            FromResult(new ResponseWrapper<List<AtendimentoPlantaoResponse>>().
+            Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

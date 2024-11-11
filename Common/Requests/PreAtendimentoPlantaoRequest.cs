@@ -24,7 +24,7 @@ public record CreatePreAtendimentoPlantao(
 );
 
 public record UpdatePreAtendimentoPlantao(
-    int Ptd_identi,
+    int Id,
     DateTime Ptd_datptd,
     int Ptd_usu_identi,
     int Ptd_cli_identi,

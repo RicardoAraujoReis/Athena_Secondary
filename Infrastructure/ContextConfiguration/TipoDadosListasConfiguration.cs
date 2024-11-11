@@ -9,9 +9,10 @@ internal class TipoDadosListasConfiguration : IEntityTypeConfiguration<TipoDados
     public void Configure(EntityTypeBuilder<TipoDadosListas> builder)
     {
         builder.ToTable("TipoDadosListas");
-        builder.HasKey(x => x.Tid_identi);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Tid_descri).IsRequired().HasMaxLength(100).HasComment("Descrição do tipo de dados de listas");
+        builder.Property(x => x.Id).HasColumnName("Tid_identi");
+        builder.Property(x => x.Tid_descri).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Descrição do tipo de dados de listas");
         builder.Property(x => x.Tid_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Tid_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Tid_usualt).HasMaxLength(10);

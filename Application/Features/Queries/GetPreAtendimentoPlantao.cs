@@ -16,7 +16,7 @@ public class GetPreAtendimentoPlantaoAll : IRequest<ResponseWrapper<List<PreAten
 
 public class GetPreAtendimentoPlantaoById : IRequest<ResponseWrapper<PreAtendimentoPlantaoResponse>>
 {
-    public int Ptd_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

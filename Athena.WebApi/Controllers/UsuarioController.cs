@@ -95,7 +95,7 @@ public class UsuarioController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsuarioByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetUsuarioById { Usu_identi = id });
+        var response = await Sender.Send(new GetUsuarioById { Id = id });
 
         if (!response.IsSuccessful)
         {

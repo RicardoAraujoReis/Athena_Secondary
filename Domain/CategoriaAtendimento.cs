@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class CategoriaAtendimento : BaseEntity<int>
-{
-    public int Cat_identi { get; set; }
+{    
     public int Cat_catpai { get; set; }
     public int Cat_nivel { get; set; }
     public String Cat_valor { get; set; }
@@ -16,7 +15,7 @@ public class CategoriaAtendimento : BaseEntity<int>
     public virtual List<AtendimentoPlantao> Atendimentos { get; set; }
 
     public CategoriaAtendimento UpdateCategoriaAtendimento(
-        int cat_identi,
+        int id,
         int cat_catpai,
         int cat_nivel,
         String cat_valor,
@@ -27,6 +26,7 @@ public class CategoriaAtendimento : BaseEntity<int>
         DateTime cat_datalt
     )
     {
+        Id = id;
         Cat_catpai = cat_catpai;
         Cat_nivel = cat_nivel;
         Cat_valor = cat_valor;

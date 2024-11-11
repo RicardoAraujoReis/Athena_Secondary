@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class Usuario : BaseEntity<int>
-{
-    public int Usu_identi { get; set; }
+{   
     public String Usu_descri { get; set; }
     public String Usu_login { get; set; }    
     public String Usu_senha { get; set; }
@@ -24,7 +23,7 @@ public class Usuario : BaseEntity<int>
     public virtual List<UsuLhn> UsuLhn { get; set; }
 
     public Usuario UpdateUsuario(
-        int usu_identi,
+        int id,
         String usu_descri,
         String usu_login,
         String usu_senha,
@@ -40,6 +39,7 @@ public class Usuario : BaseEntity<int>
         DateTime usu_datalt
     )
     {
+        Id = id;
         Usu_descri = usu_descri;
         Usu_login = usu_login;
         Usu_senha = usu_senha;

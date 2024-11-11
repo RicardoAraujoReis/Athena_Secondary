@@ -22,12 +22,17 @@ public class GetUsuarioHandlerById : IRequestHandler<GetUsuarioById, ResponseWra
 
     public async Task<ResponseWrapper<UsuarioResponse>> Handle(GetUsuarioById request, CancellationToken cancellationToken)
     {
-        var usuarioToFind = await _unitOfWork.ReadDataFor<Usuario>().GetByIdAsync(request.Usu_identi);
+        var usuarioToFind = await _unitOfWork.ReadDataFor<Usuario>().GetByIdAsync(request.Id);
 
         if (usuarioToFind is not null)
         {
-            return new ResponseWrapper<UsuarioResponse>().Success(usuarioToFind.Adapt<UsuarioResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<UsuarioResponse>().
+                Success(usuarioToFind.
+                Adapt<UsuarioResponse>()));
         }
-        return new ResponseWrapper<UsuarioResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<UsuarioResponse>().
+                Failed("Registro não encontrado"));
     }
 }

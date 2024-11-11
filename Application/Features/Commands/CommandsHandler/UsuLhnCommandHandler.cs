@@ -26,7 +26,7 @@ public class CreateUsuLhnCommandsHandler : IRequestHandler<CreateUsuLhnCommand, 
         await _unitOfWork.WriteDataFor<UsuLhn>().AddAsync(UsuLhn);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(UsuLhn.Uln_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(UsuLhn.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,25 +41,26 @@ public class UpdateUsuLhnCommandsHandler : IRequestHandler<UpdateUsuLhnCommand, 
 
     public async Task<ResponseWrapper<int>> Handle(UpdateUsuLhnCommand request, CancellationToken cancellationToken)
     {
-        var UsuLhnToFind = await _unitOfWork.ReadDataFor<UsuLhn>().GetByIdAsync(request.UpdateUsuLhn.Uln_identi);
+        var UsuLhnToFind = await _unitOfWork.ReadDataFor<UsuLhn>().GetByIdAsync(request.UpdateUsuLhn.Id);
 
         if (UsuLhnToFind is not null)
         {
-            var updateUsuLhn = UsuLhnToFind.UpdateUsuLhn(
-                request.UpdateUsuLhn.Uln_identi,
-                request.UpdateUsuLhn.Uln_usu_identi,
-                request.UpdateUsuLhn.Uln_lhn_identi,
-                request.UpdateUsuLhn.Uln_usubdd,
-                request.UpdateUsuLhn.Uln_usucri,
-                request.UpdateUsuLhn.Uln_usualt,
-                request.UpdateUsuLhn.Uln_datcri,
-                request.UpdateUsuLhn.Uln_datalt
-            );
+            var updateUsuLhn = new UsuLhn
+            {
+                Id = request.UpdateUsuLhn.Id,
+                Uln_usu_identi = request.UpdateUsuLhn.Uln_usu_identi,
+                Uln_lhn_identi = request.UpdateUsuLhn.Uln_lhn_identi,
+                Uln_usubdd = request.UpdateUsuLhn.Uln_usubdd,
+                Uln_usucri = request.UpdateUsuLhn.Uln_usucri,
+                Uln_usualt = request.UpdateUsuLhn.Uln_usualt,
+                Uln_datcri = request.UpdateUsuLhn.Uln_datcri,
+                Uln_datalt = request.UpdateUsuLhn.Uln_datalt
+            };
 
             await _unitOfWork.WriteDataFor<UsuLhn>().UpdateAsync(updateUsuLhn);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateUsuLhn.Uln_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateUsuLhn.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -70,6 +71,11 @@ public class DeleteUsuLhnCommandsHandler : IRequestHandler<DeleteUsuLhnCommand, 
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteUsuLhnCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteUsuLhnCommand request, CancellationToken cancellationToken)
     {
         var UsuLhnToFind = await _unitOfWork.ReadDataFor<UsuLhn>().GetByIdAsync(request.IdUsuLhnToDelete);
@@ -79,7 +85,7 @@ public class DeleteUsuLhnCommandsHandler : IRequestHandler<DeleteUsuLhnCommand, 
             await _unitOfWork.WriteDataFor<UsuLhn>().DeleteAsync(UsuLhnToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(UsuLhnToFind.Uln_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(UsuLhnToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

@@ -9,10 +9,11 @@ internal class DepartamentoConfiguration : IEntityTypeConfiguration<Departamento
     public void Configure(EntityTypeBuilder<Departamento> builder)
     {
         builder.ToTable("Departamento");
-        builder.HasKey(x => x.Dpt_identi);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Dpt_descri).IsRequired().HasMaxLength(100).HasComment("Nome do Departamento");
-        builder.Property(x => x.Dpt_ativo).IsRequired().HasMaxLength(1).HasComment("Indica se o Departamento está ativo ou não (S - SIM / N - NÃO)");
+        builder.Property(x => x.Id).HasColumnName("Dpt_identi");
+        builder.Property(x => x.Dpt_descri).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Nome do Departamento");
+        builder.Property(x => x.Dpt_ativo).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Departamento está ativo ou não (S - SIM / N - NÃO)");
         builder.Property(x => x.Dpt_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dpt_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dpt_usualt).HasMaxLength(10);

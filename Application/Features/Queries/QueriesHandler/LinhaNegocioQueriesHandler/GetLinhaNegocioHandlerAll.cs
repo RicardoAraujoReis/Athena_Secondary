@@ -26,8 +26,13 @@ public class GetLinhaNegocioHandlerAll : IRequestHandler<GetLinhaNegocioAll, Res
 
         if (linhaNegocioToFind.Count > 0)
         {
-            return new ResponseWrapper<List<LinhaNegocioResponse>>().Success(linhaNegocioToFind.Adapt<List<LinhaNegocioResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<LinhaNegocioResponse>>().
+                Success(linhaNegocioToFind.
+                Adapt<List<LinhaNegocioResponse>>()));
         }
-        return new ResponseWrapper<List<LinhaNegocioResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<LinhaNegocioResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

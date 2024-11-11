@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class LinhaNegocio : BaseEntity<int>
-{
-    public int Lhn_identi { get; set; }    
+{        
     public String Lhn_descri { get; set; }    
     public String Lhn_ativo { get; set; }    
     public String Lhn_usubdd { get; set; }    
@@ -16,7 +15,7 @@ public class LinhaNegocio : BaseEntity<int>
     public virtual List<UsuLhn> UsuLhn { get; set; }
 
     public LinhaNegocio UpdateLinhaNegocio(
-        int lhn_identi,
+        int id,
         String lhn_descri,
         String lhn_ativo,
         String lhn_usubdd,
@@ -26,6 +25,7 @@ public class LinhaNegocio : BaseEntity<int>
         DateTime lhn_datalt
     )
     {
+        Id = id;
         Lhn_descri = lhn_descri;
         Lhn_ativo = lhn_ativo;
         Lhn_usubdd = lhn_usubdd;

@@ -1,5 +1,6 @@
 ﻿using Application.Features.Commands;
 using Athena.Models;
+using Common.Requests;
 using Common.Wrapper;
 using Mapster;
 using MediatR;
@@ -26,7 +27,7 @@ public class CreateLinhaNegocioCommandsHandler : IRequestHandler<CreateLinhaNego
         await _unitOfWork.WriteDataFor<LinhaNegocio>().AddAsync(LinhaNegocio);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(LinhaNegocio.Lhn_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(LinhaNegocio.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,25 +42,26 @@ public class UpdateLinhaNegocioCommandsHandler : IRequestHandler<UpdateLinhaNego
 
     public async Task<ResponseWrapper<int>> Handle(UpdateLinhaNegocioCommand request, CancellationToken cancellationToken)
     {
-        var LinhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.UpdateLinhaNegocio.Lhn_identi);
+        var LinhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.UpdateLinhaNegocio.Id);
 
         if (LinhaNegocioToFind is not null)
         {
-            var updateLinhaNegocio = LinhaNegocioToFind.UpdateLinhaNegocio(
-                request.UpdateLinhaNegocio.Lhn_identi,
-                request.UpdateLinhaNegocio.Lhn_descri,
-                request.UpdateLinhaNegocio.Lhn_ativo,
-                request.UpdateLinhaNegocio.Lhn_usubdd,
-                request.UpdateLinhaNegocio.Lhn_usucri,
-                request.UpdateLinhaNegocio.Lhn_usualt,
-                request.UpdateLinhaNegocio.Lhn_datcri,
-                request.UpdateLinhaNegocio.Lhn_datalt
-            );
+            var updateLinhaNegocio = new LinhaNegocio
+            {
+                Id = request.UpdateLinhaNegocio.Id,                
+                Lhn_descri = request.UpdateLinhaNegocio.Lhn_descri,
+                Lhn_ativo =  request.UpdateLinhaNegocio.Lhn_ativo,
+                Lhn_usubdd = request.UpdateLinhaNegocio.Lhn_usubdd,
+                Lhn_usucri = request.UpdateLinhaNegocio.Lhn_usucri,
+                Lhn_usualt = request.UpdateLinhaNegocio.Lhn_usualt,
+                Lhn_datcri = request.UpdateLinhaNegocio.Lhn_datcri,
+                Lhn_datalt = request.UpdateLinhaNegocio.Lhn_datalt
+            };            
 
             await _unitOfWork.WriteDataFor<LinhaNegocio>().UpdateAsync(updateLinhaNegocio);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateLinhaNegocio.Lhn_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateLinhaNegocio.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -70,6 +72,11 @@ public class DeleteLinhaNegocioCommandsHandler : IRequestHandler<DeleteLinhaNego
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteLinhaNegocioCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteLinhaNegocioCommand request, CancellationToken cancellationToken)
     {
         var LinhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.IdLinhaNegocioToDelete);
@@ -79,7 +86,7 @@ public class DeleteLinhaNegocioCommandsHandler : IRequestHandler<DeleteLinhaNego
             await _unitOfWork.WriteDataFor<LinhaNegocio>().DeleteAsync(LinhaNegocioToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(LinhaNegocioToFind.Lhn_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(LinhaNegocioToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

@@ -16,7 +16,7 @@ public class GetDepartamentoAll : IRequest<ResponseWrapper<List<DepartamentoResp
 
 public class GetDepartamentoById : IRequest<ResponseWrapper<DepartamentoResponse>>
 {
-    public int Dpt_identi { get; set; }
+    public int Id { get; set; }
 }
 
 

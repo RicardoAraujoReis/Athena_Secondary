@@ -66,7 +66,7 @@ public class UsuLhnController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsuLhnByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetUsuLhnById { Uln_identi = id });
+        var response = await Sender.Send(new GetUsuLhnById { Id = id });
 
         if (!response.IsSuccessful)
         {

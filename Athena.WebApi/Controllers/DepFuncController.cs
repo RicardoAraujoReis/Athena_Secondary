@@ -66,7 +66,7 @@ public class DepFuncController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDepFuncByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetDepFuncById { Dfc_identi = id });
+        var response = await Sender.Send(new GetDepFuncById { Id = id });
 
         if (!response.IsSuccessful)
         {

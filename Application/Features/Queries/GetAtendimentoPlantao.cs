@@ -16,7 +16,10 @@ public class GetAtendimentoPlantaoAll : IRequest<ResponseWrapper<List<Atendiment
 
 public class GetAtendimentoPlantaoById : IRequest<ResponseWrapper<AtendimentoPlantaoResponse>>
 {
-    public int Atd_identi { get; set; }
+    public int Id { get; set; }
 }
 
-
+public class GetAtendimentoPlantaoByStatus : IRequest<ResponseWrapper<AtendimentoPlantaoResponse>>
+{
+    public string AtendimentoByStatus { get; set; }
+}

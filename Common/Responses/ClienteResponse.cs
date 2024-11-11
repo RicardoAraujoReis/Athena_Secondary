@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class ClienteResponse
 {
-    public int Cli_identi { get; set; }
+    public int Id { get; set; }
     public String Cli_descri { get; set; }
     public String Cli_ativo { get; set; }
     public String Cli_usubdd { get; set; }

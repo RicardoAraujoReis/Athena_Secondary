@@ -22,7 +22,7 @@ public class GetCategoriaAtendimentoHandlerById : IRequestHandler<GetCategoriaAt
 
     public async Task<ResponseWrapper<CategoriaAtendimentoResponse>> Handle(GetCategoriaAtendimentoById request, CancellationToken cancellationToken)
     {
-        var categoriaAtendimentoToFind = await _unitOfWork.ReadDataFor<CategoriaAtendimento>().GetByIdAsync(request.Cat_identi);
+        var categoriaAtendimentoToFind = await _unitOfWork.ReadDataFor<CategoriaAtendimento>().GetByIdAsync(request.Id);
 
         if (categoriaAtendimentoToFind is not null)
         {

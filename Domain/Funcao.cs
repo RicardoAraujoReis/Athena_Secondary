@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class Funcao : BaseEntity<int>
-{
-    public int Fnc_identi { get; set; }
+{    
     public String Fnc_descri { get; set; }
     public String Fnc_ativo { get; set; }
     public String Fnc_usubdd { get; set; }
@@ -15,7 +14,7 @@ public class Funcao : BaseEntity<int>
     public virtual List<DepFunc> DepFuncs { get; set; }
 
     public Funcao UpdateFuncao(
-        int fnc_identi,
+        int id,
         String fnc_descri,
         String fnc_ativo,
         String fnc_usubdd,
@@ -25,6 +24,7 @@ public class Funcao : BaseEntity<int>
         DateTime fnc_datalt
     )
     {
+        Id = id;
         Fnc_descri = fnc_descri;
         Fnc_ativo = fnc_ativo;
         Fnc_usubdd = fnc_usubdd;

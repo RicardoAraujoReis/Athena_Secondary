@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class DadosListas : BaseEntity<int>
-{
-    public int Dal_identi { get; set; }
+{    
     public int Dal_tid_identi { get; set; }    
     public String Dal_valor { get; set; }
     public String Dal_usubdd { get; set; }
@@ -16,7 +15,7 @@ public class DadosListas : BaseEntity<int>
 
     public DadosListas UpdateDadosListas
     (
-        int dal_identi,
+        int id,
         int dal_tid_identi,
         String dal_valor,
         String dal_usubdd,
@@ -26,6 +25,7 @@ public class DadosListas : BaseEntity<int>
         int dal_usualt
     )
     {
+        Id = id;
         Dal_tid_identi = dal_tid_identi;
         Dal_valor = dal_valor;
         Dal_usubdd = dal_usubdd;

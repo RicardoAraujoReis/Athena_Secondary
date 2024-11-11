@@ -26,8 +26,13 @@ public class GetDadosListasHandlerAll : IRequestHandler<GetDadosListasAll, Respo
 
         if (dadosListasToFind.Count > 0)
         {
-            return new ResponseWrapper<List<DadosListasResponse>>().Success(dadosListasToFind.Adapt<List<DadosListasResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<DadosListasResponse>>().
+                Success(dadosListasToFind.
+                Adapt<List<DadosListasResponse>>()));
         }
-        return new ResponseWrapper<List<DadosListasResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<DadosListasResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

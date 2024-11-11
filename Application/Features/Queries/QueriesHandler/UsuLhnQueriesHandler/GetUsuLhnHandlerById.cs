@@ -22,12 +22,17 @@ public class GetUsuLhnHandlerById : IRequestHandler<GetUsuLhnById, ResponseWrapp
 
     public async Task<ResponseWrapper<UsuLhnResponse>> Handle(GetUsuLhnById request, CancellationToken cancellationToken)
     {
-        var usuLhnToFind = await _unitOfWork.ReadDataFor<UsuLhn>().GetByIdAsync(request.Uln_identi);
+        var usuLhnToFind = await _unitOfWork.ReadDataFor<UsuLhn>().GetByIdAsync(request.Id);
 
         if (usuLhnToFind is not null)
         {
-            return new ResponseWrapper<UsuLhnResponse>().Success(usuLhnToFind.Adapt<UsuLhnResponse>());
+            return await Task.
+                FromResult(new ResponseWrapper<UsuLhnResponse>().
+                Success(usuLhnToFind.
+                Adapt<UsuLhnResponse>()));
         }
-        return new ResponseWrapper<UsuLhnResponse>().Failed("Registro não encontrado");
+        return await Task.
+                FromResult(new ResponseWrapper<UsuLhnResponse>().
+                Failed("Registro não encontrado"));
     }
 }

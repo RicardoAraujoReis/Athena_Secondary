@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class PreAtendimentoPlantaoResponse
 {
-    public int Ptd_identi { get; set; }
+    public int Id { get; set; }
     public DateTime Ptd_datptd { get; set; }
     public int Ptd_usu_identi { get; set; }
     public int Ptd_cli_identi { get; set; }

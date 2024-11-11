@@ -11,18 +11,21 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.QueriesHandler.LinhaNegocioQueriesHandler;
 
-public class GetLinhaNegocioHandlerById : IRequestHandler<GetLinhaNegocioById, ResponseWrapper<LinhaNegocioResponse>>
+public class GetLinhaNegocioHandlerByStatus : IRequestHandler<GetLinhaNegocioByStatus, ResponseWrapper<LinhaNegocioResponse>>
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
-    public GetLinhaNegocioHandlerById(IUnitOfWork<int> unitOfWork)
+    public GetLinhaNegocioHandlerByStatus(IUnitOfWork<int> unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ResponseWrapper<LinhaNegocioResponse>> Handle(GetLinhaNegocioById request, CancellationToken cancellationToken)
+    public async Task<ResponseWrapper<LinhaNegocioResponse>> Handle(GetLinhaNegocioByStatus request, CancellationToken cancellationToken)
     {
-        var linhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.Id);
+        var linhaNegocioToFind = _unitOfWork.ReadDataFor<LinhaNegocio>()
+            .Entities
+            .Where(linhaNegocio => linhaNegocio.Lhn_ativo == request.LinhaNegocioByStatus)
+            .FirstOrDefault();
 
         if (linhaNegocioToFind is not null)
         {

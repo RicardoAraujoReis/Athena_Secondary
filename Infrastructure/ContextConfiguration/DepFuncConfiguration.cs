@@ -9,8 +9,9 @@ internal class DepFuncConfiguration : IEntityTypeConfiguration<DepFunc>
     public void Configure(EntityTypeBuilder<DepFunc> builder)
     {
         builder.ToTable("DepFunc");
-        builder.HasKey(x => x.Dfc_identi);
+        builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.Id).HasColumnName("Dfc_identi");
         builder.Property(x => x.Dfc_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dfc_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dfc_usualt).HasMaxLength(10);

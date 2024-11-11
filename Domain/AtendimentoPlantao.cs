@@ -4,7 +4,6 @@ namespace Athena.Models;
 
 public class AtendimentoPlantao : BaseEntity<int>
 {    
-    public int Atd_identi { get; set; }
     public int Atd_usu_identi { get; set; }        
     public int Atd_ptd_identi { get; set; }    
     public int Atd_cli_identi { get; set; }    
@@ -34,7 +33,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     public virtual CategoriaAtendimento CategoriaAtendimento { get; set; }
 
     public AtendimentoPlantao UpdateAtendimentoPlantao(
-        int atd_identi,
+        int id,
         int atd_usu_identi,        
         int atd_cli_identi,
         String atd_tipatd,
@@ -59,6 +58,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         DateTime atd_datalt
     )
     {
+        Id = id;
         Atd_usu_identi = atd_usu_identi;
         Atd_cli_identi = atd_cli_identi;
         Atd_tipatd = atd_tipatd;
@@ -84,9 +84,4 @@ public class AtendimentoPlantao : BaseEntity<int>
 
         return this;
     }
-
-    /*public AtendimentoPlantao UpdateAtendimentoPlantao(AtendimentoPlantao atendimentoPlantao)
-    {                
-        return this;
-    }*/
 }

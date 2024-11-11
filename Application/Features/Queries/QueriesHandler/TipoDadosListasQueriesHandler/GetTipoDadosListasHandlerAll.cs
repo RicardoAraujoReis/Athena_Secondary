@@ -26,8 +26,13 @@ public class GetTipoDadosListasHandlerAll : IRequestHandler<GetTipoDadosListasAl
 
         if (tipoDadosListasToFind.Count > 0)
         {
-            return new ResponseWrapper<List<TipoDadosListasResponse>>().Success(tipoDadosListasToFind.Adapt<List<TipoDadosListasResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<TipoDadosListasResponse>>().
+                Success(tipoDadosListasToFind.
+                Adapt<List<TipoDadosListasResponse>>()));
         }
-        return new ResponseWrapper<List<TipoDadosListasResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<TipoDadosListasResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

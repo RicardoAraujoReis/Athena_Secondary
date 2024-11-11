@@ -26,7 +26,7 @@ public class CreateDepartamentoCommandsHandler : IRequestHandler<CreateDepartame
         await _unitOfWork.WriteDataFor<Departamento>().AddAsync(Departamento);
         await _unitOfWork.CommitAsync(cancellationToken);
 
-        return new ResponseWrapper<int>().Success(Departamento.Dpt_identi, "Registro criado com sucesso.");
+        return new ResponseWrapper<int>().Success(Departamento.Id, "Registro criado com sucesso.");
     }
 }
 
@@ -41,25 +41,26 @@ public class UpdateDepartamentoCommandsHandler : IRequestHandler<UpdateDepartame
 
     public async Task<ResponseWrapper<int>> Handle(UpdateDepartamentoCommand request, CancellationToken cancellationToken)
     {
-        var DepartamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.UpdateDepartamento.Dpt_identi);
+        var DepartamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.UpdateDepartamento.Id);
 
         if (DepartamentoToFind is not null)
         {
-            var updateDepartamento = DepartamentoToFind.UpdateDepartamento(
-                request.UpdateDepartamento.Dpt_identi,
-                request.UpdateDepartamento.Dpt_descri,
-                request.UpdateDepartamento.Dpt_ativo,
-                request.UpdateDepartamento.Dpt_usubdd,
-                request.UpdateDepartamento.Dpt_usucri,
-                request.UpdateDepartamento.Dpt_usualt,
-                request.UpdateDepartamento.Dpt_datcri,
-                request.UpdateDepartamento.Dpt_datalt
-            );
+            var updateDepartamento = new Departamento
+            {
+                Id = request.UpdateDepartamento.Id,
+                Dpt_descri = request.UpdateDepartamento.Dpt_descri,
+                Dpt_ativo = request.UpdateDepartamento.Dpt_ativo,
+                Dpt_usubdd = request.UpdateDepartamento.Dpt_usubdd,
+                Dpt_usucri = request.UpdateDepartamento.Dpt_usucri,
+                Dpt_usualt = request.UpdateDepartamento.Dpt_usualt,
+                Dpt_datcri = request.UpdateDepartamento.Dpt_datcri,
+                Dpt_datalt = request.UpdateDepartamento.Dpt_datalt
+            };
 
             await _unitOfWork.WriteDataFor<Departamento>().UpdateAsync(updateDepartamento);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(updateDepartamento.Dpt_identi, "Atualização realizada com sucesso");
+            return new ResponseWrapper<int>().Success(updateDepartamento.Id, "Atualização realizada com sucesso");
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
@@ -70,6 +71,11 @@ public class DeleteDepartamentoCommandsHandler : IRequestHandler<DeleteDepartame
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
+    public DeleteDepartamentoCommandsHandler(IUnitOfWork<int> unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
+
     public async Task<ResponseWrapper<int>> Handle(DeleteDepartamentoCommand request, CancellationToken cancellationToken)
     {
         var DepartamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.IdDepartamentoToDelete);
@@ -79,7 +85,7 @@ public class DeleteDepartamentoCommandsHandler : IRequestHandler<DeleteDepartame
             await _unitOfWork.WriteDataFor<Departamento>().DeleteAsync(DepartamentoToFind);
             await _unitOfWork.CommitAsync(cancellationToken);
 
-            return new ResponseWrapper<int>().Success(DepartamentoToFind.Dpt_identi, "Deleção realizada com sucesso");
+            return new ResponseWrapper<int>().Success(DepartamentoToFind.Id, "Deleção realizada com sucesso");
         }
         return new ResponseWrapper<int>().Failed("Falha na deleção do registro");
     }

@@ -8,7 +8,7 @@ namespace Common.Responses;
 
 public class CategoriaAtendimentoResponse
 {
-    public int Cat_identi { get; set; }
+    public int Id { get; set; }
     public int Cat_catpai { get; set; }
     public int Cat_nivel { get; set; }
     public String Cat_valor { get; set; }

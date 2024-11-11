@@ -3,8 +3,7 @@
 namespace Athena.Models;
 
 public class DepFunc : BaseEntity<int>
-{
-    public int Dfc_identi { get; set; }        
+{      
     public int Dfc_dpt_identi { get; set; }       
     public int Dfc_fnc_identi { get; set; }
     public int Dfc_usu_identi { get; set; }
@@ -18,7 +17,7 @@ public class DepFunc : BaseEntity<int>
     public virtual Usuario Usuario { get; set; }
 
     public DepFunc UpdateDepFunc(
-        int dfc_identi,
+        int id,
         int dfc_dpt_identi,
         int dfc_fnc_identi,
         int dfc_usu_identi,
@@ -29,6 +28,7 @@ public class DepFunc : BaseEntity<int>
         DateTime dfc_datalt
     )
     {
+        Id = id;
         Dfc_dpt_identi = dfc_dpt_identi;
         Dfc_fnc_identi = dfc_fnc_identi;
         Dfc_usu_identi = dfc_usu_identi;

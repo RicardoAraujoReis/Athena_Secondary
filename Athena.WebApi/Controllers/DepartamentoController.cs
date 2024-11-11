@@ -95,7 +95,7 @@ public class DepartamentoController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDepartamentoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetDepartamentoById { Dpt_identi = id });
+        var response = await Sender.Send(new GetDepartamentoById { Id = id });
 
         if (!response.IsSuccessful)
         {

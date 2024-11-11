@@ -95,12 +95,25 @@ public class AtendimentoPlantaoController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAtendimentoPlantaoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetAtendimentoPlantaoById { Atd_identi = id });
+        var response = await Sender.Send(new GetAtendimentoPlantaoById { Id = id });
 
         if (!response.IsSuccessful)
         {
-            return NotFound();
+            return NotFound(response);
         }                        
+        return Ok(response);
+    }
+
+    [HttpGet("{status}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAtendimentoPlantaoByStatusAsync(String status)
+    {
+        var response = await Sender.Send(new GetAtendimentoPlantaoByStatus { AtendimentoByStatus = status });
+
+        if (!response.IsSuccessful)
+        {
+            return NotFound(response);
+        }
         return Ok(response);
     }
 }

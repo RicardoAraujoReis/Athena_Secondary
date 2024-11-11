@@ -26,8 +26,13 @@ public class GetCategoriaAtendimentoHandlerAll : IRequestHandler<GetCategoriaAte
 
         if (categoriaAtendimentoToFind.Count > 0)
         {
-            return new ResponseWrapper<List<CategoriaAtendimentoResponse>>().Success(categoriaAtendimentoToFind.Adapt<List<CategoriaAtendimentoResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<CategoriaAtendimentoResponse>>().
+                Success(categoriaAtendimentoToFind.
+                Adapt<List<CategoriaAtendimentoResponse>>()));
         }
-        return new ResponseWrapper<List<CategoriaAtendimentoResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+            FromResult(new ResponseWrapper<List<CategoriaAtendimentoResponse>>().
+            Failed("Não foram encontrados registros para a consulta realizada."));
     }        
 }

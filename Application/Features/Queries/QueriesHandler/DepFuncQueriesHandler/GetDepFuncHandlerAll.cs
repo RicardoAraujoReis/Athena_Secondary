@@ -26,8 +26,13 @@ public class GetDepFuncHandlerAll : IRequestHandler<GetDepFuncAll, ResponseWrapp
 
         if (depFuncToFind.Count > 0)
         {
-            return new ResponseWrapper<List<DepFuncResponse>>().Success(depFuncToFind.Adapt<List<DepFuncResponse>>());
+            return await Task.
+                FromResult(new ResponseWrapper<List<DepFuncResponse>>().
+                Success(depFuncToFind.
+                Adapt<List<DepFuncResponse>>()));
         }
-        return new ResponseWrapper<List<DepFuncResponse>>().Failed("Não foram encontrados registros para a consulta realizada.");
+        return await Task.
+                FromResult(new ResponseWrapper<List<DepFuncResponse>>().
+                Failed("Não foram encontrados registros para a consulta realizada."));
     }
 }

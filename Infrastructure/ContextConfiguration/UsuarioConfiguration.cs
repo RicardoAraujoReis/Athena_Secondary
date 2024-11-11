@@ -9,16 +9,17 @@ internal class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
     public void Configure(EntityTypeBuilder<Usuario> builder)
     {
         builder.ToTable("Usuario");
-        builder.HasKey(x => x.Usu_identi);
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Usu_descri).IsRequired().HasMaxLength(100).HasComment("Nome completo do Usuário");
-        builder.Property(x => x.Usu_login).IsRequired().HasMaxLength(35).HasComment("Login do Usuário");
-        builder.Property(x => x.Usu_senha).IsRequired().HasMaxLength(65).HasComment("Senha do Usuário");
-        builder.Property(x => x.Usu_email).IsRequired().HasMaxLength(100).HasComment("E-mail do Usuário");
-        builder.Property(x => x.Usu_ativo).IsRequired().HasMaxLength(1).HasComment("Indica se o Usuário está ativo ou não (S - SIM / N - NÃO)");
-        builder.Property(x => x.Usu_status).IsRequired().HasMaxLength(1).HasComment("Indica se o Usuário está bloqueado (S - SIM / N - NÃO)");
-        builder.Property(x => x.Usu_master).IsRequired().HasMaxLength(1).HasComment("Indica se o Usuário é super Usuário (S - SIM / N - NÃO)");
-        builder.Property(x => x.Usu_tipusu).IsRequired().HasMaxLength(35).HasComment("Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2)");
+        builder.Property(x => x.Id).HasColumnName("Usu_identi");
+        builder.Property(x => x.Usu_descri).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Nome completo do Usuário");
+        builder.Property(x => x.Usu_login).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Login do Usuário");
+        builder.Property(x => x.Usu_senha).IsRequired().HasMaxLength(65).HasAnnotation("CustomAnnotation","Senha do Usuário");
+        builder.Property(x => x.Usu_email).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","E-mail do Usuário");
+        builder.Property(x => x.Usu_ativo).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário está ativo ou não (S - SIM / N - NÃO)");
+        builder.Property(x => x.Usu_status).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário está bloqueado (S - SIM / N - NÃO)");
+        builder.Property(x => x.Usu_master).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário é super Usuário (S - SIM / N - NÃO)");
+        builder.Property(x => x.Usu_tipusu).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2)");
         builder.Property(x => x.Usu_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Usu_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Usu_usualt).HasMaxLength(10);
