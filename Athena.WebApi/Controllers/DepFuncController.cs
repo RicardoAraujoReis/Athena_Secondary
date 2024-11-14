@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 
 public class DepFuncController : BaseApiController
 {
