@@ -22,41 +22,34 @@ public class GetLinhaNegocioHandlerBySearchParameters : IRequestHandler<GetLinha
 
     public async Task<ResponseWrapper<LinhaNegocioResponse>> Handle(GetLinhaNegocioBySearchParameters request, CancellationToken cancellationToken)
     {
-        if (request.Id.ToString() is not null)
-        {
-            var linhaNegocioToFindById = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(Convert.ToInt32(request.Id));
+        // Inicia a consulta
+        var query = _unitOfWork.ReadDataFor<LinhaNegocio>().Entities.AsQueryable();
 
-            if (linhaNegocioToFindById is not null)
-            {
-                return await Task.
-                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                    Success(linhaNegocioToFindById.
-                    Adapt<LinhaNegocioResponse>()));
-            }
-            return await Task.
-                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                    Failed("Registro não encontrado"));
+        // Aplica o filtro condicional para o status, se especificado
+        if (!string.IsNullOrWhiteSpace(request.LinhaNegocioByStatus))
+        {
+            query = query.Where(linhaNegocio => linhaNegocio.Lhn_ativo == request.LinhaNegocioByStatus);
         }
 
-        if (request.LinhaNegocioByStatus is not null)
+        // Aplica o filtro condicional para o ID, se especificado
+        if (request.Id > 0)
         {
-            var linhaNegocioToFindByStatus = _unitOfWork.ReadDataFor<LinhaNegocio>()
-            .Entities
-            .Where(linhaNegocio => linhaNegocio.Lhn_ativo == request.LinhaNegocioByStatus)
-            .FirstOrDefault();
-
-            if (linhaNegocioToFindByStatus is not null)
-            {
-                return await Task.
-                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                    Success(linhaNegocioToFindByStatus.
-                    Adapt<LinhaNegocioResponse>()));
-            }
-            return await Task.
-                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                    Failed("Registro não encontrado"));
+            query = query.Where(linhaNegocio => linhaNegocio.Id == request.Id);
         }
 
-        return null;
+        // Executa a consulta com os filtros aplicados
+        var linhaNegocioToFind = query.FirstOrDefault();
+
+        if (linhaNegocioToFind is not null)
+        {
+            return await Task.FromResult(
+                new ResponseWrapper<LinhaNegocioResponse>()
+                    .Success(linhaNegocioToFind.Adapt<LinhaNegocioResponse>())
+            );
+        }
+
+        return await Task.FromResult(
+            new ResponseWrapper<LinhaNegocioResponse>().Failed("Registro não encontrado")
+        );
     }
 }

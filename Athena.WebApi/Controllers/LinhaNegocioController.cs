@@ -125,51 +125,20 @@ public class LinhaNegocioController : BaseApiController
     {
         try
         {
-            /*var request = new GetLinhaNegocioBySearchParameters
+            if (id == null && string.IsNullOrWhiteSpace(status))
+                throw new InvalidOperationException("É obrigatório informar ao menos um parâmetro!");
+
+            var request = new GetLinhaNegocioBySearchParameters
             {
                 Id = id.Value,
                 LinhaNegocioByStatus = status
             };
-            
+
             var results = await Sender.Send(request);
 
             if (results.IsSuccessful)
             {
                 return Ok(results);
-            }
-            return NotFound();*/
-
-            String message = null;
-
-            if (id.HasValue)
-            {
-                var response = await Sender.Send(new GetLinhaNegocioById { Id = id.Value });
-
-                if (!response.IsSuccessful)
-                {
-                    return NotFound(response);
-                    message = "false";
-                }
-                return Ok(response);
-                message = "true";
-            }
-
-            if (status is not null)
-            {
-                var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
-
-                if (!response.IsSuccessful)
-                {
-                    return NotFound(response);
-                    message = "false";
-                }
-                return Ok(response);
-                message = "true";
-            }
-
-            if(message == "true")
-            {
-                return Ok();
             }
             return NotFound();
         }
