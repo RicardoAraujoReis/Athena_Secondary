@@ -10,68 +10,103 @@ namespace Athena.WebApi.Controllers;
 
 public class DadosListasController : BaseApiController
 {   
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateDadosListasAsync([FromBody] CreateDadosListas createDadosListas)
     {
-        var response = await Sender.Send(new CreateDadosListasCommand { CreateDadosListas = createDadosListas });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateDadosListasCommand { CreateDadosListas = createDadosListas });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateDadosListasAsync([FromBody] UpdateDadosListas updateDadosListas)
     {
-        var response = await Sender.Send(new UpdateDadosListasCommand { UpdateDadosListas = updateDadosListas });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateDadosListasCommand { UpdateDadosListas = updateDadosListas });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteDadosListasAsync(int id)
     {
-        var response = await Sender.Send(new DeleteDadosListasCommand { IdDadosListasToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteDadosListasCommand { IdDadosListasToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
     
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDadosListasAllAsync()
     {
-        var response = await Sender.Send(new GetDadosListasAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetDadosListasAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDadosListasByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetDadosListasById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetDadosListasById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 }

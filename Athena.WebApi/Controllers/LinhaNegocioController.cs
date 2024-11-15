@@ -19,17 +19,25 @@ public class LinhaNegocioController : BaseApiController
     /// <param name="CreateLinhaNegocioAsync">Objeto com os campos necessários para criação de uma Linha de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="201">Caso inserção seja feita com sucesso</response>
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateLinhaNegocioAsync([FromBody] CreateLinhaNegocio createLinhaNegocio)
     {
-        var response = await Sender.Send(new CreateLinhaNegocioCommand { CreateLinhaNegocio = createLinhaNegocio });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateLinhaNegocioCommand { CreateLinhaNegocio = createLinhaNegocio });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+        
     }
 
     /// <summary>
@@ -38,17 +46,25 @@ public class LinhaNegocioController : BaseApiController
     /// <param name="UpdateLinhaNegocioAsync">Objeto com os campos necessários para atualização de uma Linha de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateLinhaNegocioAsync([FromBody] UpdateLinhaNegocio updateLinhaNegocio)//, [FromRoute] int id)
     {
-        var response = await Sender.Send(new UpdateLinhaNegocioCommand { UpdateLinhaNegocio = updateLinhaNegocio });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateLinhaNegocioCommand { UpdateLinhaNegocio = updateLinhaNegocio });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+        
     }   
 
     /// <summary>
@@ -56,17 +72,25 @@ public class LinhaNegocioController : BaseApiController
     /// </summary>    
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteLinhaNegocioAsync(int id)
     {
-        var response = await Sender.Send(new DeleteLinhaNegocioCommand { IdLinhaNegocioToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteLinhaNegocioCommand { IdLinhaNegocioToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest(response);
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+        
     }
 
     /// <summary>
@@ -75,52 +99,82 @@ public class LinhaNegocioController : BaseApiController
     /// <param name="GetLinhaNegocioAllAsync">Objeto com os campos necessários para busca das Linhas de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioAllAsync()
     {
-        var response = await Sender.Send(new GetLinhaNegocioAll());
+        try{         
+            var response = await Sender.Send(new GetLinhaNegocioAll());
 
-        if (!response.IsSuccessful)
-        {
-            return BadRequest(response);
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }                
     }
 
     /// <summary>
-    /// Busca uma Linha de Negocio cadastrado por Id
+    /// Busca uma Linha de Negocio cadastrada por Id
     /// </summary>
     /// <param name="GetLinhaNegocioByIdAsync">Objeto com os campos necessários para busca da Linha de Negocio</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("LinhaNegocio-id/{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetLinhaNegocioById { Id = id });
+        try
+        {            
+            var response = await Sender.Send(new GetLinhaNegocioById { Id = id });
 
-        if (!response.IsSuccessful)
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);                        
+        }catch (Exception ex)
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet("LinhaNegocio-status/{status}")]
+    /// <summary>
+    /// Busca uma Linha de Negocio cadastrada por status
+    /// </summary>
+    /// <param name="GetLinhaNegocioByStatusAsync">Objeto com os campos necessários para busca da Linha de Negocio</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbystatus")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioByStatusAsync(String status)
     {
-        var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound(response);
-        }
-        return Ok(response);
+           var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
+           
+           if (!response.IsSuccessful)
+           {
+                return NotFound(response);
+           }
+           return Ok(response);           
+        }catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }                
     }
 
-    [HttpGet("LinhaNegocio-parameters")]
+    /// <summary>
+    /// Busca uma Linha de Negocio cadastrada de acordo com o parâmetro informado
+    /// </summary>
+    /// <param name="GetLinhaNegocioByParametersAsync">Objeto com os campos necessários para busca da Linha de Negocio</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbyparameters")]
     public async Task<IActionResult> GetLinhaNegocioBySearchParameters(int? id, string status = null)
     {
         try

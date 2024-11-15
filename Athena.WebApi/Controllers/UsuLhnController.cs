@@ -10,68 +10,103 @@ namespace Athena.WebApi.Controllers;
 
 public class UsuLhnController : BaseApiController
 {    
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateUsuLhnAsync([FromBody] CreateUsuLhn createUsuLhn)
     {
-        var response = await Sender.Send(new CreateUsuLhnCommand { CreateUsuLhn = createUsuLhn });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateUsuLhnCommand { CreateUsuLhn = createUsuLhn });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateUsuLhnAsync([FromBody] UpdateUsuLhn updateUsuLhn)
     {
-        var response = await Sender.Send(new UpdateUsuLhnCommand { UpdateUsuLhn = updateUsuLhn });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateUsuLhnCommand { UpdateUsuLhn = updateUsuLhn });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteUsuLhnAsync(int id)
     {
-        var response = await Sender.Send(new DeleteUsuLhnCommand { IdUsuLhnToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteUsuLhnCommand { IdUsuLhnToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsuLhnAllAsync()
     {
-        var response = await Sender.Send(new GetUsuLhnAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetUsuLhnAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUsuLhnByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetUsuLhnById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetUsuLhnById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 }

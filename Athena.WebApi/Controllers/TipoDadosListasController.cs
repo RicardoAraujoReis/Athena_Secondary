@@ -10,68 +10,103 @@ namespace Athena.WebApi.Controllers;
 
 public class TipoDadosListasController : BaseApiController
 {    
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateTipoDadosListasAsync([FromBody] CreateTipoDadosListas createTipoDadosListas)
     {
-        var response = await Sender.Send(new CreateTipoDadosListasCommand { CreateTipoDadosListas = createTipoDadosListas });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateTipoDadosListasCommand { CreateTipoDadosListas = createTipoDadosListas });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateTipoDadosListasAsync([FromBody] UpdateTipoDadosListas updateTipoDadosListas)
     {
-        var response = await Sender.Send(new UpdateTipoDadosListasCommand { UpdateTipoDadosListas = updateTipoDadosListas });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateTipoDadosListasCommand { UpdateTipoDadosListas = updateTipoDadosListas });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteTipoDadosListasAsync(int id)
     {
-        var response = await Sender.Send(new DeleteTipoDadosListasCommand { IdTipoDadosListasToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteTipoDadosListasCommand { IdTipoDadosListasToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTipoDadosListasAllAsync()
     {
-        var response = await Sender.Send(new GetTipoDadosListasAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetTipoDadosListasAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTipoDadosListasByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetTipoDadosListasById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetTipoDadosListasById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 }

@@ -16,17 +16,24 @@ public class PreAtendimentoPlantaoController : BaseApiController
     /// <param name="CreatePreAtendimentoPlantaoAsync">Objeto com os campos necessários para criação de um Pre Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="201">Caso inserção seja feita com sucesso</response>
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreatePreAtendimentoPlantaoAsync([FromBody] CreatePreAtendimentoPlantao createPreAtendimentoPlantao)
     {
-        var response = await Sender.Send(new CreatePreAtendimentoPlantaoCommand { CreatePreAtendimentoPlantao = createPreAtendimentoPlantao });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreatePreAtendimentoPlantaoCommand { CreatePreAtendimentoPlantao = createPreAtendimentoPlantao });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -35,17 +42,24 @@ public class PreAtendimentoPlantaoController : BaseApiController
     /// <param name="UpdatePreAtendimentoPlantaoAsync">Objeto com os campos necessários para atualização de um Pre Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdatePreAtendimentoPlantaoAsync([FromBody] UpdatePreAtendimentoPlantao updatePreAtendimentoPlantao)
     {
-        var response = await Sender.Send(new UpdatePreAtendimentoPlantaoCommand { UpdatePreAtendimentoPlantao = updatePreAtendimentoPlantao });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdatePreAtendimentoPlantaoCommand { UpdatePreAtendimentoPlantao = updatePreAtendimentoPlantao });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -53,17 +67,24 @@ public class PreAtendimentoPlantaoController : BaseApiController
     /// </summary>    
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeletePreAtendimentoPlantaoAsync(int id)
     {
-        var response = await Sender.Send(new DeletePreAtendimentoPlantaoCommand { IdPreAtendimentoPlantaoToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeletePreAtendimentoPlantaoCommand { IdPreAtendimentoPlantaoToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -72,17 +93,25 @@ public class PreAtendimentoPlantaoController : BaseApiController
     /// <param name="GetPreAtendimentoPlantaoAllAsync">Objeto com os campos necessários para busca dos Pre Atendimentos</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPreAtendimentoPlantaoAllAsync()
     {
-        var response = await Sender.Send(new GetPreAtendimentoPlantaoAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetPreAtendimentoPlantaoAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -91,16 +120,23 @@ public class PreAtendimentoPlantaoController : BaseApiController
     /// <param name="GetPreAtendimentoPlantaoByIdAsync">Objeto com os campos necessários para busca do Pre Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPreAtendimentoPlantaoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetPreAtendimentoPlantaoById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetPreAtendimentoPlantaoById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 }
