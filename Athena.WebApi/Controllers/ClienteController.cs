@@ -4,6 +4,7 @@ using Athena.WebApi.Controllers.BaseApi;
 using common.Requests;
 using Common.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.ExceptionServices;
 
 namespace Athena.WebApi.Controllers;
 
@@ -138,5 +139,30 @@ public class ClienteController : BaseApiController
         {
             return BadRequest(ex.Message);
         }        
+    }
+
+    /// <summary>
+    /// Busca uma lista de Clientes ativos cadastrados
+    /// </summary>
+    /// <param name="GetClienteByIdAsync">Objeto com os campos necessários para busca dos Clientes</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbyname")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetClienteByNameAsync(string name)
+    {
+        try
+        {
+            var response = await Sender.Send(new GetClienteByName { NomeCliente = name});
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

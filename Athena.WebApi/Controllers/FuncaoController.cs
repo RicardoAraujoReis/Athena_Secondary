@@ -131,4 +131,30 @@ public class FuncaoController : BaseApiController
             return BadRequest(ex);
         }        
     }
+
+    /// <summary>
+    /// Busca uma lista de Funções cadastradas
+    /// </summary>
+    /// <param name="GetDepartamentoByIdAsync">Objeto com os campos necessários para busca das Funções</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbystatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetFuncaoByStatus(string status)
+    {
+        try
+        {
+            var response = await Sender.Send(new GetFuncaoByStatus { StatusFuncao = status });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
 }

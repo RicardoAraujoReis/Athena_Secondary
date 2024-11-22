@@ -19,7 +19,7 @@ internal class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
         builder.Property(x => x.Usu_ativo).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário está ativo ou não (S - SIM / N - NÃO)");
         builder.Property(x => x.Usu_status).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário está bloqueado (S - SIM / N - NÃO)");
         builder.Property(x => x.Usu_master).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Indica se o Usuário é super Usuário (S - SIM / N - NÃO)");
-        builder.Property(x => x.Usu_tipusu).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2)");
+        builder.Property(x => x.Usu_tipusu).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2, SYS - 3)");
         builder.Property(x => x.Usu_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Usu_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Usu_usualt).HasMaxLength(10);

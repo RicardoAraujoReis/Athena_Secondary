@@ -9,11 +9,11 @@ public record CreateUsuario(
     String Usu_status,
     String Usu_master,
     String Usu_tipusu,
-    String Usu_Usubdd,
-    int Usu_Usucri,
-    int Usu_Usualt,
-    DateTime Usu_datcri,
-    DateTime Usu_datalt
+    String Usu_usubdd,
+    int Usu_usucri,
+    int Usu_usualt,
+    DateTime usu_datcri,
+    DateTime usu_datalt
 );
 
 public record UpdateUsuario(

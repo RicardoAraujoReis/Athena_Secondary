@@ -138,4 +138,29 @@ public class DepartamentoController : BaseApiController
             return BadRequest(ex);
         }        
     }
+
+    /// <summary>
+    /// Busca uma lista de Departamentos cadastrados
+    /// </summary>
+    /// <param name="GetDepartamentoByIdAsync">Objeto com os campos necessários para busca dos Departamentos</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbystatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetDepartamentoByStatus(string status)
+    {
+        try
+        {
+            var response = await Sender.Send(new GetDepartamentoByStatus { StatusDepartamento = status });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
 }

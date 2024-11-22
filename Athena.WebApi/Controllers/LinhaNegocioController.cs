@@ -37,7 +37,7 @@ public class LinhaNegocioController : BaseApiController
         {
             return BadRequest(ex);
         }
-        
+
     }
 
     /// <summary>
@@ -64,8 +64,8 @@ public class LinhaNegocioController : BaseApiController
         {
             return BadRequest(ex);
         }
-        
-    }   
+
+    }
 
     /// <summary>
     /// Deleta uma Linha de Negocio
@@ -90,7 +90,7 @@ public class LinhaNegocioController : BaseApiController
         {
             return BadRequest(ex);
         }
-        
+
     }
 
     /// <summary>
@@ -103,7 +103,8 @@ public class LinhaNegocioController : BaseApiController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLinhaNegocioAllAsync()
     {
-        try{         
+        try
+        {
             var response = await Sender.Send(new GetLinhaNegocioAll());
 
             if (!response.IsSuccessful)
@@ -115,7 +116,7 @@ public class LinhaNegocioController : BaseApiController
         catch (Exception ex)
         {
             return BadRequest(ex);
-        }                
+        }
     }
 
     /// <summary>
@@ -129,18 +130,19 @@ public class LinhaNegocioController : BaseApiController
     public async Task<IActionResult> GetLinhaNegocioByIdAsync(int id)
     {
         try
-        {            
+        {
             var response = await Sender.Send(new GetLinhaNegocioById { Id = id });
 
             if (!response.IsSuccessful)
             {
                 return NotFound(response);
             }
-            return Ok(response);                        
-        }catch (Exception ex)
+            return Ok(response);
+        }
+        catch (Exception ex)
         {
             return BadRequest(ex);
-        }        
+        }
     }
 
     /// <summary>
@@ -155,17 +157,18 @@ public class LinhaNegocioController : BaseApiController
     {
         try
         {
-           var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
-           
-           if (!response.IsSuccessful)
-           {
+            var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
+
+            if (!response.IsSuccessful)
+            {
                 return NotFound(response);
-           }
-           return Ok(response);           
-        }catch (Exception ex)
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
         {
             return BadRequest(ex);
-        }                
+        }
     }
 
     /// <summary>
@@ -179,53 +182,19 @@ public class LinhaNegocioController : BaseApiController
     {
         try
         {
-            /*var request = new GetLinhaNegocioBySearchParameters
+            var request = new GetLinhaNegocioBySearchParameters
             {
-                Id = id.Value,
+                Id = id.HasValue ? id.Value : 0,
                 LinhaNegocioByStatus = status
             };
-            
+
             var results = await Sender.Send(request);
 
-            if (results.IsSuccessful)
+            if (!results.IsSuccessful)
             {
-                return Ok(results);
+                return BadRequest(results);
             }
-            return NotFound();*/
-
-            String message = null;
-
-            if (id.HasValue)
-            {
-                var response = await Sender.Send(new GetLinhaNegocioById { Id = id.Value });
-
-                if (!response.IsSuccessful)
-                {
-                    return NotFound(response);
-                    message = "false";
-                }
-                return Ok(response);
-                message = "true";
-            }
-
-            if (status is not null)
-            {
-                var response = await Sender.Send(new GetLinhaNegocioByStatus { LinhaNegocioByStatus = status });
-
-                if (!response.IsSuccessful)
-                {
-                    return NotFound(response);
-                    message = "false";
-                }
-                return Ok(response);
-                message = "true";
-            }
-
-            if(message == "true")
-            {
-                return Ok();
-            }
-            return NotFound();
+            return Ok(results);
         }
         catch (Exception ex)
         {

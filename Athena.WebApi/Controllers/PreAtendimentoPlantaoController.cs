@@ -138,5 +138,5 @@ public class PreAtendimentoPlantaoController : BaseApiController
         {
             return BadRequest(ex);
         }        
-    }
+    }    
 }
