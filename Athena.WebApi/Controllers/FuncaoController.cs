@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 
 public class FuncaoController : BaseApiController
 {
@@ -16,17 +16,24 @@ public class FuncaoController : BaseApiController
     /// <param name="CreateFuncaoAsync">Objeto com os campos necessários para criação de uma Função</param>
     /// <returns>IActionResult</returns>
     /// <response code="201">Caso inserção seja feita com sucesso</response>
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateFuncaoAsync([FromBody] CreateFuncao createFuncao)
     {
-        var response = await Sender.Send(new CreateFuncaoCommand { CreateFuncao = createFuncao });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateFuncaoCommand { CreateFuncao = createFuncao });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -35,17 +42,24 @@ public class FuncaoController : BaseApiController
     /// <param name="UpdateFuncaoAsync">Objeto com os campos necessários para atualização de uma Função</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateFuncaoAsync([FromBody] UpdateFuncao updateFuncao)
     {
-        var response = await Sender.Send(new UpdateFuncaoCommand { UpdateFuncao = updateFuncao });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateFuncaoCommand { UpdateFuncao = updateFuncao });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -53,17 +67,24 @@ public class FuncaoController : BaseApiController
     /// </summary>    
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteFuncaoAsync(int id)
     {
-        var response = await Sender.Send(new DeleteFuncaoCommand { IdFuncaoToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteFuncaoCommand { IdFuncaoToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -72,7 +93,7 @@ public class FuncaoController : BaseApiController
     /// <param name="GetFuncaoAllAsync">Objeto com os campos necessários para busca das Funções</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFuncaoAllAsync()
     {
@@ -91,16 +112,49 @@ public class FuncaoController : BaseApiController
     /// <param name="GetFuncaoByIdAsync">Objeto com os campos necessários para busca da Função</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFuncaoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetFuncaoById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetFuncaoById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
+    }
+
+    /// <summary>
+    /// Busca uma lista de Funções cadastradas
+    /// </summary>
+    /// <param name="GetDepartamentoByIdAsync">Objeto com os campos necessários para busca das Funções</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbystatus")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetFuncaoByStatus(string status)
+    {
+        try
+        {
+            var response = await Sender.Send(new GetFuncaoByStatus { StatusFuncao = status });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
     }
 }

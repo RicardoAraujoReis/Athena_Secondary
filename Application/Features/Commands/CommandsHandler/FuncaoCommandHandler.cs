@@ -22,11 +22,34 @@ public class CreateFuncaoCommandsHandler : IRequestHandler<CreateFuncaoCommand, 
 
     public async Task<ResponseWrapper<int>> Handle(CreateFuncaoCommand request, CancellationToken cancellationToken)
     {
-        var Funcao = request.CreateFuncao.Adapt<Funcao>();
-        await _unitOfWork.WriteDataFor<Funcao>().AddAsync(Funcao);
-        await _unitOfWork.CommitAsync(cancellationToken);
+        var funcao = request.CreateFuncao.Adapt<Funcao>();
+        bool isValid = CreateFuncaoValidator(funcao);
 
-        return new ResponseWrapper<int>().Success(Funcao.Id, "Registro criado com sucesso.");
+        if (isValid)
+        {
+            await _unitOfWork.WriteDataFor<Funcao>().AddAsync(funcao);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            return new ResponseWrapper<int>().Success(funcao.Id, "Registro criado com sucesso.");
+        }
+        return new ResponseWrapper<int>().Failed("Falha ao criar o registro");
+    }
+
+    public bool CreateFuncaoValidator(Funcao funcaoRequest)
+    {
+        if (Convert.ToChar(funcaoRequest.Fnc_ativo.ToUpper()) != 'S')
+        {
+            return false;
+        }
+        else if (funcaoRequest.Fnc_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (funcaoRequest.Fnc_usucri == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -42,8 +65,10 @@ public class UpdateFuncaoCommandsHandler : IRequestHandler<UpdateFuncaoCommand, 
     public async Task<ResponseWrapper<int>> Handle(UpdateFuncaoCommand request, CancellationToken cancellationToken)
     {
         var FuncaoToFind = await _unitOfWork.ReadDataFor<Funcao>().GetByIdAsync(request.UpdateFuncao.Id);
+        var validaFuncao = request.UpdateFuncao.Adapt<Funcao>();
+        bool isValid = UpdateFuncaoValidator(validaFuncao, FuncaoToFind);
 
-        if (FuncaoToFind is not null)
+        if (isValid)
         {
             var updateFuncao = new Funcao
             {
@@ -64,6 +89,23 @@ public class UpdateFuncaoCommandsHandler : IRequestHandler<UpdateFuncaoCommand, 
         }
 
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
+    }
+
+    public bool UpdateFuncaoValidator(Funcao funcaoRequest, Funcao funcao)
+    {
+        if (funcaoRequest.Fnc_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (funcaoRequest.Fnc_usucri != funcao.Fnc_usucri)
+        {
+            return false;
+        }
+        else if (funcaoRequest.Fnc_datcri != funcao.Fnc_datcri)
+        {
+            return false;
+        }        
+        return true;
     }
 }
 

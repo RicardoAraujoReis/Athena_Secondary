@@ -22,17 +22,26 @@ public class GetLinhaNegocioHandlerById : IRequestHandler<GetLinhaNegocioById, R
 
     public async Task<ResponseWrapper<LinhaNegocioResponse>> Handle(GetLinhaNegocioById request, CancellationToken cancellationToken)
     {
-        var linhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.Id);
+        if(request is not null && request.Id > 0)
+        {
+            var linhaNegocioToFind = await _unitOfWork.ReadDataFor<LinhaNegocio>().GetByIdAsync(request.Id);
 
-        if (linhaNegocioToFind is not null)
+            if (linhaNegocioToFind is not null)
+            {
+                return await Task.
+                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
+                    Success(linhaNegocioToFind.
+                    Adapt<LinhaNegocioResponse>()));
+            }
+            return await Task.
+                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
+                    Failed("Registro não encontrado"));
+        }
+        else
         {
             return await Task.
-                FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                Success(linhaNegocioToFind.
-                Adapt<LinhaNegocioResponse>()));
-        }
-        return await Task.
-                FromResult(new ResponseWrapper<LinhaNegocioResponse>().
-                Failed("Registro não encontrado"));
+                    FromResult(new ResponseWrapper<LinhaNegocioResponse>().
+                    Failed("Id precisa ser maior que 0"));            
+        }                
     }
 }

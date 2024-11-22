@@ -1,5 +1,5 @@
-﻿using Application.Features.Commands;
-using Athena.Models;
+﻿using Athena.Models;
+using Common.Responses;
 using Common.Wrapper;
 using Mapster;
 using MediatR;
@@ -13,7 +13,7 @@ namespace Application.Features.Commands.CommandsHandler;
 
 public class CreateClienteCommandsHandler : IRequestHandler<CreateClienteCommand, ResponseWrapper<int>>
 {
-    private readonly IUnitOfWork<int> _unitOfWork;
+    private readonly IUnitOfWork<int> _unitOfWork;    
 
     public CreateClienteCommandsHandler(IUnitOfWork<int> unitOfWork)
     {
@@ -21,12 +21,35 @@ public class CreateClienteCommandsHandler : IRequestHandler<CreateClienteCommand
     }
 
     public async Task<ResponseWrapper<int>> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
-    {
+    {        
         var Cliente = request.CreateCliente.Adapt<Cliente>();
-        await _unitOfWork.WriteDataFor<Cliente>().AddAsync(Cliente);
-        await _unitOfWork.CommitAsync(cancellationToken);
+        bool isValid = CreateClienteValidator(Cliente);
 
-        return new ResponseWrapper<int>().Success(Cliente.Id, "Registro criado com sucesso.");
+        if (isValid)
+        {            
+            await _unitOfWork.WriteDataFor<Cliente>().AddAsync(Cliente);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            return new ResponseWrapper<int>().Success(Cliente.Id, "Registro criado com sucesso.");
+        }
+        return new ResponseWrapper<int>().Failed("Falha ao criar o registro");                       
+    }
+
+    public bool CreateClienteValidator(Cliente clienteRequest)
+    {
+        if (Convert.ToChar(clienteRequest.Cli_ativo.ToUpper()) != 'S')
+        {
+            return false;
+        }
+        else if (clienteRequest.Cli_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (clienteRequest.Cli_usucri == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -42,8 +65,10 @@ public class UpdateClienteCommandsHandler : IRequestHandler<UpdateClienteCommand
     public async Task<ResponseWrapper<int>> Handle(UpdateClienteCommand request, CancellationToken cancellationToken)
     {
         var ClienteToFind = await _unitOfWork.ReadDataFor<Cliente>().GetByIdAsync(request.UpdateCliente.Id);
+        var validaCliente = request.UpdateCliente.Adapt<Cliente>();
+        bool isValid = UpdateClienteValidator(validaCliente, ClienteToFind);
 
-        if (ClienteToFind is not null)
+        if (isValid)
         {
             var updateCliente = new Cliente
             {
@@ -57,15 +82,30 @@ public class UpdateClienteCommandsHandler : IRequestHandler<UpdateClienteCommand
                 Cli_datalt = request.UpdateCliente.Cli_datalt,
                 Cli_lhn_identi = request.UpdateCliente.Cli_lhn_identi
             };
-                           
 
             await _unitOfWork.WriteDataFor<Cliente>().UpdateAsync(updateCliente);
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return new ResponseWrapper<int>().Success(updateCliente.Id, "Atualização realizada com sucesso");
-        }
-
+        }       
         return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
+    }
+
+    public bool UpdateClienteValidator(Cliente clienteRequest, Cliente cliente)
+    {
+        if (clienteRequest.Cli_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (clienteRequest.Cli_usucri != cliente.Cli_usucri)
+        {
+            return false;
+        }
+        else if(clienteRequest.Cli_datcri != cliente.Cli_datcri)
+        {
+            return false;
+        }
+        return true;
     }
 }
 

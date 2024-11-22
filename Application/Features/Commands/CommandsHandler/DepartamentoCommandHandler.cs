@@ -23,10 +23,32 @@ public class CreateDepartamentoCommandsHandler : IRequestHandler<CreateDepartame
     public async Task<ResponseWrapper<int>> Handle(CreateDepartamentoCommand request, CancellationToken cancellationToken)
     {
         var Departamento = request.CreateDepartamento.Adapt<Departamento>();
-        await _unitOfWork.WriteDataFor<Departamento>().AddAsync(Departamento);
-        await _unitOfWork.CommitAsync(cancellationToken);
+        bool isValid = CreateDepartamentoValidator(Departamento);
 
-        return new ResponseWrapper<int>().Success(Departamento.Id, "Registro criado com sucesso.");
+        if (isValid)
+        {
+            await _unitOfWork.WriteDataFor<Departamento>().AddAsync(Departamento);
+            await _unitOfWork.CommitAsync(cancellationToken);
+            return new ResponseWrapper<int>().Success(Departamento.Id, "Registro criado com sucesso.");
+        }
+        return new ResponseWrapper<int>().Failed("Falha ao criar o registro");
+    }
+
+    public bool CreateDepartamentoValidator(Departamento departamentoRequest)
+    {
+        if (Convert.ToChar(departamentoRequest.Dpt_ativo.ToUpper()) != 'S')
+        {
+            return false;
+        }
+        else if (departamentoRequest.Dpt_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (departamentoRequest.Dpt_usucri == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -42,28 +64,46 @@ public class UpdateDepartamentoCommandsHandler : IRequestHandler<UpdateDepartame
     public async Task<ResponseWrapper<int>> Handle(UpdateDepartamentoCommand request, CancellationToken cancellationToken)
     {
         var DepartamentoToFind = await _unitOfWork.ReadDataFor<Departamento>().GetByIdAsync(request.UpdateDepartamento.Id);
+        var ValidaDepartamento = request.UpdateDepartamento.Adapt<Departamento>();
+        bool isValid = UpdateDepartamentoValidator(ValidaDepartamento, DepartamentoToFind);
 
-        if (DepartamentoToFind is not null)
-        {
+        if (isValid)
+        {                     
             var updateDepartamento = new Departamento
-            {
-                Id = request.UpdateDepartamento.Id,
-                Dpt_descri = request.UpdateDepartamento.Dpt_descri,
-                Dpt_ativo = request.UpdateDepartamento.Dpt_ativo,
-                Dpt_usubdd = request.UpdateDepartamento.Dpt_usubdd,
-                Dpt_usucri = request.UpdateDepartamento.Dpt_usucri,
-                Dpt_usualt = request.UpdateDepartamento.Dpt_usualt,
-                Dpt_datcri = request.UpdateDepartamento.Dpt_datcri,
-                Dpt_datalt = request.UpdateDepartamento.Dpt_datalt
-            };
+                {
+                    Id = request.UpdateDepartamento.Id,
+                    Dpt_descri = request.UpdateDepartamento.Dpt_descri,
+                    Dpt_ativo = request.UpdateDepartamento.Dpt_ativo,
+                    Dpt_usubdd = request.UpdateDepartamento.Dpt_usubdd,
+                    Dpt_usucri = request.UpdateDepartamento.Dpt_usucri,
+                    Dpt_usualt = request.UpdateDepartamento.Dpt_usualt,
+                    Dpt_datcri = request.UpdateDepartamento.Dpt_datcri,
+                    Dpt_datalt = request.UpdateDepartamento.Dpt_datalt
+                };
 
             await _unitOfWork.WriteDataFor<Departamento>().UpdateAsync(updateDepartamento);
             await _unitOfWork.CommitAsync(cancellationToken);
-
+            
             return new ResponseWrapper<int>().Success(updateDepartamento.Id, "Atualização realizada com sucesso");
         }
+            return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");                
+    }
 
-        return new ResponseWrapper<int>().Failed("Falha ao atualizar o registro");
+    public bool UpdateDepartamentoValidator(Departamento departamentoRequest, Departamento departamento)
+    {
+        if (Convert.ToChar(departamentoRequest.Dpt_ativo.ToUpper()) != 'S')
+        {
+            return false;
+        }
+        else if (departamentoRequest.Dpt_ativo.Length > 1)
+        {
+            return false;
+        }
+        else if (departamentoRequest.Dpt_usucri == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
 

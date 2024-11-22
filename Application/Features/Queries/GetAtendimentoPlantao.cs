@@ -19,7 +19,7 @@ public class GetAtendimentoPlantaoById : IRequest<ResponseWrapper<AtendimentoPla
     public int Id { get; set; }
 }
 
-public class GetAtendimentoPlantaoByStatus : IRequest<ResponseWrapper<AtendimentoPlantaoResponse>>
+public class GetAtendimentoPlantaoByStatus : IRequest<ResponseWrapper<List<AtendimentoPlantaoResponse>>>
 {
     public string AtendimentoByStatus { get; set; }
 }

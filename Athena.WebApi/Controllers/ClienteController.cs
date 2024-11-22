@@ -4,10 +4,11 @@ using Athena.WebApi.Controllers.BaseApi;
 using common.Requests;
 using Common.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.ExceptionServices;
 
 namespace Athena.WebApi.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 
 public class ClienteController : BaseApiController
 {
@@ -17,17 +18,24 @@ public class ClienteController : BaseApiController
     /// <param name="CreateClienteAsync">Objeto com os campos necessários para criação de um Cliente</param>
     /// <returns>IActionResult</returns>
     /// <response code="201">Caso inserção seja feita com sucesso</response>
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateClienteAsync([FromBody] CreateCliente createCliente)
     {
-        var response = await Sender.Send(new CreateClienteCommand { CreateCliente = createCliente });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateClienteCommand { CreateCliente = createCliente });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     /// <summary>
@@ -36,17 +44,24 @@ public class ClienteController : BaseApiController
     /// <param name="UpdateClienteAsync">Objeto com os campos necessários para atualização de um Cliente</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateClienteAsync([FromBody] UpdateCliente updateCliente)
     {
-        var response = await Sender.Send(new UpdateClienteCommand { UpdateCliente = updateCliente });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateClienteCommand { UpdateCliente = updateCliente });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     /// <summary>
@@ -54,17 +69,24 @@ public class ClienteController : BaseApiController
     /// </summary>    
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteClienteAsync(int id)
     {
-        var response = await Sender.Send(new DeleteClienteCommand { IdClienteToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteClienteCommand { IdClienteToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     /// <summary>
@@ -73,17 +95,24 @@ public class ClienteController : BaseApiController
     /// <param name="GetClienteAllAsync">Objeto com os campos necessários para busca dos Clientes</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetClienteAllAsync()
     {
-        var response = await Sender.Send(new GetClienteAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetClienteAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     /// <summary>
@@ -92,16 +121,48 @@ public class ClienteController : BaseApiController
     /// <param name="GetClienteByIdAsync">Objeto com os campos necessários para busca do Cliente</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetClienteByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetClienteById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetClienteById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
+    }
+
+    /// <summary>
+    /// Busca uma lista de Clientes ativos cadastrados
+    /// </summary>
+    /// <param name="GetClienteByIdAsync">Objeto com os campos necessários para busca dos Clientes</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpGet("getbyname")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetClienteByNameAsync(string name)
+    {
+        try
+        {
+            var response = await Sender.Send(new GetClienteByName { NomeCliente = name});
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

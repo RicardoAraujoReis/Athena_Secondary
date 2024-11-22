@@ -19,4 +19,7 @@ public class GetDepartamentoById : IRequest<ResponseWrapper<DepartamentoResponse
     public int Id { get; set; }
 }
 
-
+public class GetDepartamentoByStatus : IRequest<ResponseWrapper<List<DepartamentoResponse>>>
+{
+    public string StatusDepartamento { get; set; }
+}

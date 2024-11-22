@@ -19,4 +19,7 @@ public class GetFuncaoById : IRequest<ResponseWrapper<FuncaoResponse>>
     public int Id { get; set; }
 }
 
-
+public class GetFuncaoByStatus : IRequest<ResponseWrapper<List<FuncaoResponse>>>
+{
+    public string StatusFuncao { get; set; }
+}

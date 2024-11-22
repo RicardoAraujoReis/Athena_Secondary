@@ -27,7 +27,7 @@ public class ReadDataAsync<T, TId> : IReadDataAsync<T, TId> where T : BaseEntity
     public async Task<T> GetByIdAsync(TId id)
     {
         return await _context.Set<T>().FindAsync(id);
-    }
+    }    
 
-    public IQueryable<T> Entities => _context.Set<T>();
+    public IQueryable<T> Entities => _context.Set<T>();    
 }

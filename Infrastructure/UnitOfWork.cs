@@ -1,5 +1,7 @@
 ﻿using Application;
 using Athena.Data;
+using Athena.Models;
+using Common.Responses;
 using Models.Interfaces;
 using System;
 using System.Collections;
@@ -43,7 +45,7 @@ internal class UnitOfWork<TId> : IUnitOfWork<TId>
         }
 
         return (IReadDataAsync<T, TId>)_instances[type];
-    }
+    }    
 
     public IWriteDataAsync<T, TId> WriteDataFor<T>() where T : BaseEntity<TId>
     {
