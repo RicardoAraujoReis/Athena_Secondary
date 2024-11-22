@@ -24,7 +24,7 @@ public class GetLinhaNegocioByStatus : IRequest<ResponseWrapper<LinhaNegocioResp
     public String LinhaNegocioByStatus { get; set; }
 }
 
-public class GetLinhaNegocioBySearchParameters : IRequest<ResponseWrapper<LinhaNegocioResponse>>
+public class GetLinhaNegocioBySearchParameters : IRequest<ResponseWrapper<List<LinhaNegocioResponse>>>
 {
     public int Id { get; set; }
     public String LinhaNegocioByStatus { get; set; }

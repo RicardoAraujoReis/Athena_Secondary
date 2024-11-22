@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Queries.QueriesHandler.AtendimentoPlantaoQueriesHandler;
 
-public class GetAtendimentoPlantaoHandlerByStatus : IRequestHandler<GetAtendimentoPlantaoByStatus, ResponseWrapper<AtendimentoPlantaoResponse>>
+public class GetAtendimentoPlantaoHandlerByStatus : IRequestHandler<GetAtendimentoPlantaoByStatus, ResponseWrapper<List<AtendimentoPlantaoResponse>>>
 {
     private readonly IUnitOfWork<int> _unitOfWork;
 
@@ -20,7 +20,7 @@ public class GetAtendimentoPlantaoHandlerByStatus : IRequestHandler<GetAtendimen
         _unitOfWork = unitOfWork;
     }    
 
-    public async Task<ResponseWrapper<AtendimentoPlantaoResponse>> Handle(GetAtendimentoPlantaoByStatus request, CancellationToken cancellationToken)
+    public async Task<ResponseWrapper<List<AtendimentoPlantaoResponse>>> Handle(GetAtendimentoPlantaoByStatus request, CancellationToken cancellationToken)
     {
         var atendimentoPlantaoToFind = _unitOfWork.ReadDataFor<AtendimentoPlantao>()
             .Entities
@@ -30,13 +30,13 @@ public class GetAtendimentoPlantaoHandlerByStatus : IRequestHandler<GetAtendimen
         if (atendimentoPlantaoToFind is not null)
         {
             return await Task.
-                FromResult(new ResponseWrapper<AtendimentoPlantaoResponse>().
+                FromResult(new ResponseWrapper<List<AtendimentoPlantaoResponse>>().
                 Success(data: atendimentoPlantaoToFind.
-                Adapt<AtendimentoPlantaoResponse>()));
+                Adapt<List<AtendimentoPlantaoResponse>>()));
         }
 
         return await Task.
-            FromResult(new ResponseWrapper<AtendimentoPlantaoResponse>().
+            FromResult(new ResponseWrapper<List<AtendimentoPlantaoResponse>>().
             Failed("Registro não encontrado"));
     }
 }

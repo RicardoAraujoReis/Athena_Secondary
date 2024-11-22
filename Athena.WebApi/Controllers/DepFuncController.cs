@@ -6,72 +6,107 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 
 public class DepFuncController : BaseApiController
 {
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateDepFuncAsync([FromBody] CreateDepFunc createDepFunc)
     {
-        var response = await Sender.Send(new CreateDepFuncCommand { CreateDepFunc = createDepFunc });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateDepFuncCommand { CreateDepFunc = createDepFunc });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateDepFuncAsync([FromBody] UpdateDepFunc updateDepFunc)
     {
-        var response = await Sender.Send(new UpdateDepFuncCommand { UpdateDepFunc = updateDepFunc });
-
-        if(!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateDepFuncCommand { UpdateDepFunc = updateDepFunc });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteDepFuncAsync(int id)
     {
-        var response = await Sender.Send(new DeleteDepFuncCommand { IdDepFuncToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteDepFuncCommand { IdDepFuncToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDepFuncAllAsync()
     {
-        var response = await Sender.Send(new GetDepFuncAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetDepFuncAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetDepFuncByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetDepFuncById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
-        }                        
-        return Ok(response);
+            var response = await Sender.Send(new GetDepFuncById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 }

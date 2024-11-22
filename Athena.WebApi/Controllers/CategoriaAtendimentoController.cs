@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 
 public class CategoriaAtendimentoController : BaseApiController
 {
@@ -16,17 +16,24 @@ public class CategoriaAtendimentoController : BaseApiController
     /// <param name="CreateCategoriaAtendimentoPlantaoAsync">Objeto com os campos necessários para criação de uma Categoria de Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="201">Caso inserção seja feita com sucesso</response>
-    [HttpPost]
+    [HttpPost("add")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateCategoriaAtendimentoAsync([FromBody] CreateCategoriaAtendimento createCategoriaAtendimento)
     {
-        var response = await Sender.Send(new CreateCategoriaAtendimentoCommand { CreateCategoriaAtendimento = createCategoriaAtendimento });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new CreateCategoriaAtendimentoCommand { CreateCategoriaAtendimento = createCategoriaAtendimento });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }        
     }
 
     /// <summary>
@@ -35,17 +42,24 @@ public class CategoriaAtendimentoController : BaseApiController
     /// <param name="UpdateCategoriaAtendimentoAsync">Objeto com os campos necessários para atualização de uma Categoria de Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("{id}")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateCategoriaAtendimentoAsync([FromBody] UpdateCategoriaAtendimento updateCategoriaAtendimento)
     {
-        var response = await Sender.Send(new UpdateCategoriaAtendimentoCommand { UpdateCategoriaAtendimento = updateCategoriaAtendimento });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new UpdateCategoriaAtendimentoCommand { UpdateCategoriaAtendimento = updateCategoriaAtendimento });
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
     }    
 
     /// <summary>
@@ -53,17 +67,24 @@ public class CategoriaAtendimentoController : BaseApiController
     /// </summary>    
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpDelete("{id}")]
+    [HttpDelete("delete")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteCategoriaAtendimentoAsync(int id)
     {
-        var response = await Sender.Send(new DeleteCategoriaAtendimentoCommand { IdCategoriaAtendimentoToDelete = id });
-
-        if (response.IsSuccessful)
+        try
         {
-            return NoContent();
+            var response = await Sender.Send(new DeleteCategoriaAtendimentoCommand { IdCategoriaAtendimentoToDelete = id });
+
+            if (response.IsSuccessful)
+            {
+                return NoContent();
+            }
+            return BadRequest();
         }
-        return BadRequest();
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -72,17 +93,24 @@ public class CategoriaAtendimentoController : BaseApiController
     /// <param name="GetCategoriaAtendimentoAllAsync">Objeto com os campos necessários para busca das Categorias de Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet]
+    [HttpGet("getall")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCategoriaAtendimentoAllAsync()
     {
-        var response = await Sender.Send(new GetCategoriaAtendimentoAll());
-
-        if (!response.IsSuccessful)
+        try
         {
-            return BadRequest(response);
+            var response = await Sender.Send(new GetCategoriaAtendimentoAll());
+
+            if (!response.IsSuccessful)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 
     /// <summary>
@@ -91,16 +119,23 @@ public class CategoriaAtendimentoController : BaseApiController
     /// <param name="GetCategoriaAtendimentoByIdAsync">Objeto com os campos necessários para busca da Categoria de Atendimento</param>
     /// <returns>IActionResult</returns>
     /// <response code="200">Caso a busca seja feita com sucesso</response>
-    [HttpGet("{id}")]
+    [HttpGet("getbyid")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCategoriaAtendimentoByIdAsync(int id)
     {
-        var response = await Sender.Send(new GetCategoriaAtendimentoById { Id = id });
-
-        if (!response.IsSuccessful)
+        try
         {
-            return NotFound();
+            var response = await Sender.Send(new GetCategoriaAtendimentoById { Id = id });
+
+            if (!response.IsSuccessful)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
-        return Ok(response);
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }        
     }
 }

@@ -19,4 +19,12 @@ public class GetClienteById : IRequest<ResponseWrapper<ClienteResponse>>
     public int Id { get; set; }
 }
 
+public class GetClienteByStatus : IRequest<ResponseWrapper<List<ClienteResponse>>>
+{
+    public string StatusCliente { get; set; }
+}
 
+public class GetClienteByName : IRequest<ResponseWrapper<ClienteResponse>>
+{
+    public string NomeCliente { get; set; }
+}

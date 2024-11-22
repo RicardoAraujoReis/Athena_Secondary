@@ -19,4 +19,7 @@ public class GetUsuarioById : IRequest<ResponseWrapper<UsuarioResponse>>
     public int Id { get; set; }
 }
 
-
+public class GetUsuarioByStatus : IRequest<ResponseWrapper<List<UsuarioResponse>>>
+{
+    public string StatusUsuario { get; set; }
+}
