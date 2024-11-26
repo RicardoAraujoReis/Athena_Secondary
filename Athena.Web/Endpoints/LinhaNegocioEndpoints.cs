@@ -3,4 +3,10 @@
 public static class LinhaNegocioEndpoints
 {
     public const string Create = "api/linhanegocio/add";
+    public const string Update = "api/linhanegocio/update";
+    public const string Delete = "api/linhanegocio/delete";
+    public const string GetAll = "api/linhanegocio/getall";
+    public const string GetById = "api/linhanegocio/getbyid";
+    public const string GetByStatus = "api/linhanegocio/getbystatus";
+    public const string GetByParameters = "api/linhanegocio/getbyparameters";
 }
