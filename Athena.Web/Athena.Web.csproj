@@ -18,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\" />
+    <Folder Include="Pages\AtendimentoPlantao\" />
+    <Folder Include="Pages\PreAtendimentoPlantao\" />
     <Folder Include="wwwroot\samples\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

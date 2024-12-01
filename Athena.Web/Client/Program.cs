@@ -1,4 +1,6 @@
 using Athena.Web;
+using Athena.Web.Services;
+using Athena.Web.Services.ServicesImplementation;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
@@ -13,8 +15,19 @@ namespace Athena.Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddScoped(sp => new HttpClient 
+            {
+                    BaseAddress = new Uri("https://localhost:7036/") 
+            });
+
+        /*
+         builder.Services.AddScoped(sp => new HttpClient 
+        {
+                BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseApiUrl")) 
+        });*/
+        
             builder.Services.AddMudServices();
+            builder.Services.AddScoped<ILinhaNegocioServices, LinhaNegocioServices>();
 
             await builder.Build().RunAsync();
         }
