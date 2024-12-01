@@ -14,6 +14,14 @@ public class Program
 
         // Add services to the container.
 
+        builder.Services.AddCors(policy => policy.AddPolicy("Athena", options =>
+        {
+            options
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        }));
+
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
             {
@@ -37,6 +45,8 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseCors("Athena");
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -47,7 +57,6 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 

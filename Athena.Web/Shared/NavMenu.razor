@@ -1,6 +1,21 @@
-﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <!--<MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>-->
-    <!--<MudNavLink Href="weather" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Weather</MudNavLink>-->
-    <MudNavLink Href="" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.NewReleases">Cadastros</MudNavLink>
-</MudNavMenu>
+﻿<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+
+<MudPaper Width="250px" Class="d-inline-flex py-3" Elevation="0">
+    <MudNavMenu Class="mud-width-full">        
+        <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Preview">Pré Atendimento Plantão</MudNavLink>
+        <MudNavLink Href="/servers" Icon="@Icons.Material.Filled.Analytics">Atendimento Plantão</MudNavLink>
+        <MudDivider Class="my-2" />
+        <MudNavGroup Title="Cadastros" Icon="@Icons.Material.Filled.Folder" Expanded="false">
+            <MudNavLink Href="/users" Icon="@Icons.Material.Filled.AddLocation" IconColor="Color.Success">Clientes</MudNavLink>
+            <MudNavLink Href="linhaNegocio" Icon="@Icons.Material.Filled.Segment" IconColor="Color.Info">Linha de Negócio</MudNavLink>
+            <MudNavLink Href="/security" Icon="@Icons.Material.Filled.House" IconColor="Color.Info">Departamento</MudNavLink>
+            <MudNavLink Href="/security" Icon="@Icons.Material.Filled.Work" IconColor="Color.Info">Função</MudNavLink>
+            <MudNavLink Href="/security" Icon="@Icons.Material.Filled.Category" IconColor="Color.Info">Categoria de Atendimento</MudNavLink>            
+        </MudNavGroup>        
+        <MudNavGroup Title="Settings" Icon="@Icons.Material.Filled.Settings" Expanded="false">
+            <MudNavLink Href="/users" Icon="@Icons.Material.Filled.People" IconColor="Color.Success">Users</MudNavLink>
+            <MudNavLink Href="/security" Icon="@Icons.Material.Filled.Security" IconColor="Color.Info">Security</MudNavLink>
+            <MudNavLink Href="/security" Icon="@Icons.Material.Filled.List" IconColor="Color.Info">Dados Listas</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudPaper>

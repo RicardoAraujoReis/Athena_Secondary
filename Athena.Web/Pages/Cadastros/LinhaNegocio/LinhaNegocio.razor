@@ -1,13 +1,30 @@
 ﻿@page "/linhaNegocio"
 
-<!-- <MudLayout>
-    <MudAppBar Elevation="1" Color="Color.Primary" Fixed="false">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"></MudIconButton>
-    </MudAppBar>
-</MudLayout> -->
+<MudTable Items="@linhaNegocios" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <ToolBarContent>
+        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateLinhaNegocioAsync())"/>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descrição</MudTh>
+        <MudTh>Lhn_ativo</MudTh>
+        <MudTh>Lhn_usubdd</MudTh>
+        <MudTh>Lhn_usucri</MudTh>
+        <MudTh>Lhn_usualt</MudTh>
+        <MudTh>Lhn_datcri</MudTh>
+        <MudTh>Lhn_datalt</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Lhn_descri">@context.Lhn_descri</MudTd>
+        <MudTd DataLabel="Lhn_ativo">@context.Lhn_ativo</MudTd>
+        <MudTd DataLabel="Lhn_usubdd">@context.Lhn_usubdd</MudTd>
+        <MudTd DataLabel="Lhn_usucri">@context.Lhn_usucri</MudTd>
+        <MudTd DataLabel="Lhn_usualt">@context.Lhn_usualt</MudTd>
+        <MudTd DataLabel="Lhn_datcri">@context.Lhn_datcri</MudTd>
+        <MudTd DataLabel="Lhn_datalt">@context.Lhn_datalt</MudTd>
+    </RowTemplate>
+</MudTable>
 
-
-
-@code {
-
-}
+<!--<MudSwitch @bind-Value="_hidePosition" Color="Color.Primary">Hide <b>position</b> when Breakpoint=Xs</MudSwitch>-->
+<MudSwitch @bind-Value="_loading" Color="Color.Primary">Show Loading</MudSwitch>
