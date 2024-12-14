@@ -8,9 +8,9 @@ public class Cliente : BaseEntity<int>
     public String Cli_ativo { get; set; }
     public String Cli_usubdd { get; set; }
     public int Cli_usucri { get; set; }
-    public int Cli_usualt { get; set; }
+    public int? Cli_usualt { get; set; }
     public DateTime Cli_datcri { get; set; }
-    public DateTime Cli_datalt { get; set; }
+    public DateTime? Cli_datalt { get; set; }
     public int Cli_lhn_identi { get; set; }
     public virtual LinhaNegocio LinhaNegocio { get; set; }
     public virtual List<AtendimentoPlantao> Atendimentos { get; set; }

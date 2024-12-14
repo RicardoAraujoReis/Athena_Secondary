@@ -1,24 +1,24 @@
 ﻿namespace Common.Requests;
 
-public record CreateCategoriaAtendimento(        
-    int Cat_catpai,
-    int Cat_nivel,
-    String Cat_valor,
-    String Cat_usubdd,
-    int Cat_usucri,
-    int Cat_usualt,
-    DateTime Cat_datcri, 
-    DateTime Cat_datalt 
-);
+public class CreateCategoriaAtendimento {
+    public int Cat_catpai { get; set; }
+    public int Cat_nivel { get; set; }
+    public String Cat_valor { get; set; }
+    public String Cat_usubdd { get; set; }
+    public int Cat_usucri { get; set; }
+    public int Cat_usualt { get; set; }
+    public DateTime Cat_datcri { get; set; } 
+    public DateTime? Cat_datalt { get; set; }
+};
 
-public record UpdateCategoriaAtendimento(
-    int Id,
-    int Cat_catpai,
-    int Cat_nivel,
-    String Cat_valor,
-    String Cat_usubdd,
-    int Cat_usucri,
-    int Cat_usualt,
-    DateTime Cat_datcri,
-    DateTime Cat_datalt
-);
+public class UpdateCategoriaAtendimento {
+    public int Id { get; set; }
+    public int Cat_catpai { get; set; }
+    public int Cat_nivel { get; set; }
+    public String Cat_valor { get; set; }
+    public String Cat_usubdd { get; set; }
+    public int Cat_usucri { get; set; }
+    public int? Cat_usualt { get; set; }
+    public DateTime Cat_datcri { get; set; }
+    public DateTime? Cat_datalt { get; set; }
+};

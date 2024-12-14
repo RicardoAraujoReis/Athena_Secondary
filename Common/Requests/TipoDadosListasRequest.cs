@@ -1,20 +1,20 @@
 ﻿namespace Common.Requests;
 
-public record CreateTipoDadosListas(        
-    String Tid_descri,
-    String Tid_usubdd,
-    DateTime Tid_datcri,
-    DateTime Tid_datalt,
-    int Tid_usucri,
-    int Tid_usualt
-);
+public class CreateTipoDadosListas {
+    public String Tid_descri { get; set; }
+    public String Tid_usubdd { get; set; }
+    public DateTime Tid_datcri { get; set; }
+    public DateTime? Tid_datalt { get; set; }
+    public int Tid_usucri { get; set; }
+    public int? Tid_usualt { get; set; }
+};
 
-public record UpdateTipoDadosListas(
-    int Id,
-    String Tid_descri,
-    String Tid_usubdd,
-    DateTime Tid_datcri,
-    DateTime Tid_datalt,
-    int Tid_usucri,
-    int Tid_usualt
-);
+public class UpdateTipoDadosListas {
+    public int Id { get; set; }
+    public String Tid_descri { get; set; }
+    public String Tid_usubdd { get; set; }
+    public DateTime Tid_datcri { get; set; }
+    public DateTime? Tid_datalt { get; set; }
+    public int Tid_usucri { get; set; }
+    public int? Tid_usualt { get; set; }
+};

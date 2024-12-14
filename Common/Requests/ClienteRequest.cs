@@ -1,24 +1,24 @@
 ﻿namespace common.Requests;
 
-public record CreateCliente(        
-    String Cli_descri,
-    String Cli_ativo,
-    String Cli_usubdd,
-    int Cli_usucri,
-    int Cli_usualt,
-    DateTime Cli_datcri,
-    DateTime Cli_datalt,
-    int Cli_lhn_identi        
-);
+public class CreateCliente {
+    public String Cli_descri { get; set; }
+    public String Cli_ativo { get; set; }
+    public String Cli_usubdd { get; set; }
+    public int Cli_usucri { get; set; }
+    public int? Cli_usualt { get; set; }
+    public DateTime Cli_datcri { get; set; }
+    public DateTime? Cli_datalt { get; set; }
+    public int Cli_lhn_identi { get; set; }
+};
 
-public record UpdateCliente(
-    int Id,
-    String Cli_descri,
-    String Cli_ativo,
-    String Cli_usubdd,
-    int Cli_usucri,
-    int Cli_usualt,
-    DateTime Cli_datcri,
-    DateTime Cli_datalt,
-    int Cli_lhn_identi
-);
+public class UpdateCliente {
+    public int Id { get; set; }
+    public String Cli_descri { get; set; }
+    public String Cli_ativo { get; set; }
+    public String Cli_usubdd { get; set; }
+    public int Cli_usucri { get; set; }
+    public int Cli_usualt { get; set; }
+    public DateTime Cli_datcri { get; set; }
+    public DateTime Cli_datalt { get; set; }
+    public int Cli_lhn_identi { get; set; }
+};

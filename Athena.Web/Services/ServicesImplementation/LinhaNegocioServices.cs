@@ -24,7 +24,8 @@ public class LinhaNegocioServices : ILinhaNegocioServices
 
     public async Task<ResponseWrapper<int>> DeleteLinhaNegocioAsync(int id)
     {
-        var response = await _httpClient.DeleteAsync($"{LinhaNegocioEndpoints.Delete}/{id}");
+        var endpoint = LinhaNegocioEndpoints.BuildEndpoints(LinhaNegocioEndpoints.Delete, id);
+        var response = await _httpClient.DeleteAsync(endpoint);        
         return await response.ToResponse<int>();
     }
 
@@ -55,5 +56,11 @@ public class LinhaNegocioServices : ILinhaNegocioServices
     {
         var response = await _httpClient.PutAsJsonAsync(LinhaNegocioEndpoints.Update, updateLinhaNegocio);
         return await response.ToResponse<int>();
+    }
+
+    public async Task<ResponseWrapper<List<LinhaNegocioResponse>>> GetLinhaNegocioByDescriptionAsync(string description)
+    {
+        var response = await _httpClient.GetAsync($"{LinhaNegocioEndpoints.GetByDescription}/{description}");
+        return await response.ToResponse<List<LinhaNegocioResponse>>();
     }
 }

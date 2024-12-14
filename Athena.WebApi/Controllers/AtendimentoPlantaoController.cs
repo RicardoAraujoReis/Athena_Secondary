@@ -2,6 +2,7 @@
 using Application.Features.Queries;
 using Athena.WebApi.Controllers.BaseApi;
 using Common.Requests;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;

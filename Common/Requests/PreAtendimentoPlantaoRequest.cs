@@ -1,48 +1,48 @@
 ﻿namespace Common.Requests;
 
-public record CreatePreAtendimentoPlantao(        
-    DateTime Ptd_datptd,
-    int Ptd_usu_identi,
-    int Ptd_cli_identi,
-    String Ptd_tipptd,
-    String Ptd_critic,
-    String Ptd_resumo,
-    String Ptd_numcha,
-    String Ptd_jirarl,
-    String Ptd_numjir,
-    String Ptd_diagn1,
-    String Ptd_status,
-    String Ptd_reton2,
-    String Ptd_observ,
-    String Ptd_nomal1,
-    int Ptd_numatd,
-    String Ptd_usubdd,
-    DateTime Ptd_datcri,
-    DateTime Ptd_datalt,
-    int Ptd_usucri,
-    int Ptd_usualt
-);
+public class CreatePreAtendimentoPlantao {
+    public DateTime Ptd_datptd { get; set; }
+    public int Ptd_usu_identi { get; set; }
+    public int Ptd_cli_identi { get; set; }
+    public String Ptd_tipptd { get; set; }
+    public String Ptd_critic { get; set; }
+    public String Ptd_resumo { get; set; }
+    public String? Ptd_numcha { get; set; }
+    public String Ptd_jirarl { get; set; }
+    public String? Ptd_numjir { get; set; }
+    public String? Ptd_diagn1 { get; set; }
+    public String Ptd_status { get; set; }
+    public String? Ptd_reton2 { get; set; }
+    public String? Ptd_observ { get; set; }
+    public String Ptd_nomal1 { get; set; }
+    public int? Ptd_numatd { get; set; }
+    public String Ptd_usubdd { get; set; }
+    public DateTime Ptd_datcri { get; set; }
+    public DateTime? Ptd_datalt { get; set; }
+    public int Ptd_usucri { get; set; }
+    public int? Ptd_usualt { get; set; }
+};
 
-public record UpdatePreAtendimentoPlantao(
-    int Id,
-    DateTime Ptd_datptd,
-    int Ptd_usu_identi,
-    int Ptd_cli_identi,
-    String Ptd_tipptd,
-    String Ptd_critic,
-    String Ptd_resumo,
-    String Ptd_numcha,
-    String Ptd_jirarl,
-    String Ptd_numjir,
-    String Ptd_diagn1,
-    String Ptd_status,
-    String Ptd_reton2,
-    String Ptd_observ,
-    String Ptd_nomal1,
-    int Ptd_numatd,
-    String Ptd_usubdd,
-    DateTime Ptd_datcri,
-    DateTime Ptd_datalt,
-    int Ptd_usucri,
-    int Ptd_usualt
-);
+public class UpdatePreAtendimentoPlantao {
+    public int Id { get; set; }
+    public DateTime Ptd_datptd { get; set; }
+    public int Ptd_usu_identi { get; set; }
+    public int Ptd_cli_identi { get; set; }
+    public String Ptd_tipptd { get; set; }
+    public String Ptd_critic { get; set; }
+    public String Ptd_resumo { get; set; }
+    public String? Ptd_numcha { get; set; }
+    public String Ptd_jirarl { get; set; }
+    public String? Ptd_numjir { get; set; }
+    public String? Ptd_diagn1 { get; set; }
+    public String Ptd_status { get; set; }
+    public String? Ptd_reton2 { get; set; }
+    public String? Ptd_observ { get; set; }
+    public String Ptd_nomal1 { get; set; }
+    public int? Ptd_numatd { get; set; }
+    public String Ptd_usubdd { get; set; }
+    public DateTime Ptd_datcri { get; set; }
+    public DateTime? Ptd_datalt { get; set; }
+    public int Ptd_usucri { get; set; }
+    public int? Ptd_usualt { get; set; }
+};

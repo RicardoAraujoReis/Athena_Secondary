@@ -1,0 +1,42 @@
+﻿using Common.Requests;
+using Microsoft.AspNetCore.Components;
+using MudBlazor;
+
+namespace Athena.Web.Pages.Cadastros.LinhaNegocio;
+
+public partial class CreateLinhaNegocioDialog
+{
+    [Parameter]
+    public CreateLinhaNegocio CreateLinhaNegocioRequest { get; set; } = new();
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+    
+    MudForm _form = default;
+
+    private async Task SaveAsync()
+    {
+        CreateLinhaNegocioRequest.Lhn_usucri = 1;
+        CreateLinhaNegocioRequest.Lhn_usualt = null;
+        CreateLinhaNegocioRequest.Lhn_datcri = DateTime.Now;
+        CreateLinhaNegocioRequest.Lhn_datalt = null;
+        CreateLinhaNegocioRequest.Lhn_usubdd = "LhnDialog";
+        CreateLinhaNegocioRequest.Lhn_ativo = "S";
+
+        var response = await _linhaNegocioServices.CreateLinhaNegocioAsync(CreateLinhaNegocioRequest);
+        if (response.IsSuccessful)
+        {
+            _snackbar.Add(response.Messages, Severity.Success);
+            MudDialog.Close();            
+        }
+        else
+        {
+            foreach (var message in response.Messages)
+            {
+                _snackbar.Add(message.ToString(), Severity.Error);
+            }
+        }        
+    } 
+
+    private void Cancel() => MudDialog.Cancel();
+}

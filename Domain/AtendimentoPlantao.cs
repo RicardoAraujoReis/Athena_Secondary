@@ -15,18 +15,18 @@ public class AtendimentoPlantao : BaseEntity<int>
     public String Atd_issue { get; set; }
     public String Atd_critic { get; set; }
     public String Atd_resplt { get; set; }
-    public String Atd_ren1hm { get; set; }
+    public String? Atd_ren1hm { get; set; }
     public String Atd_resn1 { get; set; }
-    public String Atd_evoln1 { get; set; }
-    public String Atd_observ { get; set; }
+    public String? Atd_evoln1 { get; set; }
+    public String? Atd_observ { get; set; }
     public String Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public String Atd_nomal2 { get; set; }
     public String Atd_status { get; set; }
     public int Atd_usucri { get; set; }
-    public int Atd_usualt { get; set; }
+    public int? Atd_usualt { get; set; }
     public DateTime Atd_datcri { get; set; }
-    public DateTime Atd_datalt { get; set; }
+    public DateTime? Atd_datalt { get; set; }
     public virtual Usuario Usuario { get; set; }
     public virtual Cliente Cliente { get; set; }
     public virtual PreAtendimentoPlantao PreAtendimentoPlantao { get; set; }

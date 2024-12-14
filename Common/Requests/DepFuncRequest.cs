@@ -1,24 +1,24 @@
 ﻿namespace Common.Requests;
 
-public record CreateDepFunc(       
-    int Dfc_dpt_identi,
-    int Dfc_fnc_identi,
-    int Dfc_usu_identi,
-    String Dfc_usubdd,
-    int Dfc_usucri,
-    int Dfc_usualt,
-    DateTime Dfc_datcri,
-    DateTime Dfc_datalt
-);
+public class CreateDepFunc {
+    public int Dfc_dpt_identi { get; set; }
+    public int Dfc_fnc_identi { get; set; }
+    public int Dfc_usu_identi { get; set; }
+    public String Dfc_usubdd { get; set; }
+    public int Dfc_usucri { get; set; }
+    public int? Dfc_usualt { get; set; }
+    public DateTime Dfc_datcri { get; set; }
+    public DateTime? Dfc_datalt { get; set; }
+};
 
-public record UpdateDepFunc(
-    int Id,
-    int Dfc_dpt_identi,
-    int Dfc_fnc_identi,
-    int Dfc_usu_identi,
-    String Dfc_usubdd,
-    int Dfc_usucri,
-    int Dfc_usualt,
-    DateTime Dfc_datcri,
-    DateTime Dfc_datalt
-);
+public class UpdateDepFunc {
+    public int Id { get; set; }
+    public int Dfc_dpt_identi { get; set; }
+    public int Dfc_fnc_identi { get; set; }
+    public int Dfc_usu_identi { get; set; }
+    public String Dfc_usubdd { get; set; }
+    public int Dfc_usucri { get; set; }
+    public int? Dfc_usualt { get; set; }
+    public DateTime Dfc_datcri { get; set; }
+    public DateTime? Dfc_datalt { get; set; }
+};

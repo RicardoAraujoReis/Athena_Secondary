@@ -9,9 +9,9 @@ public class DepFunc : BaseEntity<int>
     public int Dfc_usu_identi { get; set; }
     public String Dfc_usubdd { get; set; }
     public int Dfc_usucri { get; set; }
-    public int Dfc_usualt { get; set; }
+    public int? Dfc_usualt { get; set; }
     public DateTime Dfc_datcri { get; set; }
-    public DateTime Dfc_datalt { get; set; }
+    public DateTime? Dfc_datalt { get; set; }
     public virtual Departamento Departamento { get; set; }
     public virtual Funcao Funcao { get; set; }
     public virtual Usuario Usuario { get; set; }

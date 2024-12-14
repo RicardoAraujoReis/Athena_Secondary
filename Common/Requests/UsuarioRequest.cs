@@ -1,34 +1,34 @@
 ﻿namespace Common.Requests;
 
-public record CreateUsuario(        
-    String Usu_descri,
-    String Usu_login,
-    String Usu_senha,
-    String Usu_email, 
-    String Usu_ativo, 
-    String Usu_status,
-    String Usu_master,
-    String Usu_tipusu,
-    String Usu_usubdd,
-    int Usu_usucri,
-    int Usu_usualt,
-    DateTime usu_datcri,
-    DateTime usu_datalt
-);
+public class CreateUsuario {
+    public String Usu_descri { get; set; }
+    public String Usu_login { get; set; }
+    public String Usu_senha { get; set; }
+    public String Usu_email { get; set; }
+    public String Usu_ativo { get; set; }
+    public String Usu_status { get; set; }
+    public String Usu_master { get; set; }
+    public String Usu_tipusu { get; set; }
+    public String Usu_usubdd { get; set; }
+    public int Usu_usucri { get; set; }
+    public int? Usu_usualt { get; set; }
+    public DateTime usu_datcri { get; set; }
+    public DateTime? usu_datalt { get; set; }
+};
 
-public record UpdateUsuario(
-    int Id,
-    String Usu_descri,
-    String Usu_login,
-    String Usu_senha,
-    String Usu_email,
-    String Usu_ativo,
-    String Usu_status,
-    String Usu_master,
-    String Usu_tipusu,
-    String Usu_usubdd,
-    int Usu_usucri,
-    int Usu_usualt,
-    DateTime Usu_datcri,
-    DateTime Usu_datalt
-);
+public class UpdateUsuario {
+    public int Id { get; set; }
+    public String Usu_descri { get; set; }
+    public String Usu_login { get; set; }
+    public String Usu_senha { get; set; }
+    public String Usu_email { get; set; }
+    public String Usu_ativo { get; set; }
+    public String Usu_status { get; set; }
+    public String Usu_master { get; set; }
+    public String Usu_tipusu { get; set; }
+    public String Usu_usubdd { get; set; }
+    public int Usu_usucri { get; set; }
+    public int? Usu_usualt { get; set; }
+    public DateTime Usu_datcri { get; set; }
+    public DateTime? Usu_datalt { get; set; }
+};

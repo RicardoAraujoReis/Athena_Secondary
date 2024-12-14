@@ -13,5 +13,6 @@ namespace Athena.Web.Services
         Task<ResponseWrapper<List<LinhaNegocioResponse>>> GetLinhaNegocioByStatusAsync(string status);
         Task<ResponseWrapper<List<LinhaNegocioResponse>>> GetLinhaNegocioByParametersAsync(int? id, string status);
         Task<ResponseWrapper<List<LinhaNegocioResponse>>> GetLinhaNegocioAllAsync();
+        Task<ResponseWrapper<List<LinhaNegocioResponse>>> GetLinhaNegocioByDescriptionAsync(string description);
     }
 }

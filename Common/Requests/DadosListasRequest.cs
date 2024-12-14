@@ -1,22 +1,22 @@
 ﻿namespace Common.Requests;
 
-public record CreateDadosListas(        
-    int Dal_tid_identi,
-    String Dal_valor,
-    String Dal_usubdd,
-    DateTime Dal_datcri,
-    DateTime Dal_datalt,
-    int Dal_usucri,
-    int Dal_usualt
-);
+public class CreateDadosListas {
+    public int Dal_tid_identi { get; set; }
+    public String Dal_valor { get; set; }
+    public String Dal_usubdd { get; set; }
+    public DateTime Dal_datcri { get; set; }
+    public DateTime? Dal_datalt { get; set; }
+    public int Dal_usucri { get; set; }
+    public int? Dal_usualt { get; set; }
+};
 
-public record UpdateDadosListas(
-    int Id,
-    int Dal_tid_identi,
-    String Dal_valor,
-    String Dal_usubdd,
-    DateTime Dal_datcri,
-    DateTime Dal_datalt,
-    int Dal_usucri,
-    int Dal_usualt
-);
+public class UpdateDadosListas {
+    public int Id { get; set; }
+    public int Dal_tid_identi { get; set; }
+    public String Dal_valor { get; set; }
+    public String Dal_usubdd { get; set; }
+    public DateTime Dal_datcri { get; set; }
+    public DateTime? Dal_datalt { get; set; }
+    public int Dal_usucri { get; set; }
+    public int? Dal_usualt { get; set; }
+};

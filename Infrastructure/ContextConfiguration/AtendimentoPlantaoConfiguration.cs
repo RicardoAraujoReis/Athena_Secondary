@@ -19,7 +19,7 @@ internal class AtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Atendi
         builder.Property(x => x.Atd_issue).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Número do JIRA");
         builder.Property(x => x.Atd_critic).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
         builder.Property(x => x.Atd_resplt).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Tema resolvido no mesmo plantão? (1 - SIM / 0 - NÃO)");
-        builder.Property(x => x.Atd_ren1hm).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Resolveria se o N1 tivesse testado em HOM? (1 - SIM / 0 - NÃO)");
+        builder.Property(x => x.Atd_ren1hm).HasMaxLength(1).HasAnnotation("CustomAnnotation","Resolveria se o N1 tivesse testado em HOM? (1 - SIM / 0 - NÃO)");
         builder.Property(x => x.Atd_resn1).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Resolveria N1? (1 - SIM / 0 - NÃO)");
         builder.Property(x => x.Atd_evoln1).HasMaxLength(65).HasAnnotation("CustomAnnotation","Tema em que o N1 precisa evoluir");
         builder.Property(x => x.Atd_observ).HasMaxLength(255).HasAnnotation("CustomAnnotation","Observação");

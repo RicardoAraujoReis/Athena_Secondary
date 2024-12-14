@@ -1,53 +1,54 @@
 ﻿namespace Common.Requests;
 
-public record CreateAtendimentoPlantao(
-    int Atd_usu_identi,
-    int Atd_ptd_identi,
-    int Atd_cli_identi,
-    String Atd_tipatd,
-    int Atd_cat_identi,
-    String Atd_resumo,
-    String Atd_respn2,
-    String Atd_crijir,
-    String Atd_issue,
-    String Atd_critic,
-    String Atd_resplt,
-    String Atd_ren1hm,
-    String Atd_resn1,
-    String Atd_evoln1,
-    String Atd_observ,
-    String Atd_usubdd,
-    DateTime Atd_datatd,
-    String Atd_nomal2,
-    String Atd_status,
-    int Atd_usucri,
-    int Atd_usualt,
-    DateTime Atd_datcri,
-    DateTime Atd_datalt
-);
+public class CreateAtendimentoPlantao {
+    public int Atd_usu_identi { get; set; }
+    public int Atd_ptd_identi { get; set; }
+    public int Atd_cli_identi { get; set; }
+    public String Atd_tipatd { get; set; }
+    public int Atd_cat_identi { get; set; }
+    public String Atd_resumo { get; set; }
+    public String Atd_respn2 { get; set; }
+    public String Atd_crijir { get; set; }
+    public String Atd_issue  { get; set; }
+    public String Atd_critic { get; set; }
+    public String Atd_resplt { get; set; }
+    public String? Atd_ren1hm { get; set; }
+    public String Atd_resn1  { get; set; }
+    public String? Atd_evoln1 { get; set; }
+    public String? Atd_observ { get; set; }
+    public String Atd_usubdd { get; set; }
+    public DateTime Atd_datatd { get; set; }
+    public String Atd_nomal2 { get; set; }
+    public String Atd_status { get; set; }
+    public int Atd_usucri { get; set; }
+    public int? Atd_usualt { get; set; }
+    public DateTime Atd_datcri { get; set; }
+    public DateTime? Atd_datalt { get; set; }
+};
 
-public record UpdateAtendimentoPlantao(
-    int Id,
-    int Atd_usu_identi,        
-    int Atd_cli_identi,
-    String Atd_tipatd,
-    int Atd_cat_identi,
-    String Atd_resumo,
-    String Atd_respn2,
-    String Atd_crijir,
-    String Atd_issue,
-    String Atd_critic,
-    String Atd_resplt,
-    String Atd_ren1hm,
-    String Atd_resn1,
-    String Atd_evoln1,
-    String Atd_observ,
-    String Atd_usubdd,
-    DateTime Atd_datatd,
-    String Atd_nomal2,
-    String Atd_status,
-    int Atd_usucri,
-    int Atd_usualt,
-    DateTime Atd_datcri,
-    DateTime Atd_datalt
-);
+public class UpdateAtendimentoPlantao
+{
+    public int Id { get; set; }
+    public int Atd_usu_identi { get; set; }
+    public int Atd_cli_identi { get; set; }
+    public String Atd_tipatd { get; set; }
+    public int Atd_cat_identi { get; set; }
+    public String Atd_resumo { get; set; }
+    public String Atd_respn2 { get; set; }
+    public String Atd_crijir { get; set; }
+    public String Atd_issue { get; set; }
+    public String Atd_critic { get; set; }
+    public String Atd_resplt { get; set; }
+    public String? Atd_ren1hm { get; set; }
+    public String Atd_resn1 { get; set; }
+    public String? Atd_evoln1 { get; set; }
+    public String? Atd_observ { get; set; }
+    public String Atd_usubdd { get; set; }
+    public DateTime Atd_datatd { get; set; }
+    public String Atd_nomal2 { get; set; }
+    public String Atd_status { get; set; }
+    public int Atd_usucri { get; set; }
+    public int? Atd_usualt { get; set; }
+    public DateTime Atd_datcri { get; set; }
+    public DateTime? Atd_datalt { get; set; }
+};
