@@ -29,3 +29,8 @@ public class GetLinhaNegocioBySearchParameters : IRequest<ResponseWrapper<List<L
     public int Id { get; set; }
     public String LinhaNegocioByStatus { get; set; }
 }
+
+public class GetLinhaNegocioByDescription : IRequest<ResponseWrapper<List<LinhaNegocioResponse>>>
+{
+    public string descricao { get; set; }
+}

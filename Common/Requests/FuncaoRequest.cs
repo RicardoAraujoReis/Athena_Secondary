@@ -1,22 +1,22 @@
 ﻿namespace Common.Requests;
 
-public record CreateFuncao(       
-    String Fnc_descri,
-    String Fnc_ativo,
-    String Fnc_usubdd,
-    int Fnc_usucri,
-    int Fnc_usualt,
-    DateTime Fnc_datcri,
-    DateTime Fnc_datalt
-);
+public class CreateFuncao {
+    public String Fnc_descri { get; set; }
+    public String Fnc_ativo { get; set; }
+    public String Fnc_usubdd { get; set; }
+    public int Fnc_usucri { get; set; }
+    public int? Fnc_usualt { get; set; }
+    public DateTime Fnc_datcri { get; set; }
+    public DateTime? Fnc_datalt { get; set; }
+};
 
-public record UpdateFuncao(
-    int Id,
-    String Fnc_descri,
-    String Fnc_ativo,
-    String Fnc_usubdd,
-    int Fnc_usucri,
-    int Fnc_usualt,
-    DateTime Fnc_datcri,
-    DateTime Fnc_datalt
-);
+public class UpdateFuncao {
+    public int Id { get; set; }
+    public String Fnc_descri { get; set; }
+    public String Fnc_ativo { get; set; }
+    public String Fnc_usubdd { get; set; }
+    public int Fnc_usucri { get; set; }
+    public int? Fnc_usualt { get; set; }
+    public DateTime Fnc_datcri { get; set; }
+    public DateTime? Fnc_datalt { get; set; }
+};

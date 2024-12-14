@@ -4,6 +4,7 @@ using Athena.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    partial class AthenaContextModelSnapshot : ModelSnapshot
+    [Migration("20241203233606_AlterandoObrigatoriedades_AtendimentoPlantao")]
+    partial class AlterandoObrigatoriedades_AtendimentoPlantao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +221,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1)")
                         .HasAnnotation("CustomAnnotation", "Indica se o Cliente está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime?>("Cli_datalt")
+                    b.Property<DateTime>("Cli_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Cli_datcri")
@@ -233,7 +236,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Cli_lhn_identi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Cli_usualt")
+                    b.Property<int>("Cli_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -262,7 +265,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Dal_datalt")
+                    b.Property<DateTime>("Dal_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Dal_datcri")
@@ -271,7 +274,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Dal_tid_identi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Dal_usualt")
+                    b.Property<int>("Dal_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -306,7 +309,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Dfc_datalt")
+                    b.Property<DateTime>("Dfc_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Dfc_datcri")
@@ -321,7 +324,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Dfc_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Dfc_usualt")
+                    b.Property<int>("Dfc_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -360,7 +363,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1)")
                         .HasAnnotation("CustomAnnotation", "Indica se o Departamento está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime?>("Dpt_datalt")
+                    b.Property<DateTime>("Dpt_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Dpt_datcri")
@@ -372,7 +375,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasAnnotation("CustomAnnotation", "Nome do Departamento");
 
-                    b.Property<int?>("Dpt_usualt")
+                    b.Property<int>("Dpt_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -405,7 +408,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1)")
                         .HasAnnotation("CustomAnnotation", "Indica se a Função está ativa ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime?>("Fnc_datalt")
+                    b.Property<DateTime>("Fnc_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Fnc_datcri")
@@ -417,7 +420,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasAnnotation("CustomAnnotation", "Descrição da Função");
 
-                    b.Property<int?>("Fnc_usualt")
+                    b.Property<int>("Fnc_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -498,7 +501,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1)")
                         .HasAnnotation("CustomAnnotation", "Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
 
-                    b.Property<DateTime?>("Ptd_datalt")
+                    b.Property<DateTime>("Ptd_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Ptd_datcri")
@@ -509,6 +512,7 @@ namespace Infrastructure.Migrations
                         .HasAnnotation("CustomAnnotation", "Data do Pré Atendimento");
 
                     b.Property<string>("Ptd_diagn1")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasAnnotation("CustomAnnotation", "Análise realizada pelo N1");
@@ -524,17 +528,19 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasAnnotation("CustomAnnotation", "Nome do analista N1 caso não seja o mesmo usuário a preencher o formulário");
 
-                    b.Property<int?>("Ptd_numatd")
+                    b.Property<int>("Ptd_numatd")
                         .HasMaxLength(10)
                         .HasColumnType("int")
                         .HasAnnotation("CustomAnnotation", "Número do Atendimento gerado (se houver)");
 
                     b.Property<string>("Ptd_numcha")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Número do chamado");
 
                     b.Property<string>("Ptd_numjir")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Número do Jira");
@@ -569,7 +575,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Ptd_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Ptd_usualt")
+                    b.Property<int>("Ptd_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -599,7 +605,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Tid_datalt")
+                    b.Property<DateTime>("Tid_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Tid_datcri")
@@ -611,7 +617,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasAnnotation("CustomAnnotation", "Descrição do tipo de dados de listas");
 
-                    b.Property<int?>("Tid_usualt")
+                    b.Property<int>("Tid_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -638,7 +644,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Uln_datalt")
+                    b.Property<DateTime>("Uln_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Uln_datcri")
@@ -650,7 +656,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Uln_usu_identi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Uln_usualt")
+                    b.Property<int>("Uln_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
@@ -687,7 +693,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(1)")
                         .HasAnnotation("CustomAnnotation", "Indica se o Usuário está ativo ou não (S - SIM / N - NÃO)");
 
-                    b.Property<DateTime?>("Usu_datalt")
+                    b.Property<DateTime>("Usu_datalt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Usu_datcri")
@@ -735,7 +741,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Tipo do Usuário (N1 - 0, N2 - 1, ADM - 2, SYS - 3)");
 
-                    b.Property<int?>("Usu_usualt")
+                    b.Property<int>("Usu_usualt")
                         .HasMaxLength(10)
                         .HasColumnType("int");
 

@@ -1,22 +1,22 @@
 ﻿namespace Common.Requests;
 
-public record CreateDepartamento(
-    String Dpt_descri,
-    String Dpt_ativo,
-    String Dpt_usubdd,
-    int Dpt_usucri,
-    int Dpt_usualt,
-    DateTime Dpt_datcri,
-    DateTime Dpt_datalt
-);
+public class CreateDepartamento {
+    public String Dpt_descri { get; set; }
+    public String Dpt_ativo { get; set; }
+    public String Dpt_usubdd { get; set; }
+    public int Dpt_usucri { get; set; }
+    public int? Dpt_usualt { get; set; }
+    public DateTime Dpt_datcri { get; set; }
+    public DateTime? Dpt_datalt { get; set; }
+};
 
-public record UpdateDepartamento(
-    int Id,
-    String Dpt_descri,
-    String Dpt_ativo,
-    String Dpt_usubdd,
-    int Dpt_usucri,
-    int Dpt_usualt,
-    DateTime Dpt_datcri,
-    DateTime Dpt_datalt
-);
+public class UpdateDepartamento {
+    public int Id { get; set; }
+    public String Dpt_descri { get; set; }
+    public String Dpt_ativo { get; set; }
+    public String Dpt_usubdd { get; set; }
+    public int Dpt_usucri { get; set; }
+    public int? Dpt_usualt { get; set; }
+    public DateTime Dpt_datcri { get; set; }
+    public DateTime? Dpt_datalt { get; set; }
+};

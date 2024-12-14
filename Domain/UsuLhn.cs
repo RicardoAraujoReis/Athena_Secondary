@@ -8,9 +8,9 @@ public class UsuLhn : BaseEntity<int>
     public int Uln_lhn_identi { get; set; }    
     public String Uln_usubdd { get; set; }
     public int Uln_usucri { get; set; }
-    public int Uln_usualt { get; set; }
+    public int? Uln_usualt { get; set; }
     public DateTime Uln_datcri { get; set; }
-    public DateTime Uln_datalt { get; set; }
+    public DateTime? Uln_datalt { get; set; }
     public virtual LinhaNegocio LinhaNegocio { get; set; }
     public virtual Usuario Usuario { get; set; }
 

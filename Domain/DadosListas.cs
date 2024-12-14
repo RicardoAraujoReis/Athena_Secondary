@@ -8,9 +8,9 @@ public class DadosListas : BaseEntity<int>
     public String Dal_valor { get; set; }
     public String Dal_usubdd { get; set; }
     public DateTime Dal_datcri { get; set; }
-    public DateTime Dal_datalt { get; set; }
+    public DateTime? Dal_datalt { get; set; }
     public int Dal_usucri { get; set; }
-    public int Dal_usualt { get; set; }
+    public int? Dal_usualt { get; set; }
     public virtual TipoDadosListas TipoDadosListas { get; set; }
 
     public DadosListas UpdateDadosListas

@@ -1,22 +1,22 @@
 ﻿namespace Common.Requests;
 
-public record CreateUsuLhn(        
-    int Uln_usu_identi,
-    int Uln_lhn_identi,
-    String Uln_usubdd,
-    int Uln_usucri,
-    int Uln_usualt,
-    DateTime Uln_datcri,
-    DateTime Uln_datalt
-);
+public class CreateUsuLhn {
+    public int Uln_usu_identi { get; set; }
+    public int Uln_lhn_identi { get; set; }
+    public String Uln_usubdd { get; set; }
+    public int Uln_usucri { get; set; }
+    public int? Uln_usualt { get; set; }
+    public DateTime Uln_datcri { get; set; }
+    public DateTime? Uln_datalt { get; set; }
+};
 
-public record UpdateUsuLhn(
-    int Id,
-    int Uln_usu_identi,
-    int Uln_lhn_identi,
-    String Uln_usubdd,
-    int Uln_usucri,
-    int Uln_usualt,
-    DateTime Uln_datcri,
-    DateTime Uln_datalt
-);
+public class UpdateUsuLhn {
+    public int Id { get; set; }
+    public int Uln_usu_identi { get; set; }
+    public int Uln_lhn_identi { get; set; }
+    public String Uln_usubdd { get; set; }
+    public int Uln_usucri { get; set; }
+    public int? Uln_usualt { get; set; }
+    public DateTime Uln_datcri { get; set; }
+    public DateTime? Uln_datalt { get; set; }
+};

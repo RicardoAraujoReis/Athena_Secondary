@@ -8,9 +8,9 @@ public class Departamento : BaseEntity<int>
     public String Dpt_ativo { get; set; }
     public String Dpt_usubdd { get; set; }
     public int Dpt_usucri { get; set; }
-    public int Dpt_usualt { get; set; }
+    public int? Dpt_usualt { get; set; }
     public DateTime Dpt_datcri { get; set; }
-    public DateTime Dpt_datalt { get; set; }
+    public DateTime? Dpt_datalt { get; set; }
     public virtual List<DepFunc> DepFuncs { get; set; }
 
     public Departamento UpdateDepartamento(

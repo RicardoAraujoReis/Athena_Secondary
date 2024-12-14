@@ -8,9 +8,9 @@ public class Funcao : BaseEntity<int>
     public String Fnc_ativo { get; set; }
     public String Fnc_usubdd { get; set; }
     public int Fnc_usucri { get; set; }
-    public int Fnc_usualt { get; set; }
+    public int? Fnc_usualt { get; set; }
     public DateTime Fnc_datcri { get; set; }
-    public DateTime Fnc_datalt { get; set; }
+    public DateTime? Fnc_datalt { get; set; }
     public virtual List<DepFunc> DepFuncs { get; set; }
 
     public Funcao UpdateFuncao(

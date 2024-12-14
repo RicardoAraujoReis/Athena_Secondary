@@ -9,9 +9,9 @@ public class CategoriaAtendimento : BaseEntity<int>
     public String Cat_valor { get; set; }
     public String Cat_usubdd { get; set; }
     public int Cat_usucri { get; set; }
-    public int Cat_usualt { get; set; }
+    public int? Cat_usualt { get; set; }
     public DateTime Cat_datcri { get; set; }
-    public DateTime Cat_datalt { get; set; }
+    public DateTime? Cat_datalt { get; set; }
     public virtual List<AtendimentoPlantao> Atendimentos { get; set; }
 
     public CategoriaAtendimento UpdateCategoriaAtendimento(

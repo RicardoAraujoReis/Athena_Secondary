@@ -6,6 +6,7 @@ using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Athena.WebApi.Controllers;
 
@@ -48,7 +49,7 @@ public class LinhaNegocioController : BaseApiController
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
     [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> UpdateLinhaNegocioAsync([FromBody] UpdateLinhaNegocio updateLinhaNegocio)//, [FromRoute] int id)
+    public async Task<IActionResult> UpdateLinhaNegocioAsync([FromBody] UpdateLinhaNegocio updateLinhaNegocio)
     {
         try
         {
@@ -82,7 +83,7 @@ public class LinhaNegocioController : BaseApiController
 
             if (response.IsSuccessful)
             {
-                return NoContent();
+                return Ok(response);
             }
             return BadRequest(response);
         }
@@ -195,6 +196,25 @@ public class LinhaNegocioController : BaseApiController
                 return BadRequest(results);
             }
             return Ok(results);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
+
+    [HttpGet("getbydescription")]
+    public async Task<IActionResult> GetLinhaNegocioByDescriptionAsync(string description)
+    {
+        try
+        {
+            var request = await Sender.Send(new GetLinhaNegocioByDescription { descricao = description });
+
+            if (request.IsSuccessful)
+            {
+                return Ok(request);
+            }
+            return BadRequest(request);
         }
         catch (Exception ex)
         {
