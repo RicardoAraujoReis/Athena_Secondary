@@ -1,9 +1,7 @@
 ﻿using Athena.Web.Pages.Shared;
 using Common.Requests;
 using Common.Responses;
-using Microsoft.Extensions.Options;
 using MudBlazor;
-using static MudBlazor.CategoryTypes;
 
 namespace Athena.Web.Pages.Cadastros.LinhaNegocio;
 
@@ -18,6 +16,20 @@ public partial class LinhaNegocio
     protected override async Task OnInitializedAsync()
     {
         await LoadLinhaNegocioListAsync();
+    }
+
+    private async Task LoadLinhaNegocioListAsync()
+    {
+        var response = await _linhaNegocioServices.GetLinhaNegocioAllAsync();
+        if (response.IsSuccessful)
+        {
+            linhaNegocios = response.Data;
+        }
+        else
+        {
+            _snackbar.Add(response.Messages, Severity.Error);
+        }
+        _loading = false;
     }
 
     private async void CreateLinhaNegocioAsync()
@@ -38,7 +50,7 @@ public partial class LinhaNegocio
 
         if (!result.Canceled)
         {
-            await RefreshLinhaNegocioAsync();
+            await LoadLinhaNegocioListAsync();
         }
     }
 
@@ -104,58 +116,14 @@ public partial class LinhaNegocio
             if (response.IsSuccessful)
             {
                 _snackbar.Add(response.Messages, Severity.Success);
-                await RefreshLinhaNegocioAsync();
+                await LoadLinhaNegocioListAsync();
             }
             else
             {
-                foreach (var responseMessage in response.Messages)
-                {
-                    _snackbar.Add(message.ToString(), Severity.Error);
-                }
+                _snackbar.Add(response.Messages, Severity.Error);
             }
         }
-    }
-
-    private bool SearchLinhaNegocioByStatusAsync(LinhaNegocioResponse linhaNegocioResponse) =>
-        SearchLinhaNegocioByStatus(linhaNegocioResponse, filterByAtivo);
-
-    private bool SearchLinhaNegocioByStatus(LinhaNegocioResponse linhaNegocioResponse, string filterByAtivo)
-    {
-        if (string.IsNullOrWhiteSpace(filterByAtivo))
-            return true;
-        if (filterByAtivo.ToUpper() == "S".ToUpper() && linhaNegocioResponse.Lhn_ativo.Contains(filterByAtivo, StringComparison.OrdinalIgnoreCase))
-            return true;
-        else if (filterByAtivo.ToUpper() == "N".ToUpper() && linhaNegocioResponse.Lhn_ativo.Contains(filterByAtivo, StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private async Task LoadLinhaNegocioListAsync()
-    {
-        var response = await _linhaNegocioServices.GetLinhaNegocioAllAsync();
-        if (response.IsSuccessful)
-        {
-            linhaNegocios = response.Data;
-        }
-        else
-        {
-            foreach (var message in response.Messages)
-            {
-                _snackbar.Add(message.ToString(), Severity.Error);
-            }
-        }
-        _loading = false;
-    }
-
-    private async Task RefreshLinhaNegocioAsync()
-    {
-        await LoadLinhaNegocioListAsync();
-    }
+    }    
 
     private bool FilterLinhaNegocioAsync(LinhaNegocioResponse linhaNegocioResponse) => FilterLinhaNegocio(linhaNegocioResponse, searchLinhaNegocio);
 

@@ -1,5 +1,40 @@
-﻿<h3>Departamento</h3>
+﻿@using Common.Responses;
 
-@code {
+@page "/departamento"
 
-}
+<MudTable Items="@departamentos" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+          Filter="new Func<DepartamentoResponse,bool>(FilterDepartamentoAsync)">
+    <ToolBarContent>
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateDepartamentoAsync())" />
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadDepartamentoListAsync())" />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchDepartamento" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
+        </MudTextField>
+        <MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
+                OnClick="(() => FilterDepartamentoAsync(departamentos.FirstOrDefault()))" />
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descrição</MudTh>
+        <MudTh>Ativo</MudTh>
+        <MudTh>Data de Criação</MudTh>
+        <MudTh>Últ. Alteração</MudTh>
+        <MudTh>Ações</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Dpt_descri">@context.Dpt_descri</MudTd>
+        <MudTd DataLabel="Dpt_ativo">@context.Dpt_ativo</MudTd>
+        <MudTd DataLabel="Dpt_datcri">@context.Dpt_datcri</MudTd>
+        <MudTd DataLabel="Dpt_datalt">@context.Dpt_datalt</MudTd>
+        <MudTd DataLabel="Ações">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                <MudMenuItem OnClick="(() => UpdateDepartamentoAsync(context.Id))">Editar</MudMenuItem>
+                <MudMenuItem OnClick="(() => DeleteDepartamentoAsync(context.Id, context.Dpt_descri))">Deletar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+</MudTable>

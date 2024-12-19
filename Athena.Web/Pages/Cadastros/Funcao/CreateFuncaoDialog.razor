@@ -1,0 +1,14 @@
+﻿<MudForm @ref="_form" Model="CreateFuncaoRequest">
+    <MudDialog>
+        <TitleContent>
+            Adicionar Cliente
+        </TitleContent>
+        <DialogContent>
+            <MudTextField @bind-Value="CreateFuncaoRequest.Fnc_descri" Label="Descrição da Função" Variant="Variant.Outlined">Função</MudTextField>            
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

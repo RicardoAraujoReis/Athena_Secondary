@@ -77,9 +77,9 @@ public class FuncaoController : BaseApiController
 
             if (response.IsSuccessful)
             {
-                return NoContent();
+                return Ok(response);
             }
-            return BadRequest();
+            return BadRequest(response);
         }
         catch (Exception ex)
         {
@@ -122,7 +122,7 @@ public class FuncaoController : BaseApiController
 
             if (!response.IsSuccessful)
             {
-                return NotFound();
+                return NotFound(response);
             }
             return Ok(response);
         }

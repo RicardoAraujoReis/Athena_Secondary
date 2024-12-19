@@ -15,10 +15,8 @@ public partial class UpdateLinhaNegocioDialog
     MudForm _form = default;
 
     private async Task SaveAsync()
-    {
-        //UpdateLinhaNegocioRequest.Lhn_usucri = 1;
-        UpdateLinhaNegocioRequest.Lhn_usualt = 1;
-        //UpdateLinhaNegocioRequest.Lhn_datcri = DateTime.Now;
+    {        
+        UpdateLinhaNegocioRequest.Lhn_usualt = 1;        
         UpdateLinhaNegocioRequest.Lhn_datalt = DateTime.Now;
         UpdateLinhaNegocioRequest.Lhn_usubdd = "LhnDialog";        
 

@@ -28,6 +28,10 @@ namespace Athena.Web
         
             builder.Services.AddMudServices();
             builder.Services.AddScoped<ILinhaNegocioServices, LinhaNegocioServices>();
+            builder.Services.AddScoped<IClienteServices, ClienteServices>();
+            builder.Services.AddScoped<IDepartamentoServices, DepartamentoServices>();
+            builder.Services.AddScoped<IFuncaoServices, FuncaoServices>();
+            builder.Services.AddScoped<ICategoriaAtendimentoServices, CategoriaAtendimentoServices>();
 
             await builder.Build().RunAsync();
         }

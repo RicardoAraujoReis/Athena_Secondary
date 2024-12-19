@@ -1,0 +1,15 @@
+﻿<MudForm @ref="_form" Model="UpdateFuncaoRequest">
+    <MudDialog>
+        <TitleContent>
+            Editar Função
+        </TitleContent>
+        <DialogContent>
+            <MudTextField @bind-Value="UpdateFuncaoRequest.Fnc_descri" Label="Descrição do Cliente" Variant="Variant.Outlined">Função</MudTextField>
+            <MudTextField @bind-Value="UpdateFuncaoRequest.Fnc_ativo" Label="Ativo" Variant="Variant.Outlined">Ativo</MudTextField>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

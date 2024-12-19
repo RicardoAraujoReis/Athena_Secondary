@@ -31,10 +31,7 @@ public partial class CreateLinhaNegocioDialog
         }
         else
         {
-            foreach (var message in response.Messages)
-            {
-                _snackbar.Add(message.ToString(), Severity.Error);
-            }
+            _snackbar.Add(response.Messages, Severity.Error);
         }        
     } 
 

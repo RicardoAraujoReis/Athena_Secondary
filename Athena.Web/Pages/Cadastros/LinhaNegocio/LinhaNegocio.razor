@@ -7,7 +7,7 @@
           Filter="new Func<LinhaNegocioResponse,bool>(FilterLinhaNegocioAsync)" @bind-SelectedItem="selectedItem">
     <ToolBarContent>
         <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateLinhaNegocioAsync())" />
-        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => RefreshLinhaNegocioAsync())" />                        
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadLinhaNegocioListAsync())" />
         <MudSpacer />
         <MudSpacer />
         <MudSpacer />
@@ -22,6 +22,7 @@
         <MudTh>Descrição</MudTh>
         <MudTh>Ativo</MudTh>        
         <MudTh>Data de Criação</MudTh>
+        <MudTh>Últ. Alteração</MudTh>
         <MudTh>Ações</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -29,6 +30,7 @@
         <MudTd DataLabel="Lhn_descri">@context.Lhn_descri</MudTd>
         <MudTd DataLabel="Lhn_ativo">@context.Lhn_ativo</MudTd>        
         <MudTd DataLabel="Lhn_datcri">@context.Lhn_datcri</MudTd>
+        <MudTd DataLabel="Lhn_datalt">@context.Lhn_datalt</MudTd>
         <MudTd DataLabel="Ações">                       
             <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
                 <MudMenuItem OnClick="(() => UpdateLinhaNegocioAsync(context.Id))">Editar</MudMenuItem>
