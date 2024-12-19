@@ -42,7 +42,7 @@ public class DepartamentoController : BaseApiController
     /// <param name="UpdateDepartamentoAsync">Objeto com os campos necessários para atualização de um Departamento</param>
     /// <returns>IActionResult</returns>
     /// <response code="204">Caso a atualização seja feita com sucesso</response>
-    [HttpPut("delete")]
+    [HttpPut("update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> UpdateDepartamentoAsync([FromBody] UpdateDepartamento updateDepartamento)
     {

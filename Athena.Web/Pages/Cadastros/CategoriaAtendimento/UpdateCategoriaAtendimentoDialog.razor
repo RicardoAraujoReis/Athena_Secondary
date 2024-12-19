@@ -1,0 +1,17 @@
+﻿<MudForm @ref="_form" Model="UpdateCategoriaAtendimentoRequest">
+    <MudDialog>
+        <TitleContent>
+            Editar CategoriaAtendimento
+        </TitleContent>
+        <DialogContent>
+            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_valor" Label="Descrição do CategoriaAtendimento" 
+                Variant="Variant.Outlined">CategoriaAtendimento</MudTextField>
+            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Ativo" Variant="Variant.Outlined">Categoria Pai</MudTextField>
+            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Linha de Negócio" Variant="Variant.Outlined">Nível</MudTextField>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

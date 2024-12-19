@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Common.Responses;
 
 public class ClienteResponse
@@ -17,4 +12,5 @@ public class ClienteResponse
     public DateTime Cli_datcri { get; set; }
     public DateTime Cli_datalt { get; set; }
     public int Cli_lhn_identi { get; set; }
+    public virtual LinhaNegocioResponse LinhaNegocio { get; set; }
 }

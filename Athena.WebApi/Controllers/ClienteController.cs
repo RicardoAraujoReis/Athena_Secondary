@@ -79,7 +79,7 @@ public class ClienteController : BaseApiController
 
             if (response.IsSuccessful)
             {
-                return NoContent();
+                return Ok(response);
             }
             return BadRequest();
         }

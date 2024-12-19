@@ -1,5 +1,40 @@
-﻿<h3>Funcao</h3>
+﻿@using Common.Responses;
 
-@code {
+@page "/funcao"
 
-}
+<MudTable Items="@funcoes" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+          Filter="new Func<FuncaoResponse,bool>(FilterFuncaoAsync)">
+    <ToolBarContent>
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateFuncaoAsync())" />
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadFuncaoListAsync())" />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchFuncao" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
+        </MudTextField>
+        <MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
+                OnClick="(() => FilterFuncaoAsync(funcoes.FirstOrDefault()))" />
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descrição</MudTh>
+        <MudTh>Ativo</MudTh>
+        <MudTh>Data de Criação</MudTh>
+        <MudTh>Últ. Alteração</MudTh>
+        <MudTh>Ações</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Fnc_descri">@context.Fnc_descri</MudTd>
+        <MudTd DataLabel="Fnc_ativo">@context.Fnc_ativo</MudTd>
+        <MudTd DataLabel="Fnc_datcri">@context.Fnc_datcri</MudTd>
+        <MudTd DataLabel="Fnc_datalt">@context.Fnc_datalt</MudTd>
+        <MudTd DataLabel="Ações">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                <MudMenuItem OnClick="(() => UpdateFuncaoAsync(context.Id))">Editar</MudMenuItem>
+                <MudMenuItem OnClick="(() => DeleteFuncaoAsync(context.Id, context.Fnc_descri))">Deletar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+</MudTable>

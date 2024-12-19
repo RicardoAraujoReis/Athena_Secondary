@@ -1,0 +1,14 @@
+﻿<MudForm @ref="_form" Model="CreateDepartamentoRequest">
+    <MudDialog>
+        <TitleContent>
+            Adicionar Departamento
+        </TitleContent>
+        <DialogContent>
+            <MudTextField @bind-Value="CreateDepartamentoRequest.Dpt_descri" Label="Descrição do Departamento" Variant="Variant.Outlined">Departamento</MudTextField>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

@@ -1,5 +1,42 @@
-﻿<h3>Cliente</h3>
+﻿@using Common.Responses;
 
-@code {
+@page "/cliente"
 
-}
+<MudTable Items="@clientes" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+          Filter="new Func<ClienteResponse,bool>(FilterClienteAsync)">
+    <ToolBarContent>
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateClienteAsync())" />
+        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadClienteListAsync())" />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudSpacer />
+        <MudTextField @bind-Value="searchCliente" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
+        </MudTextField>
+        <MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
+                OnClick="(() => FilterClienteAsync(clientes.FirstOrDefault()))" />
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Id</MudTh>
+        <MudTh>Descrição</MudTh>
+        <MudTh>Ativo</MudTh>
+        <MudTh>Data de Criação</MudTh>
+        <MudTh>Últ. Alteração</MudTh>
+        <MudTh>Linha de Negócio</MudTh>
+        <MudTh>Ações</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Id">@context.Id</MudTd>
+        <MudTd DataLabel="Cli_descri">@context.Cli_descri</MudTd>
+        <MudTd DataLabel="Cli_ativo">@context.Cli_ativo</MudTd>
+        <MudTd DataLabel="Cli_datcri">@context.Cli_datcri</MudTd>
+        <MudTd DataLabel="Cli_datalt">@context.Cli_datalt</MudTd>
+        <MudTd DataLabel="linhaNegocio">@context.LinhaNegocio.Lhn_descri</MudTd>
+        <MudTd DataLabel="Ações">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                <MudMenuItem OnClick="(() => UpdateClienteAsync(context.Id))">Editar</MudMenuItem>
+                <MudMenuItem OnClick="(() => DeleteClienteAsync(context.Id, context.Cli_descri))">Deletar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
