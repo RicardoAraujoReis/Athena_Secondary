@@ -1,15 +1,17 @@
-﻿<MudForm @ref="_form" Model="UpdateLinhaNegocioRequest">
+﻿<MudForm @ref="_form" Model="UpdateLinhaNegocioRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
     <MudDialog>
         <TitleContent>
             Editar Linha de Negócio
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" Variant="Variant.Outlined">Linha de Negócio</MudTextField>
-            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_ativo" Label="Ativo" Variant="Variant.Outlined">Ativo</MudTextField>
+            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => UpdateLinhaNegocioRequest.Lhn_descri)"
+                Variant="Variant.Outlined">Linha de Negócio</MudTextField>
+            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_ativo" Label="Ativo" For="@(() => UpdateLinhaNegocioRequest.Lhn_ativo)" 
+                Variant="Variant.Outlined">Ativo</MudTextField>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
-            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

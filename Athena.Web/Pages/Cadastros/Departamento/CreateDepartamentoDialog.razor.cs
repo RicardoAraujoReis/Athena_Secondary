@@ -1,4 +1,5 @@
-﻿using Common.Requests;
+﻿using Athena.Web.Validators.DepartamentoValidators;
+using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -13,6 +14,28 @@ public partial class CreateDepartamentoDialog
     private MudDialogInstance MudDialog { get; set; }
 
     MudForm _form = default;
+
+    private DepartamentoValidator _validator = new();
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            await SaveAsync();
+        }
+    }
+
+    private bool CheckForm()
+    {
+        if (_form.IsValid)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private async Task SaveAsync()
     {
         CreateDepartamentoRequest.Dpt_usucri = 1;
