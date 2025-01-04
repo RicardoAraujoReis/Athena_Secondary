@@ -1,15 +1,17 @@
-﻿<MudForm @ref="_form" Model="UpdateDepartamentoRequest">
+﻿<MudForm @ref="_form" Model="UpdateDepartamentoRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
     <MudDialog>
         <TitleContent>
             Editar Departamento
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_descri" Label="Descrição do Cliente" Variant="Variant.Outlined">Cliente</MudTextField>
-            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_ativo" Label="Ativo" Variant="Variant.Outlined">Ativo</MudTextField>
+            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_descri" Label="Descrição do Cliente" For="@(() => UpdateDepartamentoRequest.Dpt_descri)"
+                Variant="Variant.Outlined">Cliente</MudTextField>
+            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_ativo" Label="Ativo" For="@(() => UpdateDepartamentoRequest.Dpt_ativo)" 
+                Variant="Variant.Outlined">Ativo</MudTextField>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
-            <MudButton Color="Color.Primary" OnClick="SaveAsync">Salvar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

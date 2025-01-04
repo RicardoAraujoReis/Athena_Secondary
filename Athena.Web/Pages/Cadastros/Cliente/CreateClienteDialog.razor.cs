@@ -1,4 +1,5 @@
-﻿using common.Requests;
+﻿using Athena.Web.Validators.ClienteValidators;
+using common.Requests;
 using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -14,6 +15,28 @@ public partial class CreateClienteDialog
     private MudDialogInstance MudDialog { get; set; }
 
     MudForm _form = default;
+
+    private ClienteValidator _validator = new();
+
+    private async Task SubmitAsync()
+    {
+        await _form.Validate();
+
+        if (_form.IsValid)
+        {
+            await SaveAsync();
+        }
+    }
+
+    private bool CheckForm()
+    {
+        if (_form.IsValid)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private async Task SaveAsync()
     {
         CreateClienteRequest.Cli_usucri = 1;
