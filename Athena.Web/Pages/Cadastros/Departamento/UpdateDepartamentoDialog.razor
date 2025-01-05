@@ -4,10 +4,20 @@
             Editar Departamento
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_descri" Label="Descrição do Cliente" For="@(() => UpdateDepartamentoRequest.Dpt_descri)"
-                Variant="Variant.Outlined">Cliente</MudTextField>
-            <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_ativo" Label="Ativo" For="@(() => UpdateDepartamentoRequest.Dpt_ativo)" 
-                Variant="Variant.Outlined">Ativo</MudTextField>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_descri" Label="Descrição do Cliente" For="@(() => UpdateDepartamentoRequest.Dpt_descri)"
+                        Margin="Margin.Dense" Variant="Variant.Outlined">
+                        Cliente
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateDepartamentoRequest.Dpt_ativo" Label="Ativo" For="@(() => UpdateDepartamentoRequest.Dpt_ativo)"
+                        Margin="Margin.Dense" Variant="Variant.Outlined">
+                        Ativo
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

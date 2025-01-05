@@ -4,11 +4,25 @@
             Editar CategoriaAtendimento
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_valor" Label="Descrição do CategoriaAtendimento"
-                For="@(() => UpdateCategoriaAtendimentoRequest.Cat_valor)" Variant="Variant.Outlined">CategoriaAtendimento</MudTextField>
-            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Ativo" Variant="Variant.Outlined">Categoria Pai</MudTextField>
-            <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Linha de Negócio"
-                For="@(() => UpdateCategoriaAtendimentoRequest.Cat_nivel)" Variant="Variant.Outlined">Nível</MudTextField>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_valor" Label="Descrição da Categoria de Atendimento" Margin="Margin.Dense"
+                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_valor)" Variant="Variant.Outlined">
+                        CategoriaAtendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Ativo" Variant="Variant.Outlined" Margin="Margin.Dense">
+                        Categoria Pai
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível" Margin="Margin.Dense"
+                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_nivel)" Variant="Variant.Outlined">
+                        Nível
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>                                    
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

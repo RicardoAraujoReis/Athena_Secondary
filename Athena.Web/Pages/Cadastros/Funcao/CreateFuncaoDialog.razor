@@ -4,8 +4,14 @@
             Adicionar Cliente
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="CreateFuncaoRequest.Fnc_descri" Label="Descrição da Função" For="@(() => CreateFuncaoRequest.Fnc_descri)"
-                Variant="Variant.Outlined">Função</MudTextField>            
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateFuncaoRequest.Fnc_descri" Label="Descrição da Função" For="@(() => CreateFuncaoRequest.Fnc_descri)"
+                        Margin="Margin.Dense" Variant="Variant.Outlined">
+                        Função
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>            
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

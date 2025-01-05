@@ -4,10 +4,20 @@
             Editar Linha de Negócio
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => UpdateLinhaNegocioRequest.Lhn_descri)"
-                Variant="Variant.Outlined">Linha de Negócio</MudTextField>
-            <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_ativo" Label="Ativo" For="@(() => UpdateLinhaNegocioRequest.Lhn_ativo)" 
-                Variant="Variant.Outlined">Ativo</MudTextField>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => UpdateLinhaNegocioRequest.Lhn_descri)"
+                        Variant="Variant.Outlined" Margin="Margin.Dense">
+                        Linha de Negócio
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_ativo" Label="Ativo" For="@(() => UpdateLinhaNegocioRequest.Lhn_ativo)"
+                        Variant="Variant.Outlined" Margin="Margin.Dense">
+                        Ativo
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>                        
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
