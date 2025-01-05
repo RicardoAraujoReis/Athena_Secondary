@@ -4,8 +4,14 @@
             Adicionar Departamento
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="CreateDepartamentoRequest.Dpt_descri" Label="Descrição do Departamento" For="@(() => CreateDepartamentoRequest.Dpt_descri)"
-                Variant="Variant.Outlined">Departamento</MudTextField>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateDepartamentoRequest.Dpt_descri" Label="Descrição do Departamento" For="@(() => CreateDepartamentoRequest.Dpt_descri)"
+                        Margin="Margin.Dense" Variant="Variant.Outlined">
+                        Departamento
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>            
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

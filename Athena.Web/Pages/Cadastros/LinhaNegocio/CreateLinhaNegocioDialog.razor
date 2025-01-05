@@ -4,8 +4,14 @@
             Adicionar Linha de Negócio
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="CreateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => CreateLinhaNegocioRequest.Lhn_descri)"
-                Variant="Variant.Outlined">Linha de Negócio</MudTextField>            
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => CreateLinhaNegocioRequest.Lhn_descri)"
+                        Margin="Margin.Dense" Variant="Variant.Outlined">
+                        Linha de Negócio
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>                       
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

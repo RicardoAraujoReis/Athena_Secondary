@@ -2,40 +2,51 @@
 
 @page "/linhaNegocio"
 
-
-<MudTable Items="@linhaNegocios" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
-          Filter="new Func<LinhaNegocioResponse,bool>(FilterLinhaNegocioAsync)" @bind-SelectedItem="selectedItem">
-    <ToolBarContent>
-        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateLinhaNegocioAsync())" />
-        <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadLinhaNegocioListAsync())" />
-        <MudSpacer />
-        <MudSpacer />
-        <MudSpacer />
-        <MudSpacer />
-        <MudTextField @bind-Value="searchLinhaNegocio" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
-        </MudTextField>
-        <MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
-                OnClick="(() => FilterLinhaNegocioAsync(linhaNegocios.FirstOrDefault()))" />
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>Descrição</MudTh>
-        <MudTh>Ativo</MudTh>        
-        <MudTh>Data de Criação</MudTh>
-        <MudTh>Últ. Alteração</MudTh>
-        <MudTh>Ações</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Lhn_descri">@context.Lhn_descri</MudTd>
-        <MudTd DataLabel="Lhn_ativo">@context.Lhn_ativo</MudTd>        
-        <MudTd DataLabel="Lhn_datcri">@context.Lhn_datcri</MudTd>
-        <MudTd DataLabel="Lhn_datalt">@context.Lhn_datalt</MudTd>
-        <MudTd DataLabel="Ações">                       
-            <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
-                <MudMenuItem OnClick="(() => UpdateLinhaNegocioAsync(context.Id))">Editar</MudMenuItem>
-                <MudMenuItem OnClick="(() => DeleteLinhaNegocioAsync(context.Id, context.Lhn_descri))">Deletar</MudMenuItem>
-            </MudMenu>
-        </MudTd>        
-    </RowTemplate>    
-</MudTable>
+<MudCard Elevation="25">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Segment" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">Linhas de Negócio</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@linhaNegocios" Elevation="25" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+                  Filter="new Func<LinhaNegocioResponse,bool>(FilterLinhaNegocioAsync)" @bind-SelectedItem="selectedItem">
+            <ToolBarContent>
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateLinhaNegocioAsync())" />
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadLinhaNegocioListAsync())" />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudTextField @bind-Value="searchLinhaNegocio" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
+                </MudTextField>
+                <MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
+                        OnClick="(() => FilterLinhaNegocioAsync(linhaNegocios.FirstOrDefault()))" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Id</MudTh>
+                <MudTh>Descrição</MudTh>
+                <MudTh>Ativo</MudTh>
+                <MudTh>Data de Criação</MudTh>
+                <MudTh>Últ. Alteração</MudTh>
+                <MudTh>Ações</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Lhn_descri">@context.Lhn_descri</MudTd>
+                <MudTd DataLabel="Lhn_ativo">@context.Lhn_ativo</MudTd>
+                <MudTd DataLabel="Lhn_datcri">@context.Lhn_datcri</MudTd>
+                <MudTd DataLabel="Lhn_datalt">@context.Lhn_datalt</MudTd>
+                <MudTd DataLabel="Ações">
+                    <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                        <MudMenuItem OnClick="(() => UpdateLinhaNegocioAsync(context.Id))">Editar</MudMenuItem>
+                        <MudMenuItem OnClick="(() => DeleteLinhaNegocioAsync(context.Id, context.Lhn_descri))">Deletar</MudMenuItem>
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>

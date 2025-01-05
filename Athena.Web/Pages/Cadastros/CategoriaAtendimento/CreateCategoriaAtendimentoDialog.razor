@@ -4,12 +4,25 @@
             Adicionar CategoriaAtendimento
         </TitleContent>
         <DialogContent>
-            <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_valor" Label="Valor da Categoria" For="@(() => CreateCategoriaAtendimentoRequest.Cat_valor)"
-                Variant="Variant.Outlined">CategoriaAtendimento</MudTextField>
-            <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_catpai" Label="Categoria Pai"
-                Variant="Variant.Outlined">CategoriaAtendimento</MudTextField>
-            <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível da Categoria" For="@(() => CreateCategoriaAtendimentoRequest.Cat_nivel)"
-                Variant="Variant.Outlined">CategoriaAtendimento</MudTextField>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_valor" Label="Valor da Categoria" Margin="Margin.Dense" 
+                        For="@(() => CreateCategoriaAtendimentoRequest.Cat_valor)"
+                        Variant="Variant.Outlined">CategoriaAtendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_catpai" Label="Categoria Pai" Margin="Margin.Dense"
+                        Variant="Variant.Outlined">CategoriaAtendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível da Categoria" Margin="Margin.Dense"
+                        For="@(() => CreateCategoriaAtendimentoRequest.Cat_nivel)"
+                        Variant="Variant.Outlined">CategoriaAtendimento
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
