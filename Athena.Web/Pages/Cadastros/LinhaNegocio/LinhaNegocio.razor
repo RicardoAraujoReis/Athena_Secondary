@@ -12,7 +12,7 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@linhaNegocios" Elevation="25" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+        <MudTable Items="@linhaNegocios" Elevation="25" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Dark"
                   Filter="new Func<LinhaNegocioResponse,bool>(FilterLinhaNegocioAsync)" @bind-SelectedItem="selectedItem">
             <ToolBarContent>
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateLinhaNegocioAsync())" />
