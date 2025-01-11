@@ -1,6 +1,4 @@
-﻿@using Common.Responses;
-
-@page "/categoriaAtendimento"
+﻿@page "/categoriaAtendimento"
 
 <MudCard Elevation="25">
     <MudCardHeader>
@@ -12,7 +10,7 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@CategoriaAtendimentos" Elevation="25" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+        <MudTable Items="@CategoriaAtendimentos" Elevation="25" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Dark"
                   Filter="new Func<CategoriaAtendimentoResponse,bool>(FilterCategoriaAtendimentoAsync)">
             <ToolBarContent>
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateCategoriaAtendimentoAsync())" />

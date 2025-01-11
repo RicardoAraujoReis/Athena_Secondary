@@ -1,0 +1,29 @@
+﻿<MudForm @ref="_form" Model="CreateDadosListasRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
+    <MudDialog>
+        <TitleContent>
+            Adicionar Dados Listas
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateDadosListasRequest.Dal_valor" Label="Valor do Dado Lista" Margin="Margin.Dense"
+                                  For="@(() => CreateDadosListasRequest.Dal_valor)"
+                                  Variant="Variant.Outlined">
+                        Dados Listas
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="CreateDadosListasRequest.Dal_tid_identi" Label="Id do Tipo" Margin="Margin.Dense"
+                                  For="@(() => CreateDadosListasRequest.Dal_tid_identi)"
+                                  Variant="Variant.Outlined">
+                        Dados Listas
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

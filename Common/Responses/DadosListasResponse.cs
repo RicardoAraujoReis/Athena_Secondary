@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common.Responses;
+﻿namespace Common.Responses;
 
 public class DadosListasResponse
 {
@@ -16,4 +10,5 @@ public class DadosListasResponse
     public DateTime Dal_datalt { get; set; }
     public int Dal_usucri { get; set; }
     public int Dal_usualt { get; set; }
+    public virtual TipoDadosListasResponse TipoDadosListas { get; set; }
 }

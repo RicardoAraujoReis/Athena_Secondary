@@ -12,7 +12,7 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@funcoes" Elevation="25" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+        <MudTable Items="@funcoes" Elevation="25" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Dark"
                   Filter="new Func<FuncaoResponse,bool>(FilterFuncaoAsync)">
             <ToolBarContent>
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateFuncaoAsync())" />

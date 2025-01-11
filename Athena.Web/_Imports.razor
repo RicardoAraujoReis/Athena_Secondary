@@ -12,6 +12,7 @@
 @using MudBlazor
 @using MudBlazor.Services
 @using Common.Requests
+@using Common.Responses
 @using Athena.Web.Pages.Shared
 
 @inject ILinhaNegocioServices _linhaNegocioServices
@@ -19,5 +20,7 @@
 @inject IDepartamentoServices _departamentoServices
 @inject IFuncaoServices _funcaoServices
 @inject ICategoriaAtendimentoServices _categoriaAtendimentoServices
+@inject ITipoDadosListasServices _tipoDadosListasServices
+@inject IDadosListasServices _dadosListasServices
 @inject ISnackbar _snackbar
 @inject IDialogService _dialogService

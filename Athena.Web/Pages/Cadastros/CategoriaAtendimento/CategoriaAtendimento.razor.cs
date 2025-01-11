@@ -125,7 +125,8 @@ public partial class CategoriaAtendimento
         }
     }
 
-    private bool FilterCategoriaAtendimentoAsync(CategoriaAtendimentoResponse CategoriaAtendimentoResponse) => FilterCategoriaAtendimento(CategoriaAtendimentoResponse, searchCategoriaAtendimento);
+    private bool FilterCategoriaAtendimentoAsync(CategoriaAtendimentoResponse CategoriaAtendimentoResponse) => 
+        FilterCategoriaAtendimento(CategoriaAtendimentoResponse, searchCategoriaAtendimento);
 
     private bool FilterCategoriaAtendimento(CategoriaAtendimentoResponse CategoriaAtendimentoResponse, string searchCategoriaAtendimento)
     {
