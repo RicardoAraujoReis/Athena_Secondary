@@ -4,6 +4,7 @@ public class DadosListasResponse
 {
     public int Id { get; set; }
     public int Dal_tid_identi { get; set; }
+    public String Dal_tid_descri { get; set; }
     public String Dal_valor { get; set; }
     public String Dal_usubdd { get; set; }
     public DateTime Dal_datcri { get; set; }

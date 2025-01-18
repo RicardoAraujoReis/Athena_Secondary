@@ -38,12 +38,19 @@ public partial class CreateCategoriaAtendimentoDialog
 
     private async Task SaveAsync()
     {
+        var DescricaoCategoriaPai = await _categoriaAtendimentoServices.GetCategoriaAtendimentoByIdAsync(CreateCategoriaAtendimentoRequest.Cat_catpai);
+
+        if(DescricaoCategoriaPai.IsSuccessful)
+        {
+            CreateCategoriaAtendimentoRequest.Cat_despai = DescricaoCategoriaPai.Data.Cat_valor;
+        }
         CreateCategoriaAtendimentoRequest.Cat_usucri = 1;
         CreateCategoriaAtendimentoRequest.Cat_usualt = null;
         CreateCategoriaAtendimentoRequest.Cat_datcri = DateTime.Now;
         CreateCategoriaAtendimentoRequest.Cat_datalt = null;
         CreateCategoriaAtendimentoRequest.Cat_usubdd = "LhnDialog";
-        //CreateCategoriaAtendimentoRequest.Cat_ativo = "S";
+        CreateCategoriaAtendimentoRequest.Cat_ativo = "S";
+        
 
         var response = await _categoriaAtendimentoServices.CreateCategoriaAtendimentoAsync(CreateCategoriaAtendimentoRequest);
         if (response.IsSuccessful)

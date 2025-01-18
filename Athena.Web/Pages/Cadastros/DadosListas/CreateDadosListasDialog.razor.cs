@@ -1,5 +1,6 @@
 ﻿using Athena.Web.Validators.DadosListasValidators;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -38,21 +39,29 @@ public partial class CreateDadosListasDialog
 
     private async Task SaveAsync()
     {
-        CreateDadosListasRequest.Dal_usucri = 1;
-        CreateDadosListasRequest.Dal_usualt = null;
-        CreateDadosListasRequest.Dal_datcri = DateTime.Now;
-        CreateDadosListasRequest.Dal_datalt = null;
-        CreateDadosListasRequest.Dal_usubdd = "DalDialog";
 
-        var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
-        if (response.IsSuccessful)
+        var TidDescription = await _tipoDadosListasServices.GetTipoDadosListasByIdAsync(CreateDadosListasRequest.Dal_tid_identi);
+
+        if(TidDescription.IsSuccessful) 
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
+            CreateDadosListasRequest.Dal_usucri = 1;
+            CreateDadosListasRequest.Dal_usualt = null;
+            CreateDadosListasRequest.Dal_datcri = DateTime.Now;
+            CreateDadosListasRequest.Dal_datalt = null;
+            CreateDadosListasRequest.Dal_usubdd = "DalDialog";
+            CreateDadosListasRequest.Dal_tid_descri = TidDescription.Data.Tid_descri;
+            CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
+
+            var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
     }
 

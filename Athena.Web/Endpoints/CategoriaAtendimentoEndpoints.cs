@@ -6,7 +6,7 @@ public static class CategoriaAtendimentoEndpoints
     public const string Update = "api/categoriaAtendimento/update";
     public const string Delete = "api/categoriaAtendimento/delete?";
     public const string GetAll = "api/categoriaAtendimento/getall";
-    public const string GetById = "api/categoriaAtendimento/getbyid";
+    public const string GetById = "api/categoriaAtendimento/getbyid?";
     public const string GetByStatus = "api/categoriaAtendimento/getbystatus";
     public const string GetByParameters = "api/categoriaAtendimento/getbyparameters";
     public const string GetByDescription = "api/categoriaAtendimento/getbydescription?description=";

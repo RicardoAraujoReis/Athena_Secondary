@@ -6,7 +6,7 @@ public static class TipoDadosListasEndpoints
     public const string Update = "api/TipoDadosListas/update";
     public const string Delete = "api/TipoDadosListas/delete?";
     public const string GetAll = "api/TipoDadosListas/getall";
-    public const string GetById = "api/TipoDadosListas/getbyid";
+    public const string GetById = "api/TipoDadosListas/getbyid?";
 
     public static string BuildEndpoints(string baseEndpoint, int id = 0, string parameter = "")
     {

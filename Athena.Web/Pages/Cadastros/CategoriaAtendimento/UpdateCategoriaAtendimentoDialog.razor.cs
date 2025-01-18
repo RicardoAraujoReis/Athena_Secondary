@@ -38,6 +38,12 @@ public partial class UpdateCategoriaAtendimentoDialog
 
     private async Task SaveAsync()
     {
+        var DescricaoCategoriaPai = await _categoriaAtendimentoServices.GetCategoriaAtendimentoByIdAsync(UpdateCategoriaAtendimentoRequest.Cat_catpai);
+
+        if (DescricaoCategoriaPai.IsSuccessful)
+        {
+            UpdateCategoriaAtendimentoRequest.Cat_despai = DescricaoCategoriaPai.Data.Cat_valor;
+        }
         UpdateCategoriaAtendimentoRequest.Cat_usualt = 1;
         UpdateCategoriaAtendimentoRequest.Cat_datalt = DateTime.Now;
         UpdateCategoriaAtendimentoRequest.Cat_usubdd = "LhnDialog";

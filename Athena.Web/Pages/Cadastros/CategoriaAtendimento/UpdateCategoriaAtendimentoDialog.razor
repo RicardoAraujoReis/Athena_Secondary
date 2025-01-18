@@ -12,7 +12,7 @@
                     </MudTextField>
                 </MudItem>
                 <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Ativo" Variant="Variant.Outlined" Margin="Margin.Dense">
+                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Categoria Pai" Variant="Variant.Outlined" Margin="Margin.Dense">
                         Categoria Pai
                     </MudTextField>
                 </MudItem>
@@ -20,6 +20,12 @@
                     <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível" Margin="Margin.Dense"
                         For="@(() => UpdateCategoriaAtendimentoRequest.Cat_nivel)" Variant="Variant.Outlined">
                         Nível
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_ativo" Label="Ativo" Margin="Margin.Dense"
+                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_ativo)" Variant="Variant.Outlined">
+                        Ativo
                     </MudTextField>
                 </MudItem>
             </MudGrid>                                    
