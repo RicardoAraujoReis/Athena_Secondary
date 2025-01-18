@@ -49,13 +49,15 @@ public class UpdateCategoriaAtendimentoCommandsHandler : IRequestHandler<UpdateC
             {
                 Id = request.UpdateCategoriaAtendimento.Id,
                 Cat_catpai = request.UpdateCategoriaAtendimento.Cat_catpai,
+                Cat_despai = request.UpdateCategoriaAtendimento.Cat_despai,
                 Cat_nivel = request.UpdateCategoriaAtendimento.Cat_nivel,
                 Cat_valor = request.UpdateCategoriaAtendimento.Cat_valor,
                 Cat_usubdd = request.UpdateCategoriaAtendimento.Cat_usubdd,
                 Cat_usucri = request.UpdateCategoriaAtendimento.Cat_usucri,
                 Cat_usualt = request.UpdateCategoriaAtendimento.Cat_usualt,
                 Cat_datcri = request.UpdateCategoriaAtendimento.Cat_datcri,
-                Cat_datalt = request.UpdateCategoriaAtendimento.Cat_datalt
+                Cat_datalt = request.UpdateCategoriaAtendimento.Cat_datalt,
+                Cat_ativo = request.UpdateCategoriaAtendimento.Cat_ativo
             };                            
 
             await _unitOfWork.WriteDataFor<CategoriaAtendimento>().UpdateAsync(updateCategoriaAtendimento);

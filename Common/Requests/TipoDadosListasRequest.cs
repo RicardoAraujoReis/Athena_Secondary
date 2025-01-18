@@ -17,4 +17,9 @@ public class UpdateTipoDadosListas {
     public DateTime? Tid_datalt { get; set; }
     public int Tid_usucri { get; set; }
     public int? Tid_usualt { get; set; }
-};
+
+    public static implicit operator UpdateTipoDadosListas(string v)
+    {
+        throw new NotImplementedException();
+    }
+}

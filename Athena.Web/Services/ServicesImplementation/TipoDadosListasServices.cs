@@ -37,7 +37,9 @@ public class TipoDadosListasServices : ITipoDadosListasServices
 
     public async Task<ResponseWrapper<TipoDadosListasResponse>> GetTipoDadosListasByIdAsync(int id)
     {
-        var response = await _httpClient.GetAsync($"{TipoDadosListasEndpoints.GetById}/{id}");
+        var endpoint = TipoDadosListasEndpoints.BuildEndpoints(TipoDadosListasEndpoints.GetById, id);
+        var response = await _httpClient.GetAsync(endpoint);
+        //var response = await _httpClient.GetAsync($"{TipoDadosListasEndpoints.GetById}/{id}");
         return await response.ToResponse<TipoDadosListasResponse>();
     }   
 

@@ -37,7 +37,9 @@ public class CategoriaAtendimentoServices : ICategoriaAtendimentoServices
 
     public async Task<ResponseWrapper<CategoriaAtendimentoResponse>> GetCategoriaAtendimentoByIdAsync(int id)
     {
-        var response = await _httpClient.GetAsync($"{CategoriaAtendimentoEndpoints.GetById}/{id}");
+        var endpoint = CategoriaAtendimentoEndpoints.BuildEndpoints(CategoriaAtendimentoEndpoints.GetById, id);
+        var response = await _httpClient.GetAsync(endpoint);
+        //var response = await _httpClient.GetAsync($"{CategoriaAtendimentoEndpoints.GetById}/{id}");
         return await response.ToResponse<CategoriaAtendimentoResponse>();
     }
 

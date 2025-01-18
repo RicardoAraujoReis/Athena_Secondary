@@ -4,6 +4,7 @@ using Athena.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    partial class AthenaContextModelSnapshot : ModelSnapshot
+    [Migration("20250114020113_Adicionando_Dal_tid_descri")]
+    partial class Adicionando_Dal_tid_descri
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,11 +166,6 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Cat_ativo")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
-
                     b.Property<int>("Cat_catpai")
                         .HasMaxLength(10)
                         .HasColumnType("int")
@@ -178,10 +176,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("Cat_datcri")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Cat_despai")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("Cat_nivel")
                         .HasMaxLength(1)

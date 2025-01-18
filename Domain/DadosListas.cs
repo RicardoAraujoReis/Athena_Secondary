@@ -11,12 +11,14 @@ public class DadosListas : BaseEntity<int>
     public DateTime? Dal_datalt { get; set; }
     public int Dal_usucri { get; set; }
     public int? Dal_usualt { get; set; }
+    public String Dal_tid_descri { get; set; }
     public virtual TipoDadosListas TipoDadosListas { get; set; }
 
     public DadosListas UpdateDadosListas
     (
         int id,
         int dal_tid_identi,
+        String dal_tid_desci,
         String dal_valor,
         String dal_usubdd,
         DateTime dal_datcri,
@@ -27,6 +29,7 @@ public class DadosListas : BaseEntity<int>
     {
         Id = id;
         Dal_tid_identi = dal_tid_identi;
+        Dal_tid_descri = dal_tid_desci;
         Dal_valor = dal_valor;
         Dal_usubdd = dal_usubdd;
         Dal_datcri = dal_datcri;

@@ -13,6 +13,7 @@ internal class DadosListasConfiguration : IEntityTypeConfiguration<DadosListas>
 
         builder.Property(x => x.Id).HasColumnName("Dal_identi");
         builder.Property(x => x.Dal_valor).IsRequired().HasMaxLength(100).HasAnnotation("CustomAnnotation","Valor a ser exibido no campo de lista");
+        builder.Property(x => x.Dal_tid_descri).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Dal_usubdd).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dal_usucri).IsRequired().HasMaxLength(10);
         builder.Property(x => x.Dal_usualt).HasMaxLength(10);
