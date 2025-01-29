@@ -1,0 +1,47 @@
+﻿@page "/preAtendimentoPlantao"
+
+<MudCard Elevation="25">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Preview" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">Pré Atendimentos Plantão</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@preAtendimentos" Elevation="25" Dense="true" Hover="true" Loading="@_loading">
+            <ToolBarContent>
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadPreAtendimentoPlantaoAsync())" />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudTextField @bind-Value="searchPreAtendimentos" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
+                </MudTextField>
+                <!--<MudFab Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Class="ml-4"
+                        OnClick="(() => FilterTipoDadosListasAsync(tipoDadosListas.FirstOrDefault()))" />-->
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Id</MudTh>
+                <MudTh>Descrição</MudTh>
+                <MudTh>Data Criação</MudTh>
+                <MudTh>Data Alteração</MudTh>
+                <MudTh>Ações</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Tid_descri">@context.Ptd_resumo</MudTd>
+                <MudTd DataLabel="Tid_datcri">@context.Ptd_datcri</MudTd>
+                <MudTd DataLabel="Tid_datalt">@context.Ptd_datalt</MudTd>
+                <MudTd DataLabel="Ações">
+                    <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                        <!--<MudMenuItem OnClick="(() => UpdateTipoDadosListasAsync(context.Id))">Editar</MudMenuItem>
+                        <MudMenuItem OnClick="(() => DeleteTipoDadosListasAsync(context.Id, context.Tid_descri))">Deletar</MudMenuItem>-->
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>

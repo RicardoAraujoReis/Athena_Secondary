@@ -11,7 +11,7 @@ public class PreAtendimentoPlantao : BaseEntity<int>
     public String Ptd_critic { get; set; }
     public String Ptd_resumo {get; set; }
     public String? Ptd_numcha { get; set; }
-    public String Ptd_jirarl { get; set; }
+    public String? Ptd_jirarl { get; set; }
     public String? Ptd_numjir { get; set; }
     public String? Ptd_diagn1 { get; set; }
     public String Ptd_status { get; set; }
