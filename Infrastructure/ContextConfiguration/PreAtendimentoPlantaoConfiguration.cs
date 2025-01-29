@@ -17,7 +17,7 @@ internal class PreAtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Pre
         builder.Property(x => x.Ptd_critic).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");
         builder.Property(x => x.Ptd_resumo).IsRequired().HasMaxLength(255).HasAnnotation("CustomAnnotation","Resumo do Tema");
         builder.Property(x => x.Ptd_numcha).HasMaxLength(35).HasAnnotation("CustomAnnotation","Número do chamado");
-        builder.Property(x => x.Ptd_jirarl).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Existe Jira relacionado? (S - SIM / N - NÃO)");
+        builder.Property(x => x.Ptd_jirarl).HasMaxLength(1).HasAnnotation("CustomAnnotation","Existe Jira relacionado? (S - SIM / N - NÃO)");
         builder.Property(x => x.Ptd_numjir).HasMaxLength(35).HasAnnotation("CustomAnnotation","Número do Jira");
         builder.Property(x => x.Ptd_diagn1).HasMaxLength(255).HasAnnotation("CustomAnnotation","Análise realizada pelo N1");
         builder.Property(x => x.Ptd_status).HasMaxLength(35).HasAnnotation("CustomAnnotation","Status do Pré Atendimento");

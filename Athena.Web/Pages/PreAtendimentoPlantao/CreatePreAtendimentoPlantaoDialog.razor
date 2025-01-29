@@ -1,0 +1,106 @@
+﻿<MudForm @ref="_form" Model="CreatePreAtendimentoPlantaoRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
+    <MudDialog>
+        <TitleContent>
+            Adicionar Pré Atendimento
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem xs="12" sm="0" md="0">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_resumo)"
+                                  Variant="Variant.Outlined">
+                        Resumo do Pré Atendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_cli_identi" Label="Cliente" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_cli_identi)"
+                                  Variant="Variant.Outlined">
+                        Cliente
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_tipptd" Label="Tipo do Pré Atendimento" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_tipptd)"
+                                  Variant="Variant.Outlined">
+                        Tipo do Pré Atendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_critic" Label="Criticidade" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_critic)"
+                                  Variant="Variant.Outlined">
+                        Criticidade
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numcha" Label="Número Chamado" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numcha)"
+                                  Variant="Variant.Outlined">
+                        Número Chamado
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_jirarl" Label="Jira Relacionado" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_jirarl)"
+                                  Variant="Variant.Outlined">
+                        Jira Relacionado
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                  Variant="Variant.Outlined">
+                        Número do Jira
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="0" md="0">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_diagn1" Label="Diagnóstico N1" Margin="Margin.Dense" Lines="3"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_diagn1)"
+                                  Variant="Variant.Outlined">
+                        Diagnóstico N1
+                    </MudTextField>
+                </MudItem>                
+                <MudItem xs="12" sm="0" md="0">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_reton2" Label="Retorno do N2" Margin="Margin.Dense" Lines="3"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_reton2)"
+                                  Variant="Variant.Outlined">
+                        Retorno do N2
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="0" md="0">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_observ" Label="Observação" Margin="Margin.Dense" Lines="3"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_observ)"
+                                  Variant="Variant.Outlined">
+                        Observação
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_nomal1" Label="Nome Anl N1" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_nomal1)"
+                                  Variant="Variant.Outlined">
+                        Nome Anl N1
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numatd" Label="Número do Atendimento" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numatd)"
+                                  Variant="Variant.Outlined">
+                        Número do Atendimento
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" sm="4" md="4">
+                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_status" Label="Status do Atendimento" Margin="Margin.Dense"
+                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_status)"
+                                  Variant="Variant.Outlined">
+                        Status do Atendimento
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

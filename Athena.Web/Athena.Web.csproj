@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\AtendimentoPlantao\" />
-    <Folder Include="Pages\PreAtendimentoPlantao\" />
     <Folder Include="wwwroot\samples\" />
   </ItemGroup>
 
