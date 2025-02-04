@@ -5,23 +5,35 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_valor" Label="Valor da Categoria" Margin="Margin.Dense" 
-                        For="@(() => CreateCategoriaAtendimentoRequest.Cat_valor)"
-                        Variant="Variant.Outlined">CategoriaAtendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_catpai" Label="Categoria Pai" Margin="Margin.Dense"
-                        Variant="Variant.Outlined">CategoriaAtendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível da Categoria" Margin="Margin.Dense"
-                        For="@(() => CreateCategoriaAtendimentoRequest.Cat_nivel)"
-                        Variant="Variant.Outlined">CategoriaAtendimento
-                    </MudTextField>
-                </MudItem>
+                @if (_categorias == null || !_categorias.Any())
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_valor" Label="Valor da Categoria" Margin="Margin.Dense"
+                                      For="@(() => CreateCategoriaAtendimentoRequest.Cat_valor)"
+                                      Variant="Variant.Outlined">
+                            CategoriaAtendimento
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="categoriaSelected" T="int?" Label="Selecione a Categoria Pai" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _categorias)
+                            {
+                                <MudSelectItem Value="@(item.Id as int?)">@item.Cat_valor.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>                   
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="CreateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível da Categoria" Margin="Margin.Dense"
+                                      For="@(() => CreateCategoriaAtendimentoRequest.Cat_nivel)"
+                                      Variant="Variant.Outlined">
+                            CategoriaAtendimento
+                        </MudTextField>
+                    </MudItem>
+                }
             </MudGrid>
         </DialogContent>
         <DialogActions>

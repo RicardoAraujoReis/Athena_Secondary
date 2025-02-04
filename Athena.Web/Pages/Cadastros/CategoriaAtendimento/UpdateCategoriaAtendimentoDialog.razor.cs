@@ -1,5 +1,6 @@
 ﻿using Athena.Web.Validators.CategoriaAtendimentoValidators;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -16,6 +17,27 @@ public partial class UpdateCategoriaAtendimentoDialog
     MudForm _form = default;
 
     private UpdateCategoriaAtendimentoValidator _validator = new();
+
+    private List<CategoriaAtendimentoResponse> _categorias = new List<CategoriaAtendimentoResponse>();
+    private string categoriaSelected = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var categoriaRequest = await _categoriaAtendimentoServices.GetCategoriaAtendimentoAllAsync();
+
+        if (categoriaRequest.IsSuccessful)
+        {
+            _categorias = categoriaRequest.Data;            
+        }
+        else
+        {
+            _snackbar.Add(categoriaRequest.Messages, Severity.Error);
+            MudDialog.Close();
+        }
+
+        var categoriaPai = _categorias.Where(categoria => categoria.Cat_catpai == UpdateCategoriaAtendimentoRequest.Cat_catpai).FirstOrDefault();        
+        categoriaSelected = categoriaPai.Cat_valor;
+    }
 
     private async Task SubmitAsync()
     {
@@ -38,6 +60,12 @@ public partial class UpdateCategoriaAtendimentoDialog
 
     private async Task SaveAsync()
     {
+        if (!string.IsNullOrWhiteSpace(categoriaSelected))
+        {
+            var categoriaId = _categorias.Where(categoria => categoria.Cat_valor == categoriaSelected).Select(categoria => categoria.Id);
+            UpdateCategoriaAtendimentoRequest.Cat_catpai = categoriaId.FirstOrDefault();
+        }
+
         var DescricaoCategoriaPai = await _categoriaAtendimentoServices.GetCategoriaAtendimentoByIdAsync(UpdateCategoriaAtendimentoRequest.Cat_catpai);
 
         if (DescricaoCategoriaPai.IsSuccessful)
@@ -47,6 +75,7 @@ public partial class UpdateCategoriaAtendimentoDialog
         UpdateCategoriaAtendimentoRequest.Cat_usualt = 1;
         UpdateCategoriaAtendimentoRequest.Cat_datalt = DateTime.Now;
         UpdateCategoriaAtendimentoRequest.Cat_usubdd = "LhnDialog";
+        UpdateCategoriaAtendimentoRequest.Cat_valor = UpdateCategoriaAtendimentoRequest.Cat_valor.ToUpper();
 
         var response = await _categoriaAtendimentoServices.UpdateCategoriaAtendimentoAsync(UpdateCategoriaAtendimentoRequest);
         if (response.IsSuccessful)

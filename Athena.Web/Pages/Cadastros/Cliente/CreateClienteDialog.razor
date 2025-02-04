@@ -5,17 +5,27 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateClienteRequest.Cli_descri" Label="Descrição do Cliente" For="@(() => CreateClienteRequest.Cli_descri)"
-                        Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Cliente
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateClienteRequest.Cli_lhn_identi" Label="Linha de Negócio do Cliente" Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Cliente
-                    </MudTextField>
-                </MudItem>                
+                @if (_linhasNegocio == null || !_linhasNegocio.Any())
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="CreateClienteRequest.Cli_descri" Label="Descrição do Cliente" For="@(() => CreateClienteRequest.Cli_descri)"
+                                      Margin="Margin.Dense" Variant="Variant.Outlined">
+                            Cliente
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="linhaNegocioSelected" Label="Linha de Negócio" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _linhasNegocio)
+                            {
+                                <MudSelectItem Value="@item.Lhn_descri">@item.Lhn_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }                              
             </MudGrid>                        
         </DialogContent>
         <DialogActions>

@@ -1,6 +1,7 @@
 ﻿using Athena.Web.Validators.ClienteValidators;
 using common.Requests;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -17,6 +18,23 @@ public partial class CreateClienteDialog
     MudForm _form = default;
 
     private ClienteValidator _validator = new();
+
+    private List<LinhaNegocioResponse> _linhasNegocio = new List<LinhaNegocioResponse>();    
+    private string linhaNegocioSelected = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var requestLinhasNegocio = await _linhaNegocioServices.GetLinhaNegocioAllAsync();
+        if (requestLinhasNegocio.IsSuccessful)
+        {
+            _linhasNegocio = requestLinhasNegocio.Data;
+        }
+        else
+        {
+            _snackbar.Add(requestLinhasNegocio.Messages, Severity.Error);
+            MudDialog.Close();
+        }        
+    }
 
     private async Task SubmitAsync()
     {
@@ -45,6 +63,13 @@ public partial class CreateClienteDialog
         CreateClienteRequest.Cli_datalt = null;
         CreateClienteRequest.Cli_usubdd = "LhnDialog";
         CreateClienteRequest.Cli_ativo = "S";
+        CreateClienteRequest.Cli_descri = CreateClienteRequest.Cli_descri.ToUpper();
+
+        if (!string.IsNullOrWhiteSpace(linhaNegocioSelected))
+        {
+            var linhaNegocioId = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id);
+            CreateClienteRequest.Cli_lhn_identi = linhaNegocioId.FirstOrDefault();
+        }
 
         var response = await _clienteServices.CreateClienteAsync(CreateClienteRequest);
         if (response.IsSuccessful)
