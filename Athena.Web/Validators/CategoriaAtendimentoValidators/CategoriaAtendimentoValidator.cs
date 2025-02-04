@@ -16,7 +16,7 @@ public class CategoriaAtendimentoValidator : AbstractValidator<CreateCategoriaAt
             .MinimumLength(5).WithMessage("Tamanho mínimo 5 caracteres");
 
         RuleFor(categoriaAtendimento => categoriaAtendimento.Cat_nivel)
-        .NotNull().WithMessage("Campo obrigatório");
+        .NotNull().WithMessage("Campo obrigatório");        
     }
 
     public Func<object, string, Task<IEnumerable<string>>> Validate => async (requestModel, propertyName) =>

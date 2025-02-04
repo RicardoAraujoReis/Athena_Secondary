@@ -5,97 +5,90 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="0" md="0">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_resumo)"
-                                  Variant="Variant.Outlined">
-                        Resumo do Pré Atendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_cli_identi" Label="Cliente" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_cli_identi)"
-                                  Variant="Variant.Outlined">
-                        Cliente
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_tipptd" Label="Tipo do Pré Atendimento" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_tipptd)"
-                                  Variant="Variant.Outlined">
-                        Tipo do Pré Atendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_critic" Label="Criticidade" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_critic)"
-                                  Variant="Variant.Outlined">
-                        Criticidade
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numcha" Label="Número Chamado" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numcha)"
-                                  Variant="Variant.Outlined">
-                        Número Chamado
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_jirarl" Label="Jira Relacionado" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_jirarl)"
-                                  Variant="Variant.Outlined">
-                        Jira Relacionado
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numjir)"
-                                  Variant="Variant.Outlined">
-                        Número do Jira
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="0" md="0">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_diagn1" Label="Diagnóstico N1" Margin="Margin.Dense" Lines="3"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_diagn1)"
-                                  Variant="Variant.Outlined">
-                        Diagnóstico N1
-                    </MudTextField>
-                </MudItem>                
-                <MudItem xs="12" sm="0" md="0">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_reton2" Label="Retorno do N2" Margin="Margin.Dense" Lines="3"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_reton2)"
-                                  Variant="Variant.Outlined">
-                        Retorno do N2
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="0" md="0">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_observ" Label="Observação" Margin="Margin.Dense" Lines="3"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_observ)"
-                                  Variant="Variant.Outlined">
-                        Observação
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_nomal1" Label="Nome Anl N1" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_nomal1)"
-                                  Variant="Variant.Outlined">
-                        Nome Anl N1
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numatd" Label="Número do Atendimento" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numatd)"
-                                  Variant="Variant.Outlined">
-                        Número do Atendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="4" md="4">
-                    <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_status" Label="Status do Atendimento" Margin="Margin.Dense"
-                                  For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_status)"
-                                  Variant="Variant.Outlined">
-                        Status do Atendimento
-                    </MudTextField>
-                </MudItem>
+                @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
+                (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
+                (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_resumo)"
+                                      Variant="Variant.Outlined">
+                            Resumo do Pré Atendimento
+                        </MudTextField>
+                    </MudItem>                   
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="clienteSelected" Label="Selecione o Cliente" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _clientes)
+                                {
+                                    <MudSelectItem Value="@item.Cli_descri">@item.Cli_descri.ToUpper()</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>                    
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="dadoListaTipoPreAtendimentoSelected" Label="Tipo Pré Atendimento" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in nomeDadosListasTipoPreAtendimento)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>                    
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="dadoListaCriticidadeSelected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in nomeDadosListasCriticidade)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>                    
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="dadoListaAnalistaN1Selected" Label="Analista N1" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in nomeDadosListasAnalistaN1)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>                    
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numcha" Label="Número Chamado" Margin="Margin.Dense"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numcha)"
+                                      Variant="Variant.Outlined">
+                            Número Chamado
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaJiraRelacionadoSelected" Label="Jira Relacionado" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasJiraRelacionado)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                      Variant="Variant.Outlined">
+                            Número do Jira
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_diagn1" Label="Diagnóstico N1" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_diagn1)"
+                                      Variant="Variant.Outlined">
+                            Diagnóstico N1
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_observ" Label="Observação" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_observ)"
+                                      Variant="Variant.Outlined">
+                            Observação
+                        </MudTextField>
+                    </MudItem>
+                }                
             </MudGrid>
         </DialogContent>
         <DialogActions>

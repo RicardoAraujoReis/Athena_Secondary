@@ -5,24 +5,35 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateClienteRequest.Cli_descri" Label="Descrição do Cliente" For="@(() => UpdateClienteRequest.Cli_descri)"
-                        Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Cliente
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateClienteRequest.Cli_ativo" Label="Ativo" For="@(() => UpdateClienteRequest.Cli_ativo)"
-                        Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Ativo
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateClienteRequest.Cli_lhn_identi" Label="Linha de Negócio" Margin="Margin.Dense" 
-                        Variant="Variant.Outlined">
-                        Ativo
-                    </MudTextField>
-                </MudItem>
+                @if ((_linhasNegocio == null || !_linhasNegocio.Any()) || (nomeDadosListasRegistroAtivo == null || !nomeDadosListasRegistroAtivo.Any()))
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateClienteRequest.Cli_descri" Label="Descrição do Cliente" For="@(() => UpdateClienteRequest.Cli_descri)"
+                                      Margin="Margin.Dense" Variant="Variant.Outlined">
+                            Cliente
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="dadoListaRegistroAtivoSelected" Label="Ativo" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasRegistroAtivo)
+                            {
+                                <MudSelectItem Value="@item">@item.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="linhaNegocioSelected" Label="Linha de Negócio" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _linhasNegocio)
+                            {
+                                <MudSelectItem Value="@item.Lhn_descri">@item.Lhn_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
             </MudGrid>
         </DialogContent>
         <DialogActions>

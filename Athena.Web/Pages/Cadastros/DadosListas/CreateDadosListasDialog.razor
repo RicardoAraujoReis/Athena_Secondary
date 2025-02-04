@@ -5,20 +5,28 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateDadosListasRequest.Dal_valor" Label="Valor do Dado Lista" Margin="Margin.Dense"
-                                  For="@(() => CreateDadosListasRequest.Dal_valor)"
-                                  Variant="Variant.Outlined">
-                        Dados Listas
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="CreateDadosListasRequest.Dal_tid_identi" Label="Id do Tipo" Margin="Margin.Dense"
-                                  For="@(() => CreateDadosListasRequest.Dal_tid_identi)"
-                                  Variant="Variant.Outlined">
-                        Dados Listas
-                    </MudTextField>
-                </MudItem>
+                @if (_tiposDadosListas == null || !_tiposDadosListas.Any())
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="CreateDadosListasRequest.Dal_valor" Label="Valor do Dado Lista" Margin="Margin.Dense"
+                                      For="@(() => CreateDadosListasRequest.Dal_valor)"
+                                      Variant="Variant.Outlined">
+                            Dados Listas
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="tipoDadosListasSelected" Label="Selecione o Tipo" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _tiposDadosListas)
+                            {
+                                <MudSelectItem Value="@item.Tid_descri">@item.Tid_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
             </MudGrid>
         </DialogContent>
         <DialogActions>
@@ -26,4 +34,4 @@
             <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
         </DialogActions>
     </MudDialog>
-</MudForm>
+</MudForm>              

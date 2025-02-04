@@ -1,5 +1,6 @@
 ﻿using Athena.Web.Validators.CategoriaAtendimentoValidators;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -16,6 +17,24 @@ public partial class CreateCategoriaAtendimentoDialog
     MudForm _form = default;
 
     private CategoriaAtendimentoValidator _validator = new();
+
+    private List<CategoriaAtendimentoResponse> _categorias = new List<CategoriaAtendimentoResponse>();
+    private int? categoriaSelected;    
+
+    protected override async Task OnInitializedAsync()
+    {
+        var categoriaRequest = await _categoriaAtendimentoServices.GetCategoriaAtendimentoAllAsync();
+
+        if (categoriaRequest.IsSuccessful)
+        {
+            _categorias = categoriaRequest.Data;
+        }
+        else
+        {
+            _snackbar.Add(categoriaRequest.Messages, Severity.Error);
+            MudDialog.Close();
+        }
+    }
 
     private async Task SubmitAsync()
     {
@@ -38,7 +57,7 @@ public partial class CreateCategoriaAtendimentoDialog
 
     private async Task SaveAsync()
     {
-        var DescricaoCategoriaPai = await _categoriaAtendimentoServices.GetCategoriaAtendimentoByIdAsync(CreateCategoriaAtendimentoRequest.Cat_catpai);
+        var DescricaoCategoriaPai = await _categoriaAtendimentoServices.GetCategoriaAtendimentoByIdAsync(categoriaSelected.Value);
 
         if(DescricaoCategoriaPai.IsSuccessful)
         {
@@ -50,18 +69,26 @@ public partial class CreateCategoriaAtendimentoDialog
         CreateCategoriaAtendimentoRequest.Cat_datalt = null;
         CreateCategoriaAtendimentoRequest.Cat_usubdd = "LhnDialog";
         CreateCategoriaAtendimentoRequest.Cat_ativo = "S";
-        
+        CreateCategoriaAtendimentoRequest.Cat_valor = CreateCategoriaAtendimentoRequest.Cat_valor.ToUpper();
 
-        var response = await _categoriaAtendimentoServices.CreateCategoriaAtendimentoAsync(CreateCategoriaAtendimentoRequest);
-        if (response.IsSuccessful)
+        if (DescricaoCategoriaPai.Data.Cat_valor == CreateCategoriaAtendimentoRequest.Cat_valor)
         {
-            _snackbar.Add(response.Messages, Severity.Success);
+            _snackbar.Add("Categoria Pai deve ser diferente da Categoria", Severity.Error);
             MudDialog.Close();
         }
         else
         {
-            _snackbar.Add(response.Messages, Severity.Error);            
-        }
+            var response = await _categoriaAtendimentoServices.CreateCategoriaAtendimentoAsync(CreateCategoriaAtendimentoRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
+        }        
     }
 
     private void Cancel() => MudDialog.Cancel();

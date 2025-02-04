@@ -5,30 +5,40 @@
         </TitleContent>
         <DialogContent>
             <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_valor" Label="Descrição da Categoria de Atendimento" Margin="Margin.Dense"
-                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_valor)" Variant="Variant.Outlined">
-                        CategoriaAtendimento
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_catpai" Label="Categoria Pai" Variant="Variant.Outlined" Margin="Margin.Dense">
-                        Categoria Pai
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível" Margin="Margin.Dense"
-                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_nivel)" Variant="Variant.Outlined">
-                        Nível
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_ativo" Label="Ativo" Margin="Margin.Dense"
-                        For="@(() => UpdateCategoriaAtendimentoRequest.Cat_ativo)" Variant="Variant.Outlined">
-                        Ativo
-                    </MudTextField>
-                </MudItem>
-            </MudGrid>                                    
+                @if (_categorias == null || !_categorias.Any())
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_valor" Label="Descrição da Categoria de Atendimento" Margin="Margin.Dense"
+                                      For="@(() => UpdateCategoriaAtendimentoRequest.Cat_valor)" Variant="Variant.Outlined">
+                            CategoriaAtendimento
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="categoriaSelected" Label="Selecione a Categoria Pai" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _categorias)
+                            {
+                                <MudSelectItem Value="@item.Cat_valor">@item.Cat_valor.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_nivel" Label="Nível" Margin="Margin.Dense"
+                                      For="@(() => UpdateCategoriaAtendimentoRequest.Cat_nivel)" Variant="Variant.Outlined">
+                            Nível
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateCategoriaAtendimentoRequest.Cat_ativo" Label="Ativo" Margin="Margin.Dense"
+                                      For="@(() => UpdateCategoriaAtendimentoRequest.Cat_ativo)" Variant="Variant.Outlined">
+                            Ativo
+                        </MudTextField>
+                    </MudItem>
+                }
+            </MudGrid>
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

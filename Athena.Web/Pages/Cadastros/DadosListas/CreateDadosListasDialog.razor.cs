@@ -18,6 +18,23 @@ public partial class CreateDadosListasDialog
 
     private DadosListasValidator _validator = new();
 
+    private List<TipoDadosListasResponse> _tiposDadosListas = new List<TipoDadosListasResponse>();    
+    private string tipoDadosListasSelected = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var requestTipoDadosListas = await _tipoDadosListasServices.GetTipoDadosListasAllAsync();
+        if (requestTipoDadosListas.IsSuccessful)
+        {
+            _tiposDadosListas = requestTipoDadosListas.Data;            
+        }
+        else
+        {
+            _snackbar.Add(requestTipoDadosListas.Messages, Severity.Error);
+            MudDialog.Close();
+        }        
+    }
+
     private async Task SubmitAsync()
     {
         await _form.Validate();
@@ -39,30 +56,27 @@ public partial class CreateDadosListasDialog
 
     private async Task SaveAsync()
     {
+        var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
 
-        var TidDescription = await _tipoDadosListasServices.GetTipoDadosListasByIdAsync(CreateDadosListasRequest.Dal_tid_identi);
+        CreateDadosListasRequest.Dal_usucri = 1;
+        CreateDadosListasRequest.Dal_usualt = null;
+        CreateDadosListasRequest.Dal_datcri = DateTime.Now;
+        CreateDadosListasRequest.Dal_datalt = null;
+        CreateDadosListasRequest.Dal_usubdd = "DalDialog";
+        CreateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
+        CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
+        CreateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
 
-        if(TidDescription.IsSuccessful) 
+        var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
+        if (response.IsSuccessful)
         {
-            CreateDadosListasRequest.Dal_usucri = 1;
-            CreateDadosListasRequest.Dal_usualt = null;
-            CreateDadosListasRequest.Dal_datcri = DateTime.Now;
-            CreateDadosListasRequest.Dal_datalt = null;
-            CreateDadosListasRequest.Dal_usubdd = "DalDialog";
-            CreateDadosListasRequest.Dal_tid_descri = TidDescription.Data.Tid_descri;
-            CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
-
-            var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
-            if (response.IsSuccessful)
-            {
-                _snackbar.Add(response.Messages, Severity.Success);
-                MudDialog.Close();
-            }
-            else
-            {
-                _snackbar.Add(response.Messages, Severity.Error);
-            }
+            _snackbar.Add(response.Messages, Severity.Success);
+            MudDialog.Close();
         }
+        else
+        {
+            _snackbar.Add(response.Messages, Severity.Error);
+        }        
     }
 
     private void Cancel() => MudDialog.Cancel();

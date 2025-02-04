@@ -1,5 +1,6 @@
 ﻿using Athena.Web.Validators.DadosListasValidators;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -16,6 +17,23 @@ public partial class UpdateDadosListasDialog
     MudForm _form = default;
 
     private UpdateDadosListasValidator _validator = new();
+
+    private List<TipoDadosListasResponse> _tiposDadosListas = new List<TipoDadosListasResponse>();    
+    private string tipoDadosListasSelected = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var requestTipoDadosListas = await _tipoDadosListasServices.GetTipoDadosListasAllAsync();
+        if (requestTipoDadosListas.IsSuccessful)
+        {
+            _tiposDadosListas = requestTipoDadosListas.Data;
+        }
+        else
+        {
+            _snackbar.Add(requestTipoDadosListas.Messages, Severity.Error);
+            MudDialog.Close();
+        }        
+    }
 
     private async Task SubmitAsync()
     {
@@ -38,9 +56,12 @@ public partial class UpdateDadosListasDialog
 
     private async Task SaveAsync()
     {
+        var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
+
         UpdateDadosListasRequest.Dal_usualt = 1;
         UpdateDadosListasRequest.Dal_datalt = DateTime.Now;
-        UpdateDadosListasRequest.Dal_usubdd = "DalDialog";
+        UpdateDadosListasRequest.Dal_usubdd = "DalDialog";        
+        UpdateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
 
         var response = await _dadosListasServices.UpdateDadosListasAsync(UpdateDadosListasRequest);
         if (response.IsSuccessful)
