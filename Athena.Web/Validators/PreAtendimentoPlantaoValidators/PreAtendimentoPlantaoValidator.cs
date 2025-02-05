@@ -9,8 +9,21 @@ public class PreAtendimentoPlantaoValidator : AbstractValidator<CreatePreAtendim
     {
         RuleFor(preAtendimento => preAtendimento.Ptd_resumo)
             .Must(descri => !string.IsNullOrEmpty(descri)).WithMessage("Campo obrigatório")
-            .MinimumLength(10).WithMessage("Tamanho mínimo 10 caracteres")
-            .MaximumLength(200).WithMessage("Tamanho máximo 200 caracteres");
+            .MinimumLength(20).WithMessage("Tamanho mínimo 20 caracteres")
+            .MaximumLength(255).WithMessage("Tamanho máximo 255 caracteres");
+
+        RuleFor(preAtendimento => preAtendimento.Ptd_numcha)
+            .Must(numcha => !string.IsNullOrEmpty(numcha)).WithMessage("Campo obrigatório")
+            .MinimumLength(5).WithMessage("Tamanho mínimo 5 caracteres")
+            .MaximumLength(20).WithMessage("Tamanho máximo 20 caracteres");
+
+        RuleFor(preAtendimento => preAtendimento.Ptd_diagn1)
+            .Must(numcha => !string.IsNullOrEmpty(numcha)).WithMessage("Campo obrigatório")
+            .MinimumLength(20).WithMessage("Tamanho mínimo 20 caracteres")
+            .MaximumLength(255).WithMessage("Tamanho máximo 255 caracteres");
+
+        RuleFor(preAtendimento => preAtendimento.Ptd_observ)                        
+            .MaximumLength(255).WithMessage("Tamanho máximo 255 caracteres");
     }
 
     public Func<object, string, Task<IEnumerable<string>>> Validate => async (requestModel, propertyName) =>
