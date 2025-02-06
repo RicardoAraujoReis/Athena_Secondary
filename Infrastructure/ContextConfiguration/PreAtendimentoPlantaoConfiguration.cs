@@ -30,6 +30,8 @@ internal class PreAtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Pre
         builder.Property(x => x.Ptd_usualt).HasMaxLength(10);
         builder.Property(x => x.Ptd_datcri).IsRequired();
         builder.Property(x => x.Ptd_datalt);
+        builder.Property(x => x.Ptd_linjir).HasMaxLength(255).HasAnnotation("CustomAnnotation", "Link do Jira");
+        builder.Property(x => x.Ptd_verjir).HasMaxLength(65).HasAnnotation("CustomAnnotation", "Versão do Jira"); ;
 
         builder.HasOne(x => x.Usuario)
             .WithMany(x => x.PreAtendimentos)

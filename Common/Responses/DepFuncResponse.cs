@@ -12,7 +12,7 @@ public class DepFuncResponse
     public int Dfc_dpt_identi { get; set; }
     public int Dfc_fnc_identi { get; set; }
     public int Dfc_usu_identi { get; set; }
-    public String Dfc_usubdd { get; set; }
+    public string Dfc_usubdd { get; set; }
     public int Dfc_usucri { get; set; }
     public int Dfc_usualt { get; set; }
     public DateTime Dfc_datcri { get; set; }

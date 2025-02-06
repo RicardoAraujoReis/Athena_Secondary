@@ -4,8 +4,8 @@ namespace Athena.Models;
 
 public class TipoDadosListas : BaseEntity<int>
 {    
-    public String Tid_descri { get; set; }
-    public String Tid_usubdd { get; set; }
+    public string Tid_descri { get; set; }
+    public string Tid_usubdd { get; set; }
     public DateTime Tid_datcri { get; set; }
     public DateTime? Tid_datalt { get; set; }
     public int Tid_usucri { get; set; }
@@ -14,8 +14,8 @@ public class TipoDadosListas : BaseEntity<int>
 
     public TipoDadosListas UpdateTipoDadosListas(
         int id,
-        String tid_descri,
-        String tid_usubdd,
+        string tid_descri,
+        string tid_usubdd,
         DateTime tid_datcri,
         DateTime tid_datalt,
         int tid_usucri,
