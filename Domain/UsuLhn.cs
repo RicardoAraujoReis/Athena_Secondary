@@ -6,7 +6,7 @@ public class UsuLhn : BaseEntity<int>
 {        
     public int Uln_usu_identi { get; set; }    
     public int Uln_lhn_identi { get; set; }    
-    public String Uln_usubdd { get; set; }
+    public string Uln_usubdd { get; set; }
     public int Uln_usucri { get; set; }
     public int? Uln_usualt { get; set; }
     public DateTime Uln_datcri { get; set; }
@@ -18,7 +18,7 @@ public class UsuLhn : BaseEntity<int>
         int id,
         int uln_usu_identi,
         int uln_lhn_identi,
-        String uln_usubdd,
+        string uln_usubdd,
         int uln_usucri,
         int uln_usualt,
         DateTime uln_datcri,

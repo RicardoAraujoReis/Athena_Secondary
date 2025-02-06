@@ -4,9 +4,9 @@ namespace Athena.Models;
 
 public class Cliente : BaseEntity<int>
 {    
-    public String Cli_descri { get; set; }
-    public String Cli_ativo { get; set; }
-    public String Cli_usubdd { get; set; }
+    public string Cli_descri { get; set; }
+    public string Cli_ativo { get; set; }
+    public string Cli_usubdd { get; set; }
     public int Cli_usucri { get; set; }
     public int? Cli_usualt { get; set; }
     public DateTime Cli_datcri { get; set; }
@@ -18,9 +18,9 @@ public class Cliente : BaseEntity<int>
 
     public Cliente UpdateCliente(
         int id, 
-        String cli_descri,
-        String cli_ativo,
-        String cli_usubdd,
+        string cli_descri,
+        string cli_ativo,
+        string cli_usubdd,
         int cli_usucri,
         int cli_usualt,
         DateTime cli_datcri,

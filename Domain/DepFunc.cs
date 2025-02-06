@@ -7,7 +7,7 @@ public class DepFunc : BaseEntity<int>
     public int Dfc_dpt_identi { get; set; }       
     public int Dfc_fnc_identi { get; set; }
     public int Dfc_usu_identi { get; set; }
-    public String Dfc_usubdd { get; set; }
+    public string Dfc_usubdd { get; set; }
     public int Dfc_usucri { get; set; }
     public int? Dfc_usualt { get; set; }
     public DateTime Dfc_datcri { get; set; }
@@ -21,7 +21,7 @@ public class DepFunc : BaseEntity<int>
         int dfc_dpt_identi,
         int dfc_fnc_identi,
         int dfc_usu_identi,
-        String dfc_usubdd,
+        string dfc_usubdd,
         int dfc_usucri,
         int dfc_usualt,
         DateTime dfc_datcri,

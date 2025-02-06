@@ -10,11 +10,11 @@ public class CategoriaAtendimentoResponse
 {
     public int Id { get; set; }
     public int Cat_catpai { get; set; }
-    public String? Cat_despai { get; set; }
+    public string? Cat_despai { get; set; }
     public int Cat_nivel { get; set; }
-    public String Cat_valor { get; set; }
-    public String Cat_ativo { get; set; }
-    public String Cat_usubdd { get; set; }
+    public string Cat_valor { get; set; }
+    public string Cat_ativo { get; set; }
+    public string Cat_usubdd { get; set; }
     public int Cat_usucri { get; set; }
     public int Cat_usualt { get; set; }
     public DateTime Cat_datcri { get; set; }

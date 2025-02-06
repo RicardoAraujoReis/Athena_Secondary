@@ -10,10 +10,10 @@
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@preAtendimentos" Elevation="25" Dense="true" Hover="true" Loading="@_loading">
+        <MudTable Items="@preAtendimentos" Elevation="25" Dense="true" Hover="true" Loading="@_loading" LoadingProgressColor="Color.Dark">
             <ToolBarContent>
-                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />
-                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadPreAtendimentoPlantaoAsync())" />
+                <MudFab Class="mr-4" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />
+                <MudFab Class="mr-4" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadPreAtendimentoPlantaoAsync())" />
                 <MudSpacer />
                 <MudSpacer />
                 <MudSpacer />

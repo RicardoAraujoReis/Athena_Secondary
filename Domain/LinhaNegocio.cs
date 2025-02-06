@@ -4,9 +4,9 @@ namespace Athena.Models;
 
 public class LinhaNegocio : BaseEntity<int>
 {        
-    public String Lhn_descri { get; set; }    
-    public String Lhn_ativo { get; set; }    
-    public String Lhn_usubdd { get; set; }    
+    public string Lhn_descri { get; set; }    
+    public string Lhn_ativo { get; set; }    
+    public string Lhn_usubdd { get; set; }    
     public int Lhn_usucri { get; set; }
     public int? Lhn_usualt { get; set; }    
     public DateTime Lhn_datcri { get; set; }
@@ -16,9 +16,9 @@ public class LinhaNegocio : BaseEntity<int>
 
     public LinhaNegocio UpdateLinhaNegocio(
         int id,
-        String lhn_descri,
-        String lhn_ativo,
-        String lhn_usubdd,
+        string lhn_descri,
+        string lhn_ativo,
+        string lhn_usubdd,
         int lhn_usucri,
         int lhn_usualt,
         DateTime lhn_datcri,

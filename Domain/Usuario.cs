@@ -4,15 +4,15 @@ namespace Athena.Models;
 
 public class Usuario : BaseEntity<int>
 {   
-    public String Usu_descri { get; set; }
-    public String Usu_login { get; set; }    
-    public String Usu_senha { get; set; }
-    public String Usu_email { get; set; }
-    public String Usu_ativo { get; set; }
-    public String Usu_status { get; set; }
-    public String Usu_master { get; set; }
-    public String Usu_tipusu { get; set; }
-    public String Usu_usubdd { get; set; }
+    public string Usu_descri { get; set; }
+    public string Usu_login { get; set; }    
+    public string Usu_senha { get; set; }
+    public string Usu_email { get; set; }
+    public string Usu_ativo { get; set; }
+    public string Usu_status { get; set; }
+    public string Usu_master { get; set; }
+    public string Usu_tipusu { get; set; }
+    public string Usu_usubdd { get; set; }
     public int Usu_usucri { get; set; } 
     public int? Usu_usualt { get; set; }
     public DateTime Usu_datcri { get; set; }
@@ -24,15 +24,15 @@ public class Usuario : BaseEntity<int>
 
     public Usuario UpdateUsuario(
         int id,
-        String usu_descri,
-        String usu_login,
-        String usu_senha,
-        String usu_email,
-        String usu_ativo,
-        String usu_status,
-        String usu_master,
-        String usu_tipusu,
-        String usu_usubdd,
+        string usu_descri,
+        string usu_login,
+        string usu_senha,
+        string usu_email,
+        string usu_ativo,
+        string usu_status,
+        string usu_master,
+        string usu_tipusu,
+        string usu_usubdd,
         int usu_usucri,
         int usu_usualt,
         DateTime usu_datcri,

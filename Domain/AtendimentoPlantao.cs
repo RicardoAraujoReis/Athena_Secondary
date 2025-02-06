@@ -7,22 +7,22 @@ public class AtendimentoPlantao : BaseEntity<int>
     public int Atd_usu_identi { get; set; }        
     public int Atd_ptd_identi { get; set; }    
     public int Atd_cli_identi { get; set; }    
-    public String Atd_tipatd { get; set; }
+    public string Atd_tipatd { get; set; }
     public int Atd_cat_identi { get; set; }    
-    public String Atd_resumo { get; set; }
-    public String Atd_respn2 { get; set; }
-    public String Atd_crijir { get; set; }
-    public String Atd_issue { get; set; }
-    public String Atd_critic { get; set; }
-    public String Atd_resplt { get; set; }
-    public String? Atd_ren1hm { get; set; }
-    public String Atd_resn1 { get; set; }
-    public String? Atd_evoln1 { get; set; }
-    public String? Atd_observ { get; set; }
-    public String Atd_usubdd { get; set; }
+    public string Atd_resumo { get; set; }
+    public string Atd_respn2 { get; set; }
+    public string Atd_crijir { get; set; }
+    public string Atd_issue { get; set; }
+    public string Atd_critic { get; set; }
+    public string Atd_resplt { get; set; }
+    public string? Atd_ren1hm { get; set; }
+    public string Atd_resn1 { get; set; }
+    public string? Atd_evoln1 { get; set; }
+    public string? Atd_observ { get; set; }
+    public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
-    public String Atd_nomal2 { get; set; }
-    public String Atd_status { get; set; }
+    public string Atd_nomal2 { get; set; }
+    public string Atd_status { get; set; }
     public int Atd_usucri { get; set; }
     public int? Atd_usualt { get; set; }
     public DateTime Atd_datcri { get; set; }
@@ -36,22 +36,22 @@ public class AtendimentoPlantao : BaseEntity<int>
         int id,
         int atd_usu_identi,        
         int atd_cli_identi,
-        String atd_tipatd,
+        string atd_tipatd,
         int atd_cat_identi,
-        String atd_resumo,
-        String atd_respn2,
-        String atd_crijir,
-        String atd_issue,
-        String atd_critic,
-        String atd_resplt,
-        String atd_ren1hm,
-        String atd_resn1,
-        String atd_evoln1,
-        String atd_observ,
-        String atd_usubdd,
+        string atd_resumo,
+        string atd_respn2,
+        string atd_crijir,
+        string atd_issue,
+        string atd_critic,
+        string atd_resplt,
+        string atd_ren1hm,
+        string atd_resn1,
+        string atd_evoln1,
+        string atd_observ,
+        string atd_usubdd,
         DateTime atd_datatd,
-        String atd_nomal2,
-        String atd_status,
+        string atd_nomal2,
+        string atd_status,
         int atd_usucri,
         int atd_usualt,
         DateTime atd_datcri,

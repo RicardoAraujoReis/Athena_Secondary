@@ -67,7 +67,9 @@ public class UpdatePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Update
                 Ptd_datcri = request.UpdatePreAtendimentoPlantao.Ptd_datcri,
                 Ptd_datalt = request.UpdatePreAtendimentoPlantao.Ptd_datalt,
                 Ptd_usucri = request.UpdatePreAtendimentoPlantao.Ptd_usucri,
-                Ptd_usualt = request.UpdatePreAtendimentoPlantao.Ptd_usualt
+                Ptd_usualt = request.UpdatePreAtendimentoPlantao.Ptd_usualt,
+                Ptd_linjir = request.UpdatePreAtendimentoPlantao.Ptd_linjir,
+                Ptd_verjir = request.UpdatePreAtendimentoPlantao.Ptd_verjir
             };                            
 
             await _unitOfWork.WriteDataFor<PreAtendimentoPlantao>().UpdateAsync(updatePreAtendimentoPlantao);
