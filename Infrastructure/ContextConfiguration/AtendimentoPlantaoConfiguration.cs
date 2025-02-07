@@ -31,6 +31,8 @@ internal class AtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Atendi
         builder.Property(x => x.Atd_usualt).HasMaxLength(10);
         builder.Property(x => x.Atd_datcri).IsRequired();
         builder.Property(x => x.Atd_datalt);
+        builder.Property(x => x.Atd_linjir).HasMaxLength(255);
+        builder.Property(x => x.Atd_verjir).HasMaxLength(65);
 
         builder.HasOne(x => x.Usuario)
             .WithMany(x => x.Atendimentos)
