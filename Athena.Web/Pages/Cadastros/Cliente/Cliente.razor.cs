@@ -11,6 +11,8 @@ public partial class Cliente
     private bool _loading = true;
     private string searchCliente = null;
 
+    private string dataAlteracao = "---";
+
     protected override async Task OnInitializedAsync()
     {
         await LoadClienteListAsync();

@@ -11,6 +11,7 @@ public partial class CategoriaAtendimento
     public List<CategoriaAtendimentoResponse> CategoriaAtendimentos { get; set; } = new List<CategoriaAtendimentoResponse>();
     private bool _loading = true;
     private string searchCategoriaAtendimento = null;
+    private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
     {

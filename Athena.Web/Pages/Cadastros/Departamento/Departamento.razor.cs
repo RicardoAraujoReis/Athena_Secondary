@@ -12,6 +12,7 @@ public partial class Departamento
     public List<DepartamentoResponse> departamentos { get; set; } = new List<DepartamentoResponse>();    
     private bool _loading = true;
     private string searchDepartamento = null;
+    private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
     {

@@ -6,7 +6,7 @@
             <MudIcon Icon="@Icons.Material.Filled.Category" />
         </CardHeaderAvatar>
         <CardHeaderContent>
-            <MudText Typo="Typo.body1">Categorias de Fornecimento</MudText>            
+            <MudText Typo="Typo.body1">Categorias de Fornecimento</MudText>
         </CardHeaderContent>
     </MudCardHeader>
     <MudCardContent>
@@ -26,7 +26,7 @@
             </ToolBarContent>
             <HeaderContent>
                 <MudTh>Id</MudTh>
-                <MudTh>Valor</MudTh>                
+                <MudTh>Valor</MudTh>
                 <MudTh>Cat. Pai</MudTh>
                 <MudTh>Nível</MudTh>
                 <MudTh>Ativo</MudTh>
@@ -41,7 +41,14 @@
                 <MudTd DataLabel="Cat_nivel">@context.Cat_nivel</MudTd>
                 <MudTd DataLabel="Cat_ativo">@context.Cat_ativo</MudTd>
                 <MudTd DataLabel="Cat_datcri">@context.Cat_datcri</MudTd>
-                <MudTd DataLabel="Cat_datalt">@context.Cat_datalt</MudTd>
+                @if (@context.Cat_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Cat_datalt">@context.Cat_datalt</MudTd>
+                }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
                         <MudMenuItem OnClick="(() => UpdateCategoriaAtendimentoAsync(context.Id))">Editar</MudMenuItem>

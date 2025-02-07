@@ -40,7 +40,14 @@
                 <MudTd DataLabel="Cli_descri">@context.Cli_descri</MudTd>
                 <MudTd DataLabel="Cli_ativo">@context.Cli_ativo</MudTd>
                 <MudTd DataLabel="Cli_datcri">@context.Cli_datcri</MudTd>
-                <MudTd DataLabel="Cli_datalt">@context.Cli_datalt</MudTd>
+                @if (@context.Cli_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Cli_datalt">@context.Cli_datalt</MudTd>
+                }                
                 <MudTd DataLabel="linhaNegocio">@context.LinhaNegocio.Lhn_descri</MudTd>
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
