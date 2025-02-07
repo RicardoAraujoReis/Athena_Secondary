@@ -11,6 +11,7 @@ public partial class DadosListas
     public List<DadosListasResponse> dadosListas { get; set; } = new List<DadosListasResponse>();
     private bool _loading = true;
     private string searchDadosListas = null;
+    private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
     {

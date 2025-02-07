@@ -12,6 +12,7 @@ public partial class LinhaNegocio
     private string searchLinhaNegocio = null;
     private string filterByAtivo = null;
     private LinhaNegocioResponse selectedItem = null;
+    private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
     {

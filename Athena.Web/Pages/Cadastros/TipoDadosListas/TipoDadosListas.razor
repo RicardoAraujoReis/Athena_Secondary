@@ -11,7 +11,7 @@
     </MudCardHeader>
     <MudCardContent>
         <MudTable Items="@tipoDadosListas" Elevation="25" Dense="true" Hover="true" Breakpoint="Breakpoint.Sm"
-                  Loading="@_loading" LoadingProgressColor="Color.Dark" Filter="new Func<TipoDadosListasResponse,bool>(FilterTipoDadosListasAsync)">            
+                  Loading="@_loading" LoadingProgressColor="Color.Dark" Filter="new Func<TipoDadosListasResponse,bool>(FilterTipoDadosListasAsync)">
             <ToolBarContent>
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreateTipoDadosListasAsync())" />
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadTipoDadosListasAsync())" />
@@ -28,14 +28,21 @@
                 <MudTh>Id</MudTh>
                 <MudTh>Descrição</MudTh>
                 <MudTh>Data Criação</MudTh>
-                <MudTh>Data Alteração</MudTh>                
+                <MudTh>Data Alteração</MudTh>
                 <MudTh>Ações</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Id">@context.Id</MudTd>
                 <MudTd DataLabel="Tid_descri">@context.Tid_descri</MudTd>
                 <MudTd DataLabel="Tid_datcri">@context.Tid_datcri</MudTd>
-                <MudTd DataLabel="Tid_datalt">@context.Tid_datalt</MudTd>                
+                @if (@context.Tid_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Tid_datalt">@context.Tid_datalt</MudTd>
+                }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
                         <MudMenuItem OnClick="(() => UpdateTipoDadosListasAsync(context.Id))">Editar</MudMenuItem>

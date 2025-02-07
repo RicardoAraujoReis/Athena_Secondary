@@ -19,7 +19,7 @@
                 <MudSpacer />
                 <MudSpacer />
                 <MudTextField @bind-Value="searchPreAtendimentos" Placeholder="Pesquisar" Adornment="Adornment.Start" Class="mt-0">
-                </MudTextField>                
+                </MudTextField>
             </ToolBarContent>
             <HeaderContent>
                 <MudTh>Id</MudTh>
@@ -30,9 +30,16 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Id">@context.Id</MudTd>
-                <MudTd DataLabel="Tid_descri">@context.Ptd_resumo</MudTd>
-                <MudTd DataLabel="Tid_datcri">@context.Ptd_datcri</MudTd>
-                <MudTd DataLabel="Tid_datalt">@context.Ptd_datalt</MudTd>
+                <MudTd DataLabel="Ptd_resumo">@context.Ptd_resumo</MudTd>
+                <MudTd DataLabel="Ptd_datcri">@context.Ptd_datcri</MudTd>
+                @if (@context.Ptd_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Ptd_datalt">@context.Ptd_datalt</MudTd>
+                }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
                         <!--<MudMenuItem OnClick="(() => UpdateTipoDadosListasAsync(context.Id))">Editar</MudMenuItem>

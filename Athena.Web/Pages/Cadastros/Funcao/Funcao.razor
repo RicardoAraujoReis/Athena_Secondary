@@ -39,7 +39,14 @@
                 <MudTd DataLabel="Fnc_descri">@context.Fnc_descri</MudTd>
                 <MudTd DataLabel="Fnc_ativo">@context.Fnc_ativo</MudTd>
                 <MudTd DataLabel="Fnc_datcri">@context.Fnc_datcri</MudTd>
-                <MudTd DataLabel="Fnc_datalt">@context.Fnc_datalt</MudTd>
+                @if (@context.Fnc_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Fnc_datalt">@context.Fnc_datalt</MudTd>
+                }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
                         <MudMenuItem OnClick="(() => UpdateFuncaoAsync(context.Id))">Editar</MudMenuItem>

@@ -10,6 +10,7 @@ public partial class Funcao
     public List<FuncaoResponse> funcoes { get; set; } = new List<FuncaoResponse>();
     private bool _loading = true;
     private string searchFuncao = null;
+    private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
     {
