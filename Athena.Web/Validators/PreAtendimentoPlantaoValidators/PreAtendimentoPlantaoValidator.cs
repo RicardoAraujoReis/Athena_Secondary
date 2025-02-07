@@ -24,6 +24,12 @@ public class PreAtendimentoPlantaoValidator : AbstractValidator<CreatePreAtendim
 
         RuleFor(preAtendimento => preAtendimento.Ptd_observ)                        
             .MaximumLength(255).WithMessage("Tamanho máximo 255 caracteres");
+
+        RuleFor(preAtendimento => preAtendimento.Ptd_linjir)
+            .MaximumLength(255).WithMessage("Tamanho máximo 255 caracteres");
+
+        RuleFor(preAtendimento => preAtendimento.Ptd_verjir)
+            .MaximumLength(65).WithMessage("Tamanho máximo 65 caracteres");
     }
 
     public Func<object, string, Task<IEnumerable<string>>> Validate => async (requestModel, propertyName) =>

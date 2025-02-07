@@ -24,6 +24,8 @@ public class CreateAtendimentoPlantao {
     public int? Atd_usualt { get; set; }
     public DateTime Atd_datcri { get; set; }
     public DateTime? Atd_datalt { get; set; }
+    public string? Atd_linjir { get; set; }
+    public string? Atd_verjir { get; set; }
 };
 
 public class UpdateAtendimentoPlantao
@@ -51,4 +53,6 @@ public class UpdateAtendimentoPlantao
     public int? Atd_usualt { get; set; }
     public DateTime Atd_datcri { get; set; }
     public DateTime? Atd_datalt { get; set; }
+    public string? Atd_linjir { get; set; }
+    public string? Atd_verjir { get; set; }
 };
