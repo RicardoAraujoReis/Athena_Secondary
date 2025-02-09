@@ -1,4 +1,5 @@
-﻿using Models.Interfaces;
+﻿using Models;
+using Models.Interfaces;
 
 namespace Athena.Models;
 
@@ -33,6 +34,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     public virtual Cliente Cliente { get; set; }
     public virtual PreAtendimentoPlantao PreAtendimentoPlantao { get; set; }
     public virtual CategoriaAtendimento CategoriaAtendimento { get; set; }
+    public virtual List<ComentariosAtendimentoPlantao> Comentarios { get; set; }
 
     public AtendimentoPlantao UpdateAtendimentoPlantao(
         int id,

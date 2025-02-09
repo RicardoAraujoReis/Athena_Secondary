@@ -16,7 +16,7 @@ public partial class CreatePreAtendimentoPlantaoDialog
 
     MudForm _form = default;
 
-    private PreAtendimentoPlantaoValidator _validator = new();
+    private ComentariosAtendimentoPlantaoValidator _validator = new();
             
     private List<ClienteResponse> _clientes = new List<ClienteResponse>();
     private string clienteSelected = null;
