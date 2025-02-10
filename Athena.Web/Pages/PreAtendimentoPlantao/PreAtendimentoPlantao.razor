@@ -12,8 +12,8 @@
     <MudCardContent>
         <MudTable Items="@preAtendimentos" Elevation="25" Dense="true" Hover="true" Loading="@_loading" LoadingProgressColor="Color.Dark">
             <ToolBarContent>
-                <MudFab Class="mr-4" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />
-                <MudFab Class="mr-4" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadPreAtendimentoPlantaoAsync())" />
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadPreAtendimentoPlantaoAsync())" />
                 <MudSpacer />
                 <MudSpacer />
                 <MudSpacer />
@@ -42,8 +42,8 @@
                 }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
-                        <!--<MudMenuItem OnClick="(() => UpdateTipoDadosListasAsync(context.Id))">Editar</MudMenuItem>
-                        <MudMenuItem OnClick="(() => DeleteTipoDadosListasAsync(context.Id, context.Tid_descri))">Deletar</MudMenuItem>-->
+                        <MudMenuItem OnClick="(() => UpdatePreAtendimentoPlantaoAsync(context.Id))">Editar</MudMenuItem>
+                        <MudMenuItem OnClick="(() => DeletePreAtendimentoPlantaoAsync(context.Id))">Deletar</MudMenuItem>
                     </MudMenu>
                 </MudTd>
             </RowTemplate>
