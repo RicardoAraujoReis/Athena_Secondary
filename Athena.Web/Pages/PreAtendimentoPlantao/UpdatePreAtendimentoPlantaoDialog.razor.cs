@@ -18,6 +18,9 @@ public partial class UpdatePreAtendimentoPlantaoDialog
 
     private UpdatePreAtendimentoPlantaoValidator _validator = new();
 
+    private List<LinhaNegocioResponse> _linhaNegocios = new List<LinhaNegocioResponse>();
+    private int? LinhaNegocioSelected;
+
     private List<ClienteResponse> _clientes = new List<ClienteResponse>();
     private string clienteSelected = null;
 
@@ -55,6 +58,17 @@ public partial class UpdatePreAtendimentoPlantaoDialog
             MudDialog.Close();
         }
 
+        var requestLinhaNegocio = await _linhaNegocioServices.GetLinhaNegocioAllAsync();
+        if (requestLinhaNegocio.IsSuccessful)
+        {
+            _linhaNegocios = requestLinhaNegocio.Data;
+        }
+        else
+        {
+            _snackbar.Add(requestLinhaNegocio.Messages, Severity.Error);
+            MudDialog.Close();
+        }        
+
         var requestDadosListas = await _dadosListasServices.GetDadosListasAllAsync();
         if (requestDadosListas.IsSuccessful)
         {
@@ -68,6 +82,9 @@ public partial class UpdatePreAtendimentoPlantaoDialog
 
         var clienteAtual = _clientes.Where(cliente => cliente.Id == UpdatePreAtendimentoPlantaoRequest.Ptd_cli_identi).FirstOrDefault();
         clienteSelected = clienteAtual.Cli_descri;
+
+        LinhaNegocioSelected = _linhaNegocios.Where(linhaNegocio => linhaNegocio.Id == clienteAtual.Cli_lhn_identi)
+            .Select(linhaNegocio => linhaNegocio.Id).FirstOrDefault();
 
         var criticidadeAtual = UpdatePreAtendimentoPlantaoRequest.Ptd_critic;
 

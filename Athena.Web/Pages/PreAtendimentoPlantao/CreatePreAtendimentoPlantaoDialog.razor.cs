@@ -18,7 +18,10 @@ public partial class CreatePreAtendimentoPlantaoDialog
 
     private PreAtendimentoPlantaoValidator _validator = new();
 
-    private DateTime? dataPreAtendimento;    
+    private DateTime? dataPreAtendimento;
+
+    private List<LinhaNegocioResponse> _linhaNegocios = new List<LinhaNegocioResponse>();
+    private int? LinhaNegocioSelected;
 
     private List<ClienteResponse> _clientes = new List<ClienteResponse>();
     private string clienteSelected = null;
@@ -35,9 +38,7 @@ public partial class CreatePreAtendimentoPlantaoDialog
     private string dadoListaAnalistaN1Selected = null;
   
     private List<string> nomeDadosListasJiraRelacionado = null;
-    private string dadoListaJiraRelacionadoSelected = null;
-
-    
+    private string dadoListaJiraRelacionadoSelected = null;    
 
     protected override async Task OnInitializedAsync()
     {        
@@ -46,14 +47,24 @@ public partial class CreatePreAtendimentoPlantaoDialog
         var requestClientes = await _clienteServices.GetClienteAllAsync();
         if (requestClientes.IsSuccessful)
         {
-            _clientes = requestClientes.Data;
-            
+            _clientes = requestClientes.Data;            
         }
         else
         {
             _snackbar.Add(requestClientes.Messages, Severity.Error);
             MudDialog.Close();
-        }        
+        }
+
+        var requestLinhaNegocio = await _linhaNegocioServices.GetLinhaNegocioAllAsync();
+        if (requestLinhaNegocio.IsSuccessful)
+        {
+            _linhaNegocios = requestLinhaNegocio.Data;
+        }
+        else
+        {
+            _snackbar.Add(requestLinhaNegocio.Messages, Severity.Error);
+            MudDialog.Close();
+        }
 
         var requestDadosListas = await _dadosListasServices.GetDadosListasAllAsync();
         if (requestDadosListas.IsSuccessful)
@@ -65,6 +76,8 @@ public partial class CreatePreAtendimentoPlantaoDialog
             _snackbar.Add(requestDadosListas.Messages, Severity.Error);
             MudDialog.Close();
         }
+
+
 
         nomeDadosListasCriticidade = _dadosListas.Where(dados=> dados.Dal_tid_descri == "CRITICIDADE").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasTipoPreAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO PRE ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
