@@ -1,1 +1,157 @@
-﻿
+﻿<MudForm @ref="_form" Model="UpdatePreAtendimentoPlantaoRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
+    <MudDialog>
+        <TitleContent>
+            Adicionar Pré Atendimento
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
+                (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
+                (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
+                {
+                    <MudText Typo="Typo.h6">Loading...</MudText>
+                }
+                else
+                {
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_resumo)"
+                                      Variant="Variant.Outlined">
+                            Resumo do Pré Atendimento
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudDatePicker Label="Data do Pré Atendimento" @bind-Date="dataPreAtendimento" ShowToolbar="false" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="clienteSelected" Label="Selecione o Cliente" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _clientes)
+                            {
+                                <MudSelectItem Value="@item.Cli_descri">@item.Cli_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaStatusSelected" Label="Status Pré Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasStatus)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaTipoPreAtendimentoSelected" Label="Tipo Pré Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasTipoPreAtendimento)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaCriticidadeSelected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasCriticidade)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaAnalistaN1Selected" Label="Analista N1" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção" Disabled="true">
+                            @foreach (var item in nomeDadosListasAnalistaN1)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numcha" Label="Número Chamado" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numcha)"
+                                      Variant="Variant.Outlined">
+                            Número Chamado
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect @bind-Value="dadoListaJiraRelacionadoSelected" Label="Jira Relacionado" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasJiraRelacionado)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    if (dadoListaJiraRelacionadoSelected == "SIM")
+                    {
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                                Número do Jira
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                                Link do Jira
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                                Versão do Jira
+                            </MudTextField>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                                Número do Jira
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                                Link do Jira
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="4" md="4">
+                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                                Versão do Jira
+                            </MudTextField>
+                        </MudItem>
+                    }                    
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_diagn1" Label="Diagnóstico N1" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_diagn1)"
+                                      Variant="Variant.Outlined">
+                            Diagnóstico N1
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_observ" Label="Observação" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_observ)"
+                                      Variant="Variant.Outlined">
+                            Observação
+                        </MudTextField>
+                    </MudItem>
+                }
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

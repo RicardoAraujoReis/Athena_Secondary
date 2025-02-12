@@ -21,6 +21,9 @@
                         </MudTextField>
                     </MudItem>
                     <MudItem xs="12" sm="4" md="4">
+                        <MudDatePicker Label="Data do Pré Atendimento" @bind-Date="dataPreAtendimento" ShowToolbar="false" />
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
                         <MudSelect @bind-Value="clienteSelected" Label="Selecione o Cliente" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
                                    Required="true" RequiredError="Selecione uma opção">
                             @foreach (var item in _clientes)
@@ -63,7 +66,7 @@
                             Número Chamado
                         </MudTextField>
                     </MudItem>
-                    <MudItem xs="12" sm="4" md="4">
+                    <MudItem xs="12" sm="3" md="3">
                         <MudSelect @bind-Value="dadoListaJiraRelacionadoSelected" Label="Jira Relacionado" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
                                    Required="true" RequiredError="Selecione uma opção">
                             @foreach (var item in nomeDadosListasJiraRelacionado)
@@ -74,7 +77,7 @@
                     </MudItem>
                     if (dadoListaJiraRelacionadoSelected == "SIM")
                     {
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numjir)"
                                           Variant="Variant.Outlined" Disabled="false">
@@ -84,7 +87,7 @@
                     }
                     else
                     {
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_numjir)"
                                           Variant="Variant.Outlined" Disabled="true">
@@ -94,14 +97,14 @@
                     }
                     if (dadoListaJiraRelacionadoSelected == "SIM")
                     {
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_linjir)"
                                           Variant="Variant.Outlined" Disabled="false">
                                 Link do Jira
                             </MudTextField>
                         </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_verjir)"
                                           Variant="Variant.Outlined" Disabled="false">
@@ -111,14 +114,14 @@
                     }
                     else
                     {
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_linjir)"
                                           Variant="Variant.Outlined" Disabled="true">
                                 Link do Jira
                             </MudTextField>
                         </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
+                        <MudItem xs="12" sm="3" md="3">
                             <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
                                           For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_verjir)"
                                           Variant="Variant.Outlined" Disabled="true">
