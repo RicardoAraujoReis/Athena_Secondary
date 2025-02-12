@@ -49,6 +49,7 @@ public class UpdateDadosListasCommandsHandler : IRequestHandler<UpdateDadosLista
             {
                 Id = request.UpdateDadosListas.Id,
                 Dal_tid_identi = request.UpdateDadosListas.Dal_tid_identi,
+                Dal_tid_descri = request.UpdateDadosListas.Dal_tid_descri,
                 Dal_valor = request.UpdateDadosListas.Dal_valor,
                 Dal_usubdd = request.UpdateDadosListas.Dal_usubdd,
                 Dal_datcri = request.UpdateDadosListas.Dal_datcri,
