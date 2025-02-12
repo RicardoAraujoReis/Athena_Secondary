@@ -16,7 +16,7 @@ public partial class CreatePreAtendimentoPlantaoDialog
 
     MudForm _form = default;
 
-    private ComentariosAtendimentoPlantaoValidator _validator = new();
+    private PreAtendimentoPlantaoValidator _validator = new();
             
     private List<ClienteResponse> _clientes = new List<ClienteResponse>();
     private string clienteSelected = null;
@@ -35,8 +35,12 @@ public partial class CreatePreAtendimentoPlantaoDialog
     private List<string> nomeDadosListasJiraRelacionado = null;
     private string dadoListaJiraRelacionadoSelected = null;
 
+    private DateTime? dataPreAtendimento;
+
     protected override async Task OnInitializedAsync()
     {
+        dataPreAtendimento = DateTime.Today;
+
         var requestClientes = await _clienteServices.GetClienteAllAsync();
         if (requestClientes.IsSuccessful)
         {
@@ -89,13 +93,15 @@ public partial class CreatePreAtendimentoPlantaoDialog
     {
         CreatePreAtendimentoPlantaoRequest.Ptd_usucri = 1;
         CreatePreAtendimentoPlantaoRequest.Ptd_usualt = null;
+        CreatePreAtendimentoPlantaoRequest.Ptd_datptd = dataPreAtendimento.Value;
         CreatePreAtendimentoPlantaoRequest.Ptd_datcri = DateTime.Now;
         CreatePreAtendimentoPlantaoRequest.Ptd_datalt = null;
         CreatePreAtendimentoPlantaoRequest.Ptd_usubdd = "PtdDialog";
         CreatePreAtendimentoPlantaoRequest.Ptd_usu_identi = 2; //DESENVOLVER RECURSO PARA RECUPERAR O USUÁRIO LOGADO
         CreatePreAtendimentoPlantaoRequest.Ptd_numatd = 1; //DESENVOLVER RECURSO PARA GRAVAR O NÚMERO DO ATENDIMENTO QUANDO ESTE FOR GERADO        
         CreatePreAtendimentoPlantaoRequest.Ptd_tipptd = dadoListaTipoPreAtendimentoSelected;
-        CreatePreAtendimentoPlantaoRequest.Ptd_nomal1 = dadoListaAnalistaN1Selected;        
+        CreatePreAtendimentoPlantaoRequest.Ptd_nomal1 = dadoListaAnalistaN1Selected;
+        CreatePreAtendimentoPlantaoRequest.Ptd_status = "ABERTO";
 
         if (!string.IsNullOrWhiteSpace(clienteSelected))
         {
