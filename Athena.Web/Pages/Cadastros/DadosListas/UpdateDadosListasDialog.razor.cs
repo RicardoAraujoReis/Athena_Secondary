@@ -32,7 +32,9 @@ public partial class UpdateDadosListasDialog
         {
             _snackbar.Add(requestTipoDadosListas.Messages, Severity.Error);
             MudDialog.Close();
-        }        
+        }
+
+        tipoDadosListasSelected = _tiposDadosListas.Where(tipo => tipo.Id == UpdateDadosListasRequest.Dal_tid_identi).Select(tipo => tipo.Tid_descri).FirstOrDefault();
     }
 
     private async Task SubmitAsync()
@@ -60,7 +62,8 @@ public partial class UpdateDadosListasDialog
 
         UpdateDadosListasRequest.Dal_usualt = 1;
         UpdateDadosListasRequest.Dal_datalt = DateTime.Now;
-        UpdateDadosListasRequest.Dal_usubdd = "DalDialog";        
+        UpdateDadosListasRequest.Dal_usubdd = "DalDialog";
+        UpdateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
         UpdateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
 
         var response = await _dadosListasServices.UpdateDadosListasAsync(UpdateDadosListasRequest);
