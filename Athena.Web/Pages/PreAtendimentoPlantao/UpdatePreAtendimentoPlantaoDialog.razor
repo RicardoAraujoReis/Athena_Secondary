@@ -1,7 +1,7 @@
 ﻿<MudForm @ref="_form" Model="UpdatePreAtendimentoPlantaoRequest" Validation="@(_validator.Validate)" ValidationDelay="0">
     <MudDialog>
         <TitleContent>
-            Adicionar Pré Atendimento
+            Editar Pré Atendimento
         </TitleContent>
         <DialogContent>
             <MudGrid>
@@ -13,6 +13,13 @@
                 }
                 else
                 {
+                    <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_titulo" Label="Título" Margin="Margin.Dense" Lines="1"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_titulo)"
+                                      Variant="Variant.Outlined">
+                            Título do Pré Atendimento
+                        </MudTextField>
+                    </MudItem>
                     <MudItem xs="12" sm="0" md="0">
                         <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
                                       For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_resumo)"

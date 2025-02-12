@@ -23,14 +23,20 @@
             </ToolBarContent>
             <HeaderContent>
                 <MudTh>Id</MudTh>
-                <MudTh>Descrição</MudTh>
+                <MudTh>Título</MudTh>
+                <MudTh>Solicitante</MudTh>
+                <MudTh>Status</MudTh>
+                <MudTh>Nº Atendimento</MudTh>
                 <MudTh>Data Criação</MudTh>
                 <MudTh>Data Alteração</MudTh>
                 <MudTh>Ações</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Id">@context.Id</MudTd>
-                <MudTd DataLabel="Ptd_resumo">@context.Ptd_resumo</MudTd>
+                <MudTd DataLabel="Ptd_titulo">@context.Ptd_titulo</MudTd>
+                <MudTd DataLabel="Ptd_nomal1">@context.Ptd_nomal1</MudTd>
+                <MudTd DataLabel="Ptd_status">@context.Ptd_status</MudTd>
+                <MudTd DataLabel="Ptd_numatd">@context.Ptd_numatd</MudTd>
                 <MudTd DataLabel="Ptd_datcri">@context.Ptd_datcri</MudTd>
                 @if (@context.Ptd_datalt.ToString() == "01/01/0001 00:00:00")
                 {

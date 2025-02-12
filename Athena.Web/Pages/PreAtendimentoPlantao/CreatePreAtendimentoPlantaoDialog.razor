@@ -14,6 +14,13 @@
                 else
                 {
                     <MudItem xs="12" sm="0" md="0">
+                        <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_titulo" Label="Título" Margin="Margin.Dense" Lines="1"
+                                      For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_titulo)"
+                                      Variant="Variant.Outlined">
+                            Título do Pré Atendimento
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="0" md="0">
                         <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
                                       For="@(() => CreatePreAtendimentoPlantaoRequest.Ptd_resumo)"
                                       Variant="Variant.Outlined">
