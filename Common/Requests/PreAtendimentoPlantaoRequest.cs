@@ -1,6 +1,7 @@
 ﻿namespace Common.Requests;
 
 public class CreatePreAtendimentoPlantao {
+    public string Ptd_titulo { get; set; }
     public DateTime Ptd_datptd { get; set; }
     public int Ptd_usu_identi { get; set; }
     public int Ptd_cli_identi { get; set; }
@@ -27,6 +28,7 @@ public class CreatePreAtendimentoPlantao {
 
 public class UpdatePreAtendimentoPlantao {
     public int Id { get; set; }
+    public string Ptd_titulo { get; set; }
     public DateTime Ptd_datptd { get; set; }
     public int Ptd_usu_identi { get; set; }
     public int Ptd_cli_identi { get; set; }

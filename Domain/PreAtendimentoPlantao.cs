@@ -4,6 +4,7 @@ namespace Athena.Models;
 
 public class PreAtendimentoPlantao : BaseEntity<int>
 {    
+    public string Ptd_titulo { get; set; }
     public DateTime Ptd_datptd { get; set; }        
     public int Ptd_usu_identi { get; set; }        
     public int Ptd_cli_identi { get; set; }                
@@ -32,6 +33,7 @@ public class PreAtendimentoPlantao : BaseEntity<int>
     
     public PreAtendimentoPlantao UpdatePreAtendimentoPlantao(
         int id,
+        string ptd_titulo,
         DateTime ptd_datptd,
         int ptd_usu_identi,
         int ptd_cli_identi,
@@ -57,6 +59,7 @@ public class PreAtendimentoPlantao : BaseEntity<int>
     )
     {
         Id = id;
+        Ptd_titulo = ptd_titulo;
         Ptd_datptd = ptd_datptd;
         Ptd_usu_identi = ptd_usu_identi;
         Ptd_cli_identi = ptd_cli_identi;

@@ -17,7 +17,9 @@ public partial class CreatePreAtendimentoPlantaoDialog
     MudForm _form = default;
 
     private PreAtendimentoPlantaoValidator _validator = new();
-            
+
+    private DateTime? dataPreAtendimento;    
+
     private List<ClienteResponse> _clientes = new List<ClienteResponse>();
     private string clienteSelected = null;
 
@@ -35,10 +37,10 @@ public partial class CreatePreAtendimentoPlantaoDialog
     private List<string> nomeDadosListasJiraRelacionado = null;
     private string dadoListaJiraRelacionadoSelected = null;
 
-    private DateTime? dataPreAtendimento;
+    
 
     protected override async Task OnInitializedAsync()
-    {
+    {        
         dataPreAtendimento = DateTime.Today;
 
         var requestClientes = await _clienteServices.GetClienteAllAsync();

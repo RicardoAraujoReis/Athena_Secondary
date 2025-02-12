@@ -12,6 +12,7 @@ internal class PreAtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Pre
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("Ptd_identi");
+        builder.Property(x => x.Ptd_titulo).IsRequired().HasMaxLength(65).HasAnnotation("CustomAnnotation", "Título do Pré Atendimento");
         builder.Property(x => x.Ptd_datptd).IsRequired().HasAnnotation("CustomAnnotation","Data do Pré Atendimento");
         builder.Property(x => x.Ptd_tipptd).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation","Tipo do Pré Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
         builder.Property(x => x.Ptd_critic).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Criticidade do Tema (B - BAIXO / M - MÉDIO / A - ALTO / C - CRÍTICO)");

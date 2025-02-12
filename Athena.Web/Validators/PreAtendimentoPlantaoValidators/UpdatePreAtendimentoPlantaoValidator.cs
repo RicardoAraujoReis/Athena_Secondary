@@ -7,6 +7,11 @@ public class UpdatePreAtendimentoPlantaoValidator : AbstractValidator<UpdatePreA
 {
     public UpdatePreAtendimentoPlantaoValidator()
     {
+        RuleFor(preAtendimento => preAtendimento.Ptd_titulo)
+            .Must(titulo => !string.IsNullOrEmpty(titulo)).WithMessage("Campo obrigatório")
+            .MinimumLength(20).WithMessage("Tamanho mínimo 20 caracteres")
+            .MaximumLength(65).WithMessage("Tamanho máximo 65 caracteres");
+
         RuleFor(preAtendimento => preAtendimento.Ptd_resumo)
             .Must(descri => !string.IsNullOrEmpty(descri)).WithMessage("Campo obrigatório")
             .MinimumLength(20).WithMessage("Tamanho mínimo 20 caracteres")

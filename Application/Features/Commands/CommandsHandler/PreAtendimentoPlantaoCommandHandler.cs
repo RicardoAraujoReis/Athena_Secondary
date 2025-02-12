@@ -48,6 +48,7 @@ public class UpdatePreAtendimentoPlantaoCommandsHandler : IRequestHandler<Update
             var updatePreAtendimentoPlantao = new PreAtendimentoPlantao
             {
                 Id = request.UpdatePreAtendimentoPlantao.Id,
+                Ptd_titulo = request.UpdatePreAtendimentoPlantao.Ptd_titulo,
                 Ptd_datptd = request.UpdatePreAtendimentoPlantao.Ptd_datptd,
                 Ptd_usu_identi = request.UpdatePreAtendimentoPlantao.Ptd_usu_identi,
                 Ptd_cli_identi = request.UpdatePreAtendimentoPlantao.Ptd_cli_identi,
