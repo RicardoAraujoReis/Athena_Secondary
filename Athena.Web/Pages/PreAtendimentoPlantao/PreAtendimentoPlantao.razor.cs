@@ -65,10 +65,11 @@ public partial class PreAtendimentoPlantao
         {
             Id = preAtendimentoPlantaoId,
             Ptd_datptd = preAtendimentoToUpdate.Ptd_datptd,
-            //Ptd_usu_identi = preAtendimentoToUpdate.Ptd_usu_identi,
+            Ptd_usu_identi = preAtendimentoToUpdate.Ptd_usu_identi,
             Ptd_cli_identi = preAtendimentoToUpdate.Ptd_cli_identi,
             Ptd_tipptd = preAtendimentoToUpdate.Ptd_tipptd,
             Ptd_critic = preAtendimentoToUpdate.Ptd_critic,
+            Ptd_titulo = preAtendimentoToUpdate.Ptd_titulo,
             Ptd_resumo = preAtendimentoToUpdate.Ptd_resumo,
             Ptd_numcha = preAtendimentoToUpdate.Ptd_numcha,
             Ptd_jirarl = preAtendimentoToUpdate.Ptd_jirarl,

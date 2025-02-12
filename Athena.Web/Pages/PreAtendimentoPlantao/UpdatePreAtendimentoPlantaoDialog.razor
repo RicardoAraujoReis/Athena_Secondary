@@ -27,13 +27,22 @@
                             Resumo do Pré Atendimento
                         </MudTextField>
                     </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
+                    <MudItem xs="12" sm="4" md="4">
                         <MudDatePicker Label="Data do Pré Atendimento" @bind-Date="dataPreAtendimento" ShowToolbar="false" />
                     </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudSelect T="int?" @bind-Value="LinhaNegocioSelected" Label="Selecione a Linha de Negócio" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _linhaNegocios)
+                            {
+                                <MudSelectItem Value="@(item.Id as int?)">@item.Lhn_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
                         <MudSelect @bind-Value="clienteSelected" Label="Selecione o Cliente" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
                                    Required="true" RequiredError="Selecione uma opção">
-                            @foreach (var item in _clientes)
+                            @foreach (var item in _clientes.Where(item => item.Cli_lhn_identi == LinhaNegocioSelected))
                             {
                                 <MudSelectItem Value="@item.Cli_descri">@item.Cli_descri.ToUpper()</MudSelectItem>
                             }
