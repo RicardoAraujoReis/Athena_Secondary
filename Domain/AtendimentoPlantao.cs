@@ -7,7 +7,8 @@ public class AtendimentoPlantao : BaseEntity<int>
 {    
     public int Atd_usu_identi { get; set; }        
     public int Atd_ptd_identi { get; set; }    
-    public int Atd_cli_identi { get; set; }    
+    public int Atd_cli_identi { get; set; }
+    public string Atd_titulo { get; set; }
     public string Atd_tipatd { get; set; }
     public int Atd_cat_identi { get; set; }    
     public string Atd_resumo { get; set; }
@@ -40,6 +41,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         int id,
         int atd_usu_identi,        
         int atd_cli_identi,
+        string atd_titulo,
         string atd_tipatd,
         int atd_cat_identi,
         string atd_resumo,
@@ -67,6 +69,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         Id = id;
         Atd_usu_identi = atd_usu_identi;
         Atd_cli_identi = atd_cli_identi;
+        Atd_titulo = atd_titulo;
         Atd_tipatd = atd_tipatd;
         Atd_cat_identi = atd_cat_identi;
         Atd_resumo = atd_resumo;
