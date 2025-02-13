@@ -78,9 +78,9 @@ public class AtendimentoPlantaoController : BaseApiController
 
             if (response.IsSuccessful)
             {
-                return NoContent();
+                return Ok(response);
             }
-            return BadRequest();
+            return BadRequest(response);
         }
         catch (Exception ex)
         {

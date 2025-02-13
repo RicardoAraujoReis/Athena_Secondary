@@ -48,6 +48,7 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
             var updateAtendimentoPlantao = new AtendimentoPlantao
             {
                 Id = request.UpdateAtendimentoPlantao.Id,
+                Atd_titulo = request.UpdateAtendimentoPlantao.Atd_titulo,
                 Atd_cli_identi = request.UpdateAtendimentoPlantao.Atd_cli_identi,
                 Atd_tipatd = request.UpdateAtendimentoPlantao.Atd_tipatd,
                 Atd_cat_identi = request.UpdateAtendimentoPlantao.Atd_cat_identi,

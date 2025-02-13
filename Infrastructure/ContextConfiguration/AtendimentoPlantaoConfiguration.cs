@@ -12,6 +12,7 @@ internal class AtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Atendi
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("Atd_identi");
+        builder.Property(x => x.Atd_titulo).IsRequired().HasMaxLength(65).HasAnnotation("CustomAnnotation", "Título do Atendimento");
         builder.Property(x => x.Atd_tipatd).IsRequired().HasMaxLength(35).HasAnnotation("CustomAnnotation", "Tipo do Atendimento (DÚVIDA / SOLICITAÇÃO / PROBLEMA)");
         builder.Property(x => x.Atd_resumo).IsRequired().HasMaxLength(255).HasAnnotation("CustomAnnotation","Resumo do Tema");
         builder.Property(x => x.Atd_respn2).IsRequired().HasMaxLength(255).HasAnnotation("CustomAnnotation","Resposta do N2 ao Tema");

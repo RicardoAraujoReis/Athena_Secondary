@@ -12,6 +12,7 @@ public class AtendimentoPlantaoResponse
     public int Atd_usu_identi { get; set; }
     public int Atd_ptd_identi { get; set; }
     public int Atd_cli_identi { get; set; }
+    public string Atd_titulo { get; set; }
     public string Atd_tipatd { get; set; }
     public int Atd_cat_identi { get; set; }
     public string Atd_resumo { get; set; }
