@@ -1,4 +1,5 @@
 ﻿using Common.Requests;
+using Common.Requests.Searchs;
 using Common.Responses;
 using Common.Wrapper;
 
@@ -11,4 +12,5 @@ public interface IPreAtendimentoPlantaoServices
     Task<ResponseWrapper<int>> DeletePreAtendimentoPlantaoAsync(int id);
     Task<ResponseWrapper<PreAtendimentoPlantaoResponse>> GetPreAtendimentoPlantaoByIdAsync(int id);
     Task<ResponseWrapper<List<PreAtendimentoPlantaoResponse>>> GetPreAtendimentoPlantaoAllAsync();
+    Task<ResponseWrapper<List<PreAtendimentoPlantaoResponse>>> GetPreAtendimentoPlantaoByParametersAsync(SearchPreAtendimentoPlantaoByParameters consulta);
 }

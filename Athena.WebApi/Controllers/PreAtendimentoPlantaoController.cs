@@ -2,6 +2,8 @@
 using Application.Features.Queries;
 using Athena.WebApi.Controllers.BaseApi;
 using Common.Requests;
+using Common.Requests.Searchs;
+using Common.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Athena.WebApi.Controllers;
@@ -138,5 +140,31 @@ public class PreAtendimentoPlantaoController : BaseApiController
         {
             return BadRequest(ex);
         }        
-    }    
+    }
+
+    /// <summary>
+    /// Busca um Pre Atendimento cadastrado de acordo com os parâmetros recebidos
+    /// </summary>
+    /// <param name="GetPreAtendimentoPlantaoByParametersAsync">Objeto com os campos necessários para busca dos Pre Atendimentos</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpPost("getbyparameters")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetPreAtendimentoPlantaoByParametersAsync([FromBody] SearchPreAtendimentoPlantaoByParameters filtro)
+    {
+        try
+        {            
+            var response = await Sender.Send(new GetPreAtendimentoPlantaoByParameters(filtro));
+
+            if (response.IsSuccessful)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
 }
