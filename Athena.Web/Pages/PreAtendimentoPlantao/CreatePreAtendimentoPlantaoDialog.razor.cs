@@ -93,6 +93,10 @@ public partial class CreatePreAtendimentoPlantaoDialog
         {
             await SaveAsync();
         }
+        else
+        {
+            _snackbar.Add("Falha ao validar o formulário", Severity.Error);
+        }
     }
 
     private bool CheckForm()

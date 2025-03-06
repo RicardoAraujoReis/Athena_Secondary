@@ -5,6 +5,7 @@ using Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,5 +30,5 @@ public class ReadDataAsync<T, TId> : IReadDataAsync<T, TId> where T : BaseEntity
         return await _context.Set<T>().FindAsync(id);
     }    
 
-    public IQueryable<T> Entities => _context.Set<T>();    
+    public IQueryable<T> Entities => _context.Set<T>();
 }

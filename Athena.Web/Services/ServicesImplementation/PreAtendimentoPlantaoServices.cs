@@ -1,6 +1,7 @@
 ﻿using Athena.Web.Endpoints;
 using Athena.Web.Extensions;
 using Common.Requests;
+using Common.Requests.Searchs;
 using Common.Responses;
 using Common.Wrapper;
 using System.Net.Http.Json;
@@ -37,12 +38,20 @@ public class PreAtendimentoPlantaoServices : IPreAtendimentoPlantaoServices
 
     public async Task<ResponseWrapper<PreAtendimentoPlantaoResponse>> GetPreAtendimentoPlantaoByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var endpoint = PreAtendimentoPlantaoEndpoints.BuildEndpoints(PreAtendimentoPlantaoEndpoints.GetById, id);
+        var response = await _httpClient.GetAsync(endpoint);
+        return await response.ToResponse<PreAtendimentoPlantaoResponse>();
     }
 
     public async Task<ResponseWrapper<int>> UpdatePreAtendimentoPlantaoAsync(UpdatePreAtendimentoPlantao updatePreAtendimentoPlantao)
     {
         var response = await _httpClient.PutAsJsonAsync(PreAtendimentoPlantaoEndpoints.Update, updatePreAtendimentoPlantao);
         return await response.ToResponse<int>();
+    }
+
+    public async Task<ResponseWrapper<List<PreAtendimentoPlantaoResponse>>> GetPreAtendimentoPlantaoByParametersAsync(SearchPreAtendimentoPlantaoByParameters consulta)
+    {                        
+        var response = await _httpClient.PostAsJsonAsync(PreAtendimentoPlantaoEndpoints.GetByParameters, consulta);
+        return await response.ToResponse<List<PreAtendimentoPlantaoResponse>>();
     }
 }

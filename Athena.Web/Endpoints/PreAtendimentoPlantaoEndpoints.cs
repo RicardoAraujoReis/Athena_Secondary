@@ -7,6 +7,7 @@ public static class PreAtendimentoPlantaoEndpoints
     public const string Delete = "api/PreAtendimentoPlantao/delete?";
     public const string GetAll = "api/PreAtendimentoPlantao/getall";
     public const string GetById = "api/PreAtendimentoPlantao/getbyid?";
+    public const string GetByParameters = "api/PreAtendimentoPlantao/getbyparameters";
 
     public static string BuildEndpoints(string baseEndpoint, int id = 0, string parameter = "")
     {
@@ -18,7 +19,8 @@ public static class PreAtendimentoPlantaoEndpoints
         if (!string.IsNullOrWhiteSpace(parameter))
         {
             return $"{baseEndpoint}/{parameter}";
-        }
+        }        
+
         return baseEndpoint;
     }
 }
