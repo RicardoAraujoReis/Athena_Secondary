@@ -1,1 +1,56 @@
 ﻿@page "/atendimentoPlantao"
+
+<MudCard Elevation="25">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Analytics" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">Atendimentos Plantão</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@_atendimentosPlantao" Elevation="25" Dense="true" Hover="true" Loading="@_loading" LoadingProgressColor="Color.Dark">
+            <ToolBarContent>
+                <!--<MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />-->
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadAtendimentosAsync())" />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudSpacer />
+                <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Label="Consultar" Href="consultaAtendimentoPlantao" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Id</MudTh>
+                <MudTh>Título</MudTh>
+                <MudTh>Solicitante</MudTh>
+                <MudTh>Status</MudTh>
+                <MudTh>Nº Pré Atendimento</MudTh>
+                <MudTh>Data Criação</MudTh>
+                <MudTh>Data Alteração</MudTh>
+                <MudTh>Ações</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Atd_titulo">@context.Atd_titulo</MudTd>
+                <MudTd DataLabel="Atd_usucri">@context.Atd_usucri</MudTd>
+                <MudTd DataLabel="Atd_status">@context.Atd_status</MudTd>
+                <MudTd DataLabel="Atd_ptd_identi">@context.Atd_ptd_identi</MudTd>
+                <MudTd DataLabel="Atd_datcri">@context.Atd_datcri</MudTd>
+                @if (@context.Atd_datalt.ToString() == "01/01/0001 00:00:00")
+                {
+                    <MudTd>@dataAlteracao</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Ptd_datalt">@context.Atd_datalt</MudTd>
+                }
+                <MudTd DataLabel="Ações">
+                    <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                        <MudMenuItem OnClick="(() => UpdateAtendimentoPlantaoAsync(context.Id))">Editar</MudMenuItem>
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>
