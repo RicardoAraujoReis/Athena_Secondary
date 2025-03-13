@@ -10,8 +10,7 @@ namespace Athena.Web.Pages.PreAtendimentoPlantao;
 public partial class PreAtendimentoPlantao
 {
     public List<PreAtendimentoPlantaoResponse> preAtendimentos { get; set; } = new List<PreAtendimentoPlantaoResponse>();
-    private bool _loading = true;
-    private string searchPreAtendimentos = null;
+    private bool _loading = true;    
     private string dataAlteracao = "---";
 
     protected override async Task OnInitializedAsync()
