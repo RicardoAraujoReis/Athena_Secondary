@@ -37,7 +37,8 @@ public class ClienteServices : IClienteServices
 
     public async Task<ResponseWrapper<ClienteResponse>> GetClienteByIdAsync(int id)
     {
-        var response = await _httpClient.GetAsync($"{ClienteEndpoints.GetById}/{id}");
+        var endpoint = ClienteEndpoints.BuildEndpoints(ClienteEndpoints.GetById, id);
+        var response = await _httpClient.GetAsync(endpoint);
         return await response.ToResponse<ClienteResponse>();
     }
 

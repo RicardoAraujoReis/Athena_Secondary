@@ -6,7 +6,7 @@ public static class ClienteEndpoints
     public const string Update = "api/cliente/update";
     public const string Delete = "api/cliente/delete?";
     public const string GetAll = "api/cliente/getall";
-    public const string GetById = "api/cliente/getbyid";
+    public const string GetById = "api/Cliente/getbyid?";
     public const string GetByStatus = "api/cliente/getbystatus";
     public const string GetByParameters = "api/cliente/getbyparameters";
     public const string GetByDescription = "api/cliente/getbydescription?description=";
