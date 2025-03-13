@@ -52,6 +52,14 @@ public partial class ViewPreAtendimentoPlantaoDialog
 
     private string respostaN2 = null;
 
+    private List<CategoriaAtendimentoResponse> categoriasAtendimento = new List<CategoriaAtendimentoResponse>();
+    private List<string> categoriasAtendimentoNivel1 = null;
+    private List<string> categoriasAtendimentoNivel2 = null;
+    private List<string> categoriasAtendimentoNivel3 = null;
+    private string categoriaAtendimentoNivel1Selected = null;
+    private string categoriaAtendimentoNivel2Selected = null;
+    private string categoriaAtendimentoNivel3Selected = null;
+
     protected override async Task OnInitializedAsync()
     {
         var clienteAtualRequest = await _clienteServices.GetClienteByIdAsync(ViewPreAtendimentoPlantao.Ptd_cli_identi);
@@ -112,6 +120,22 @@ public partial class ViewPreAtendimentoPlantaoDialog
         {
             dadoListaJiraRelacionadoAtual = "NAO";
         }
+
+        var requestCategorias = await _categoriaAtendimentoServices.GetCategoriaAtendimentoAllAsync();
+
+        if (requestCategorias.IsSuccessful)
+        {
+            categoriasAtendimento = requestCategorias.Data;
+        }
+        else
+        {
+            _snackbar.Add(requestCategorias.Messages, Severity.Error);
+            MudDialog.Close();
+        }
+
+        categoriasAtendimentoNivel1 = categoriasAtendimento.Where(categoria => categoria.Cat_nivel == 1).Select(categoria => categoria.Cat_valor).ToList();
+        categoriasAtendimentoNivel2 = categoriasAtendimento.Where(categoria => categoria.Cat_nivel == 2).Select(categoria => categoria.Cat_valor).ToList();
+        categoriasAtendimentoNivel3 = categoriasAtendimento.Where(categoria => categoria.Cat_nivel == 3).Select(categoria => categoria.Cat_valor).ToList();
 
         nomeDadosListasCriticidade = _dadosListas.Where(dados => dados.Dal_tid_descri == "CRITICIDADE").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasTipoAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
@@ -195,6 +219,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
             atendimentoPlantaoRequest.Atd_resn1 = "N";
         }
 
+        atendimentoPlantaoRequest.Atd_cli_identi = cliente.Id;
         atendimentoPlantaoRequest.Atd_evoln1 = evolucaoN1Selected;
         atendimentoPlantaoRequest.Atd_nomal2 = dadoListaAnalistaN2Selected;
         atendimentoPlantaoRequest.Atd_titulo = ViewPreAtendimentoPlantao.Ptd_titulo;
