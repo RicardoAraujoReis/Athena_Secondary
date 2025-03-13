@@ -47,7 +47,8 @@
                 }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
-                        <MudMenuItem OnClick="(() => UpdatePreAtendimentoPlantaoAsync(context.Id))">Editar</MudMenuItem>
+                        <MudMenuItem OnClick="(() => ViewPreAtendimentoPlantaoAsync(context.Id))">Visualizar</MudMenuItem>
+                        <MudMenuItem OnClick="(() => UpdatePreAtendimentoPlantaoAsync(context.Id))">Editar</MudMenuItem>                                               
                         <MudMenuItem OnClick="(() => DeletePreAtendimentoPlantaoAsync(context.Id))">Deletar</MudMenuItem>
                     </MudMenu>
                 </MudTd>

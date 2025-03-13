@@ -131,7 +131,7 @@ public class ClienteController : BaseApiController
 
             if (!response.IsSuccessful)
             {
-                return NotFound();
+                return NotFound(response);
             }
             return Ok(response);
         }

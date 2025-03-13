@@ -1,0 +1,185 @@
+﻿<MudForm @ref="_form" Model="ViewPreAtendimentoPlantao">
+    <MudDialog Style="padding-bottom: 20px;">
+        <TitleContent>
+            View Pre Atendimento Plantão
+        </TitleContent>
+        <DialogContent>
+            <MudExpansionPanels MultiExpansion="true">
+                <MudExpansionPanel Expanded="true" Text="Dados Pré Atendimento">
+                    <MudGrid>
+                        @if (cliente is null)
+                        {
+                            <MudText Typo="Typo.h6">Loading...</MudText>
+                        }
+                        else
+                        {
+                            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                            <MudItem xs="12" sm="1" md="1">
+                                <MudTextField Label="Id" @bind-Value="ViewPreAtendimentoPlantao.Id" ReadOnly="true">Id</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="11" md="11">
+                                <MudTextField Label="Titulo" @bind-Value="ViewPreAtendimentoPlantao.Ptd_titulo" ReadOnly="true">Titulo</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <MudTextField Label="Resumo" @bind-Value="ViewPreAtendimentoPlantao.Ptd_resumo" ReadOnly="true" Lines="3">Resumo</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="6" md="6">
+                                <MudTextField Label="Diagnóstico N1" @bind-Value="ViewPreAtendimentoPlantao.Ptd_diagn1" ReadOnly="true" Lines="3">Diagnóstico N1</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Analista N1" @bind-Value="ViewPreAtendimentoPlantao.Ptd_nomal1" ReadOnly="true">Analista N1</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Criticidade" @bind-Value="dadoListaCriticidadeSelected" ReadOnly="true">Criticidade</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Tipo Pré Atendimento" @bind-Value="ViewPreAtendimentoPlantao.Ptd_tipptd" ReadOnly="true">Tipo Pré Atendimento</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Status" @bind-Value="ViewPreAtendimentoPlantao.Ptd_status" ReadOnly="true">Status</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cliente" @bind-Value="clienteDescricao" ReadOnly="true">Cliente</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Jira Relacionado" @bind-Value="dadoListaJiraRelacionadoAtual" ReadOnly="true">Jira Relacionado</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Link do Jira" @bind-Value="ViewPreAtendimentoPlantao.Ptd_linjir" ReadOnly="true">Link do Jira</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Data do Pré Atendimento" @bind-Value="ViewPreAtendimentoPlantao.Ptd_datptd" ReadOnly="true">Data do Pré Atendimento</MudTextField>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Análise N2">
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField Label="Análise do N2" @bind-Value="ViewPreAtendimentoPlantao.Ptd_reton2" Lines="3">Retorno do N2</MudTextField>
+                    </MudItem>
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Gerar Atendimento N2">
+                    <MudGrid>
+                        @if ((_dadosListas is null || !_dadosListas.Any()) && nomeDadosListasCriticidade is null && nomeDadosListasTipoAtendimento is null
+                        && nomeDadosListasAnalistaN2 is null && dadosListasJiraCriado is null && dadosListasResolvidoPlantao is null && dadosListasResolveriaN1 is null
+                        && dadosListasResolveriaN1SeTeste is null && dadosListasEvolucaoN1 is null)
+                        {
+                            <MudText Typo="Typo.h6">Loading...</MudText>
+                        }
+                        else
+                        {
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="dadoListaTipoAtendimentoSelected" Label="Tipo do Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in nomeDadosListasTipoAtendimento)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="dadoListaCriticidadeSelected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in nomeDadosListasCriticidade)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="dadoListaAnalistaN2Selected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in nomeDadosListasAnalistaN2)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="dadoListaJiraCriadoSelected" Label="Jira Criado" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in dadosListasJiraCriado)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudTextField Label="Número do issue" @bind-Value="numeroIssueJira">Número do issue</MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="resolvidoPlantaoSelected" Label="Resolvido no Plantão" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in dadosListasResolvidoPlantao)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="resolveriaN1SeTesteSelected" Label="Resolveria N1 Se Teste Hom" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="false" RequiredError="Selecione uma opção">
+                                    @foreach (var item in dadosListasResolveriaN1SeTeste)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="resolveriaN1Selected" Label="Resolveria N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in dadosListasResolveriaN1)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            @if (resolveriaN1Selected == "SIM")
+                            {
+                                <MudItem xs="12" sm="4" md="4">
+                                    <MudSelect @bind-Value="evolucaoN1Selected" Label="Evolução N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                               AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção" Disabled="false">
+                                        @foreach (var item in dadosListasEvolucaoN1)
+                                        {
+                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudItem>
+                            }
+                            else
+                            {
+                                <MudItem xs="12" sm="4" md="4">
+                                    <MudSelect @bind-Value="evolucaoN1Selected" Label="Evolução N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                               AnchorOrigin="Origin.BottomCenter" Required="false" RequiredError="Selecione uma opção" Disabled="true">
+                                        @foreach (var item in dadosListasEvolucaoN1)
+                                        {
+                                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                                        }
+                                    </MudSelect>
+                                </MudItem>
+                            }
+                            @if (resolvidoPlantaoSelected == "SIM")
+                            {
+                                <MudItem xs="12" sm="12" md="12">
+                                    <MudTextField Label="Resposta do N2" @bind-Value="respostaN2" Lines="3">Resposta do N2</MudTextField>
+                                </MudItem>
+                            }
+                            else
+                            {
+                                <MudItem xs="12" sm="12" md="12">
+                                    <MudTextField Label="Resposta do N2" @bind-Value="respostaN2" Disabled="true" Required="false" Lines="3">Resposta do N2</MudTextField>
+                                </MudItem>
+                            }
+                            <MudItem xs="12" sm="2" md="2" Class="mr-0">
+                                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Dark" OnClick="GeraAtendimentoPlantao">Salvar</MudButton>
+                            </MudItem>
+                        }
+                    </MudGrid>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

@@ -42,7 +42,8 @@ public partial class CreateTipoDadosListasDialog
         CreateTipoDadosListasRequest.Tid_usualt = null;
         CreateTipoDadosListasRequest.Tid_datcri = DateTime.Now;
         CreateTipoDadosListasRequest.Tid_datalt = null;
-        CreateTipoDadosListasRequest.Tid_usubdd = "TidDialog";        
+        CreateTipoDadosListasRequest.Tid_usubdd = "TidDialog";
+        CreateTipoDadosListasRequest.Tid_descri = CreateTipoDadosListasRequest.Tid_descri.ToUpper();
 
         var response = await _tipoDadosListasServices.CreateTipoDadosListasAsync(CreateTipoDadosListasRequest);
         if (response.IsSuccessful)
