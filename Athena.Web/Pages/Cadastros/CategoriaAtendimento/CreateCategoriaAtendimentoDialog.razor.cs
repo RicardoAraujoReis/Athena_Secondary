@@ -19,7 +19,11 @@ public partial class CreateCategoriaAtendimentoDialog
     private CategoriaAtendimentoValidator _validator = new();
 
     private List<CategoriaAtendimentoResponse> _categorias = new List<CategoriaAtendimentoResponse>();
-    private int? categoriaSelected;    
+    private int? categoriaSelected;
+    private string categoriaSelected2 = null;
+
+    private List<DadosListasResponse> _niveisCategorias = new List<DadosListasResponse>();
+    private List<string> niveisCategorias = null;    
 
     protected override async Task OnInitializedAsync()
     {
@@ -34,6 +38,19 @@ public partial class CreateCategoriaAtendimentoDialog
             _snackbar.Add(categoriaRequest.Messages, Severity.Error);
             MudDialog.Close();
         }
+
+        var listaNiveisCategoria = await _dadosListasServices.GetDadosListasAllAsync();
+        if (listaNiveisCategoria.IsSuccessful)
+        {
+            _niveisCategorias = listaNiveisCategoria.Data;
+        }
+        else
+        {
+            _snackbar.Add(listaNiveisCategoria.Messages, Severity.Error);
+            MudDialog.Close();
+        }
+
+        niveisCategorias = _niveisCategorias.Where(niveis => niveis.Dal_tid_descri == "NIVEL DA CATEGORIA").Select(niveis => niveis.Dal_valor).ToList();
     }
 
     private async Task SubmitAsync()

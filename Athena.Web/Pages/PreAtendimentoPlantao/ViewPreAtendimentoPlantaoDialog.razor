@@ -62,12 +62,40 @@
                     <MudGrid>
                         @if ((_dadosListas is null || !_dadosListas.Any()) && nomeDadosListasCriticidade is null && nomeDadosListasTipoAtendimento is null
                         && nomeDadosListasAnalistaN2 is null && dadosListasJiraCriado is null && dadosListasResolvidoPlantao is null && dadosListasResolveriaN1 is null
-                        && dadosListasResolveriaN1SeTeste is null && dadosListasEvolucaoN1 is null)
+                        && dadosListasResolveriaN1SeTeste is null && dadosListasEvolucaoN1 is null && categoriasAtendimentoNivel1 is null 
+                        && categoriasAtendimentoNivel2 is null && categoriasAtendimentoNivel3 is null)
                         {
                             <MudText Typo="Typo.h6">Loading...</MudText>
                         }
                         else
                         {
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="categoriaAtendimentoNivel1Selected" Label="Categoria Nível 1" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in categoriasAtendimentoNivel1)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="categoriaAtendimentoNivel3Selected" Label="Categoria Nível 2" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in categoriasAtendimentoNivel2)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
+                            <MudItem xs="12" sm="4" md="4">
+                                <MudSelect @bind-Value="categoriaAtendimentoNivel3Selected" Label="Categoria Nível 3" AdornmentColor="Color.Secondary" Clearable="true"
+                                           AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                                    @foreach (var item in categoriasAtendimentoNivel3)
+                                    {
+                                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                                    }
+                                </MudSelect>
+                            </MudItem>
                             <MudItem xs="12" sm="4" md="4">
                                 <MudSelect @bind-Value="dadoListaTipoAtendimentoSelected" Label="Tipo do Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
                                            AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
@@ -87,7 +115,7 @@
                                 </MudSelect>
                             </MudItem>
                             <MudItem xs="12" sm="4" md="4">
-                                <MudSelect @bind-Value="dadoListaAnalistaN2Selected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true"
+                                <MudSelect @bind-Value="dadoListaAnalistaN2Selected" Label="Analista N2" AdornmentColor="Color.Secondary" Clearable="true"
                                            AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
                                     @foreach (var item in nomeDadosListasAnalistaN2)
                                     {
