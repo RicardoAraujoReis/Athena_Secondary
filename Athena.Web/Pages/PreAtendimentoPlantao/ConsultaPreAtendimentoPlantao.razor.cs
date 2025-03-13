@@ -79,7 +79,7 @@ public partial class ConsultaPreAtendimentoPlantao
         }
 
         nomeDadosListasCriticidade = _dadosListas.Where(dados => dados.Dal_tid_descri == "CRITICIDADE").Select(dados => dados.Dal_valor).ToList();
-        nomeDadosListasTipoPreAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO PRE ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
+        nomeDadosListasTipoPreAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasAnalistaN1 = _dadosListas.Where(dados => dados.Dal_tid_descri == "ANALISTA N1").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasJiraRelacionado = _dadosListas.Where(dados => dados.Dal_tid_descri == "JIRA RELACIONADO").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasStatus = _dadosListas.Where(dados => dados.Dal_tid_descri == "STATUS ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
@@ -218,6 +218,58 @@ public partial class ConsultaPreAtendimentoPlantao
             {
                 _snackbar.Add(response.Messages, Severity.Error);
             }
+        }
+    }
+
+    private async Task ViewPreAtendimentoPlantaoAsync(int idPreAtendimentoToView)
+    {
+        var preAtendimentoToView = preAtendimentos.FirstOrDefault(preAtendimento => preAtendimento.Id == idPreAtendimentoToView);
+
+        var parameters = new DialogParameters();
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        parameters.Add(nameof(ViewPreAtendimentoPlantaoDialog.ViewPreAtendimentoPlantao), new ViewPreAtendimentoPlantao
+        {
+            Id = idPreAtendimentoToView,
+            Ptd_datptd = preAtendimentoToView.Ptd_datptd,
+            Ptd_usu_identi = preAtendimentoToView.Ptd_usu_identi,
+            Ptd_cli_identi = preAtendimentoToView.Ptd_cli_identi,
+            Ptd_tipptd = preAtendimentoToView.Ptd_tipptd,
+            Ptd_critic = preAtendimentoToView.Ptd_critic,
+            Ptd_titulo = preAtendimentoToView.Ptd_titulo,
+            Ptd_resumo = preAtendimentoToView.Ptd_resumo,
+            Ptd_numcha = preAtendimentoToView.Ptd_numcha,
+            Ptd_jirarl = preAtendimentoToView.Ptd_jirarl,
+            Ptd_numjir = preAtendimentoToView.Ptd_numjir,
+            Ptd_diagn1 = preAtendimentoToView.Ptd_diagn1,
+            Ptd_status = preAtendimentoToView.Ptd_status,
+            Ptd_reton2 = preAtendimentoToView.Ptd_reton2,
+            Ptd_observ = preAtendimentoToView.Ptd_observ,
+            Ptd_nomal1 = preAtendimentoToView.Ptd_nomal1,
+            Ptd_numatd = preAtendimentoToView.Ptd_numatd,
+            Ptd_usubdd = preAtendimentoToView.Ptd_usubdd,
+            Ptd_datcri = preAtendimentoToView.Ptd_datcri,
+            Ptd_datalt = preAtendimentoToView.Ptd_datalt,
+            Ptd_usucri = preAtendimentoToView.Ptd_usucri,
+            Ptd_usualt = preAtendimentoToView.Ptd_usualt,
+            Ptd_linjir = preAtendimentoToView.Ptd_linjir,
+            Ptd_verjir = preAtendimentoToView.Ptd_verjir
+        });
+
+        var dialog = _dialogService.Show<ViewPreAtendimentoPlantaoDialog>("Visualizar Pré Atendimento", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            //_snackbar.Add(result.Messages, Severity.Success);
+            await Consulta();
         }
     }
 }
