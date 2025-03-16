@@ -34,9 +34,7 @@ public class AthenaContext : DbContext
 
     public DbSet<Cliente> Clientes { get; set; }
 
-    public DbSet<PreAtendimentoPlantao> PreAtentimentos { get; set; }
-
-    public DbSet<CategoriaAtendimento> Categorias { get; set; }
+    public DbSet<PreAtendimentoPlantao> PreAtentimentos { get; set; }    
 
     public DbSet<Usuario> Usuarios { get; set; }
 

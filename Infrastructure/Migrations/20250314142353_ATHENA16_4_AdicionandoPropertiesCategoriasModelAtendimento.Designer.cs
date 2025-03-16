@@ -4,6 +4,7 @@ using Athena.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    partial class AthenaContextModelSnapshot : ModelSnapshot
+    [Migration("20250314142353_ATHENA16_4_AdicionandoPropertiesCategoriasModelAtendimento")]
+    partial class ATHENA16_4_AdicionandoPropertiesCategoriasModelAtendimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(65)");
 
                     b.Property<string>("Atd_catnv4")
+                        .IsRequired()
                         .HasMaxLength(65)
                         .HasColumnType("nvarchar(65)");
 
@@ -81,6 +85,7 @@ namespace Infrastructure.Migrations
                         .HasAnnotation("CustomAnnotation", "Tema em que o N1 precisa evoluir");
 
                     b.Property<string>("Atd_issue")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Número do JIRA");
@@ -171,8 +176,12 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Atd_cli_identi");
+
                     b.HasIndex("Atd_ptd_identi")
                         .IsUnique();
+
+                    b.HasIndex("Atd_usu_identi");
 
                     b.ToTable("AtendimentoPlantao", "Athena");
                 });
@@ -796,6 +805,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Athena.Models.AtendimentoPlantao", b =>
                 {
+                    b.HasOne("Athena.Models.Cliente", "Cliente")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("Atd_cli_identi")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("Atd_cli_identi");
+
                     b.HasOne("Athena.Models.PreAtendimentoPlantao", "PreAtendimentoPlantao")
                         .WithOne("AtendimentoPlantao")
                         .HasForeignKey("Athena.Models.AtendimentoPlantao", "Atd_ptd_identi")
@@ -803,7 +819,18 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("Atd_ptd_identi");
 
+                    b.HasOne("Athena.Models.Usuario", "Usuario")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("Atd_usu_identi")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("Atd_usu_identi");
+
+                    b.Navigation("Cliente");
+
                     b.Navigation("PreAtendimentoPlantao");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Athena.Models.Cliente", b =>
@@ -921,6 +948,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Athena.Models.Cliente", b =>
                 {
+                    b.Navigation("Atendimentos");
+
                     b.Navigation("PreAtendimentos");
                 });
 
@@ -953,6 +982,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Athena.Models.Usuario", b =>
                 {
+                    b.Navigation("Atendimentos");
+
                     b.Navigation("DepFuncs");
 
                     b.Navigation("PreAtendimentos");

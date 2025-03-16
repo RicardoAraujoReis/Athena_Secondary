@@ -1,5 +1,4 @@
-﻿using Athena.Web.Validators.CategoriaAtendimentoValidators;
-using Athena.Web.Validators.TipoDadosListasValidators;
+﻿using Athena.Web.Validators.TipoDadosListasValidators;
 using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;

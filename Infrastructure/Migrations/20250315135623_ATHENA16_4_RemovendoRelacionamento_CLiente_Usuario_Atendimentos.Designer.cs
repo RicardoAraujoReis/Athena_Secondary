@@ -4,6 +4,7 @@ using Athena.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    partial class AthenaContextModelSnapshot : ModelSnapshot
+    [Migration("20250315135623_ATHENA16_4_RemovendoRelacionamento_CLiente_Usuario_Atendimentos")]
+    partial class ATHENA16_4_RemovendoRelacionamento_CLiente_Usuario_Atendimentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,6 +84,7 @@ namespace Infrastructure.Migrations
                         .HasAnnotation("CustomAnnotation", "Tema em que o N1 precisa evoluir");
 
                     b.Property<string>("Atd_issue")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Número do JIRA");

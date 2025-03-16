@@ -4,6 +4,7 @@ using Athena.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AthenaContext))]
-    partial class AthenaContextModelSnapshot : ModelSnapshot
+    [Migration("20250313214455_ATHENA16_4")]
+    partial class ATHENA16_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,24 +34,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Atd_catnv1")
-                        .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("nvarchar(65)");
-
-                    b.Property<string>("Atd_catnv2")
-                        .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("nvarchar(65)");
-
-                    b.Property<string>("Atd_catnv3")
-                        .IsRequired()
-                        .HasMaxLength(65)
-                        .HasColumnType("nvarchar(65)");
-
-                    b.Property<string>("Atd_catnv4")
-                        .HasMaxLength(65)
-                        .HasColumnType("nvarchar(65)");
+                    b.Property<int>("Atd_cat_identi")
+                        .HasColumnType("int");
 
                     b.Property<int>("Atd_cli_identi")
                         .HasColumnType("int");
@@ -81,6 +68,7 @@ namespace Infrastructure.Migrations
                         .HasAnnotation("CustomAnnotation", "Tema em que o N1 precisa evoluir");
 
                     b.Property<string>("Atd_issue")
+                        .IsRequired()
                         .HasMaxLength(35)
                         .HasColumnType("nvarchar(35)")
                         .HasAnnotation("CustomAnnotation", "Número do JIRA");
@@ -171,10 +159,74 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Atd_cat_identi");
+
+                    b.HasIndex("Atd_cli_identi");
+
                     b.HasIndex("Atd_ptd_identi")
                         .IsUnique();
 
+                    b.HasIndex("Atd_usu_identi");
+
                     b.ToTable("AtendimentoPlantao", "Athena");
+                });
+
+            modelBuilder.Entity("Athena.Models.CategoriaAtendimento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Cat_identi");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cat_ativo")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int?>("Cat_catpai")
+                        .HasMaxLength(10)
+                        .HasColumnType("int")
+                        .HasAnnotation("CustomAnnotation", "ID da Categoria referência no nível anterior");
+
+                    b.Property<DateTime?>("Cat_datalt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Cat_datcri")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Cat_despai")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("Cat_nivel")
+                        .HasMaxLength(1)
+                        .HasColumnType("int")
+                        .HasAnnotation("CustomAnnotation", "Nível da Categoria");
+
+                    b.Property<int?>("Cat_usualt")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cat_usubdd")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("Cat_usucri")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cat_valor")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasAnnotation("CustomAnnotation", "Valor da Categoria");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoriaAtendimento", (string)null);
                 });
 
             modelBuilder.Entity("Athena.Models.Cliente", b =>
@@ -796,6 +848,20 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Athena.Models.AtendimentoPlantao", b =>
                 {
+                    b.HasOne("Athena.Models.CategoriaAtendimento", "CategoriaAtendimento")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("Atd_cat_identi")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("Atd_cat_identi");
+
+                    b.HasOne("Athena.Models.Cliente", "Cliente")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("Atd_cli_identi")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("Atd_cli_identi");
+
                     b.HasOne("Athena.Models.PreAtendimentoPlantao", "PreAtendimentoPlantao")
                         .WithOne("AtendimentoPlantao")
                         .HasForeignKey("Athena.Models.AtendimentoPlantao", "Atd_ptd_identi")
@@ -803,7 +869,20 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("Atd_ptd_identi");
 
+                    b.HasOne("Athena.Models.Usuario", "Usuario")
+                        .WithMany("Atendimentos")
+                        .HasForeignKey("Atd_usu_identi")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("Atd_usu_identi");
+
+                    b.Navigation("CategoriaAtendimento");
+
+                    b.Navigation("Cliente");
+
                     b.Navigation("PreAtendimentoPlantao");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Athena.Models.Cliente", b =>
@@ -919,8 +998,15 @@ namespace Infrastructure.Migrations
                     b.Navigation("Comentarios");
                 });
 
+            modelBuilder.Entity("Athena.Models.CategoriaAtendimento", b =>
+                {
+                    b.Navigation("Atendimentos");
+                });
+
             modelBuilder.Entity("Athena.Models.Cliente", b =>
                 {
+                    b.Navigation("Atendimentos");
+
                     b.Navigation("PreAtendimentos");
                 });
 
@@ -953,6 +1039,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Athena.Models.Usuario", b =>
                 {
+                    b.Navigation("Atendimentos");
+
                     b.Navigation("DepFuncs");
 
                     b.Navigation("PreAtendimentos");
