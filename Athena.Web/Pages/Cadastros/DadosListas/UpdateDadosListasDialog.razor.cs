@@ -1,4 +1,5 @@
 ﻿using Athena.Web.Validators.DadosListasValidators;
+using Common.Enums;
 using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Components;
@@ -21,6 +22,10 @@ public partial class UpdateDadosListasDialog
     private List<TipoDadosListasResponse> _tiposDadosListas = new List<TipoDadosListasResponse>();    
     private string tipoDadosListasSelected = null;
 
+    private ListaAplicacaoDadoLista aplicacao = new ListaAplicacaoDadoLista();
+    private List<string> listaAplicacao = new List<string>();
+    private string aplicacaoSelected = null;
+
     protected override async Task OnInitializedAsync()
     {
         var requestTipoDadosListas = await _tipoDadosListasServices.GetTipoDadosListasAllAsync();
@@ -35,6 +40,7 @@ public partial class UpdateDadosListasDialog
         }
 
         tipoDadosListasSelected = _tiposDadosListas.Where(tipo => tipo.Id == UpdateDadosListasRequest.Dal_tid_identi).Select(tipo => tipo.Tid_descri).FirstOrDefault();
+        listaAplicacao = new List<string>(Enum.GetNames(typeof(ListaAplicacaoDadoLista)));
     }
 
     private async Task SubmitAsync()
@@ -65,6 +71,7 @@ public partial class UpdateDadosListasDialog
         UpdateDadosListasRequest.Dal_usubdd = "DalDialog";
         UpdateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
         UpdateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
+        UpdateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
 
         var response = await _dadosListasServices.UpdateDadosListasAsync(UpdateDadosListasRequest);
         if (response.IsSuccessful)

@@ -30,13 +30,7 @@ internal class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
             .WithOne(x => x.Usuario)
             .HasForeignKey(x => x.Ptd_usu_identi)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("Ptd_usu_identi");
-
-        builder.HasMany(x => x.Atendimentos)
-            .WithOne(x => x.Usuario)
-            .HasForeignKey(x => x.Atd_usu_identi)
-            .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName("Atd_usu_identi");
+            .HasConstraintName("Ptd_usu_identi");        
 
         builder.HasMany(x => x.DepFuncs)
             .WithOne(x => x.Usuario)

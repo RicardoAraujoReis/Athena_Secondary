@@ -1,5 +1,4 @@
-﻿using Athena.Web.Pages.Cadastros.CategoriaAtendimento;
-using Athena.Web.Pages.Cadastros.TipoDadosListas;
+﻿using Athena.Web.Pages.Cadastros.TipoDadosListas;
 using Athena.Web.Pages.Shared;
 using Common.Requests;
 using Common.Responses;

@@ -25,6 +25,14 @@
                             }
                         </MudSelect>
                     </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="aplicacaoSelected" Label="Aplicação" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in listaAplicacao)
+                            {
+                                <MudSelectItem Value="@item">@item.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
                 }
             </MudGrid>
         </DialogContent>

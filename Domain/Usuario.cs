@@ -17,8 +17,7 @@ public class Usuario : BaseEntity<int>
     public int? Usu_usualt { get; set; }
     public DateTime Usu_datcri { get; set; }
     public DateTime? Usu_datalt { get; set; }    
-    public virtual List<PreAtendimentoPlantao> PreAtendimentos { get; set; }
-    public virtual List<AtendimentoPlantao> Atendimentos { get; set; }
+    public virtual List<PreAtendimentoPlantao> PreAtendimentos { get; set; }    
     public virtual List<DepFunc> DepFuncs { get; set; }
     public virtual List<UsuLhn> UsuLhn { get; set; }
 

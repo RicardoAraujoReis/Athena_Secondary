@@ -30,8 +30,7 @@ namespace Athena.Web
             builder.Services.AddScoped<ILinhaNegocioServices, LinhaNegocioServices>();
             builder.Services.AddScoped<IClienteServices, ClienteServices>();
             builder.Services.AddScoped<IDepartamentoServices, DepartamentoServices>();
-            builder.Services.AddScoped<IFuncaoServices, FuncaoServices>();
-            builder.Services.AddScoped<ICategoriaAtendimentoServices, CategoriaAtendimentoServices>();
+            builder.Services.AddScoped<IFuncaoServices, FuncaoServices>();            
             builder.Services.AddScoped<ITipoDadosListasServices, TipoDadosListasServices>();
             builder.Services.AddScoped<IDadosListasServices, DadosListasServices>();
             builder.Services.AddScoped<IPreAtendimentoPlantaoServices, PreAtendimentoPlantaoServices>();

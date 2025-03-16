@@ -9,6 +9,7 @@ public class CreateDadosListas {
     public DateTime? Dal_datalt { get; set; }
     public int Dal_usucri { get; set; }
     public int? Dal_usualt { get; set; }
+    public string Dal_aplicacao { get; set; }
     public virtual CreateTipoDadosListas TipoDadosListas { get; set; }
 };
 
@@ -22,5 +23,6 @@ public class UpdateDadosListas {
     public DateTime? Dal_datalt { get; set; }
     public int Dal_usucri { get; set; }
     public int? Dal_usualt { get; set; }
+    public string Dal_aplicacao { get; set; }
     public virtual UpdateTipoDadosListas TipoDadosListas { get; set; }
 };
