@@ -4,15 +4,15 @@
             Editar Pré Atendimento
         </TitleContent>
         <DialogContent>
-            <MudGrid>
-                @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
-                (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
-                (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
-                {
-                    <MudText Typo="Typo.h6">Loading...</MudText>
-                }
-                else
-                {
+            @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
+            (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
+            (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
                     <MudItem xs="12" sm="0" md="0">
                         <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_titulo" Label="Título" Margin="Margin.Dense" Lines="1"
                                       For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_titulo)"
@@ -102,52 +102,52 @@
                     </MudItem>
                     if (dadoListaJiraRelacionadoSelected == "SIM")
                     {
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
-                                          Variant="Variant.Outlined" Disabled="false">
-                                Número do Jira
-                            </MudTextField>
-                        </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
-                                          Variant="Variant.Outlined" Disabled="false">
-                                Link do Jira
-                            </MudTextField>
-                        </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
-                                          Variant="Variant.Outlined" Disabled="false">
-                                Versão do Jira
-                            </MudTextField>
-                        </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                      Variant="Variant.Outlined" Disabled="false">
+                            Número do Jira
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
+                                      Variant="Variant.Outlined" Disabled="false">
+                            Link do Jira
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
+                                      Variant="Variant.Outlined" Disabled="false">
+                            Versão do Jira
+                        </MudTextField>
+                    </MudItem>
                     }
                     else
                     {
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
-                                          Variant="Variant.Outlined" Disabled="true">
-                                Número do Jira
-                            </MudTextField>
-                        </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
-                                          Variant="Variant.Outlined" Disabled="true">
-                                Link do Jira
-                            </MudTextField>
-                        </MudItem>
-                        <MudItem xs="12" sm="4" md="4">
-                            <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
-                                          For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
-                                          Variant="Variant.Outlined" Disabled="true">
-                                Versão do Jira
-                            </MudTextField>
-                        </MudItem>
-                    }                    
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_numjir)"
+                                      Variant="Variant.Outlined" Disabled="true">
+                            Número do Jira
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_linjir)"
+                                      Variant="Variant.Outlined" Disabled="true">
+                            Link do Jira
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="4" md="4">
+                        <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                      For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_verjir)"
+                                      Variant="Variant.Outlined" Disabled="true">
+                            Versão do Jira
+                        </MudTextField>
+                    </MudItem>
+                    }
                     <MudItem xs="12" sm="0" md="0">
                         <MudTextField @bind-Value="UpdatePreAtendimentoPlantaoRequest.Ptd_diagn1" Label="Diagnóstico N1" Margin="Margin.Dense" Lines="3"
                                       For="@(() => UpdatePreAtendimentoPlantaoRequest.Ptd_diagn1)"
@@ -162,8 +162,8 @@
                             Observação
                         </MudTextField>
                     </MudItem>
-                }
-            </MudGrid>
+                </MudGrid>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

@@ -4,13 +4,13 @@
             Adicionar Cliente
         </TitleContent>
         <DialogContent>
-            <MudGrid>
-                @if (_linhasNegocio == null || !_linhasNegocio.Any())
-                {
-                    <MudText Typo="Typo.h6">Loading...</MudText>
-                }
-                else
-                {
+            @if (_linhasNegocio == null || !_linhasNegocio.Any())
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
                     <MudItem xs="12" sm="6" md="6">
                         <MudTextField @bind-Value="CreateClienteRequest.Cli_descri" Label="Descrição do Cliente" For="@(() => CreateClienteRequest.Cli_descri)"
                                       Margin="Margin.Dense" Variant="Variant.Outlined">
@@ -25,8 +25,9 @@
                             }
                         </MudSelect>
                     </MudItem>
-                }                              
-            </MudGrid>                        
+
+                </MudGrid>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
