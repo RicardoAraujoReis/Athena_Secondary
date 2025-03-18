@@ -12,17 +12,17 @@
             </CardHeaderContent>
         </MudCardHeader>
         <MudCardContent>
-            <MudGrid>
-                @if ((_clientes == null || !_clientes.Any()) || (_linhaNegocios == null || !_linhaNegocios.Any()) || (nomeDadosListasTipoPreAtendimento == null ||
-                !nomeDadosListasTipoPreAtendimento.Any()) || (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null ||
-                !nomeDadosListasAnalistaN1.Any()) || (nomeDadosListasJiraRelacionado == null ||
-                !nomeDadosListasJiraRelacionado.Any()) || (nomeDadosListasStatus == null || !nomeDadosListasStatus.Any())
-                )
-                {
-                    <MudText Typo="Typo.h6">Loading...</MudText>
-                }
-                else
-                {
+            @if ((_clientes == null || !_clientes.Any()) || (_linhaNegocios == null || !_linhaNegocios.Any()) || (nomeDadosListasTipoPreAtendimento == null ||
+            !nomeDadosListasTipoPreAtendimento.Any()) || (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null ||
+            !nomeDadosListasAnalistaN1.Any()) || (nomeDadosListasJiraRelacionado == null ||
+            !nomeDadosListasJiraRelacionado.Any()) || (nomeDadosListasStatus == null || !nomeDadosListasStatus.Any())
+            )
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
                     <MudItem xs="12" sm="2" md="2">
                         <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start"></MudTextField>
                     </MudItem>
@@ -96,8 +96,8 @@
                         <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2"></MudTextField>
                     </MudItem>
                     <MudFab Class="mt-12 ml-5" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Label="Consultar" OnClick="SubmitAsync" />
-                }
-            </MudGrid>
+                </MudGrid>
+            }
         </MudCardContent>
     </MudCard>
 </MudForm>

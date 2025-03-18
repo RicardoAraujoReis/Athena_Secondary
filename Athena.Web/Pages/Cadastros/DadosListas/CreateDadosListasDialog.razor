@@ -4,13 +4,13 @@
             Adicionar Dados Listas
         </TitleContent>
         <DialogContent>
-            <MudGrid>
-                @if (_tiposDadosListas == null || !_tiposDadosListas.Any())
-                {
-                    <MudText Typo="Typo.h6">Loading...</MudText>
-                }
-                else
-                {
+            @if (_tiposDadosListas == null || !_tiposDadosListas.Any())
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
                     <MudItem xs="12" sm="6" md="6">
                         <MudTextField @bind-Value="CreateDadosListasRequest.Dal_valor" Label="Valor do Dado Lista" Margin="Margin.Dense"
                                       For="@(() => CreateDadosListasRequest.Dal_valor)"
@@ -34,8 +34,8 @@
                             }
                         </MudSelect>
                     </MudItem>
-                }
-            </MudGrid>
+                </MudGrid>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

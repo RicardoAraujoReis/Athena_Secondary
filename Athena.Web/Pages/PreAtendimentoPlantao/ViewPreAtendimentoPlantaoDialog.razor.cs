@@ -62,7 +62,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
 
     private List<LinhaNegocioResponse> _linhasNegocio = new List<LinhaNegocioResponse>();
     private string linhaNegocio = null;
-
+    
     protected override async Task OnInitializedAsync()
     {
         var clienteAtualRequest = await _clienteServices.GetClienteByIdAsync(ViewPreAtendimentoPlantao.Ptd_cli_identi);
@@ -146,7 +146,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
 
         var linhaNegocioDescricao = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Id == cliente.Cli_lhn_identi)
             .Select(linhaNegocio => linhaNegocio.Lhn_descri);
-        linhaNegocio = linhaNegocioDescricao.FirstOrDefault();
+        linhaNegocio = linhaNegocioDescricao.FirstOrDefault();        
     }
 
     private async Task GeraAtendimentoPlantao()

@@ -4,15 +4,18 @@
             View Pre Atendimento Plantão
         </TitleContent>
         <DialogContent>
-            <MudExpansionPanels MultiExpansion="true">
-                <MudExpansionPanel Expanded="true" Text="Dados Pré Atendimento">
-                    <MudGrid>
-                        @if (cliente is null)
-                        {
-                            <MudText Typo="Typo.h6">Loading...</MudText>
-                        }
-                        else
-                        {
+            @if (cliente is null && (_dadosListas is null || !_dadosListas.Any()) && nomeDadosListasCriticidade is null && nomeDadosListasTipoAtendimento is null
+            && nomeDadosListasAnalistaN2 is null && dadosListasJiraCriado is null && dadosListasResolvidoPlantao is null && dadosListasResolveriaN1 is null
+            && dadosListasResolveriaN1SeTeste is null && dadosListasEvolucaoN1 is null)
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudExpansionPanels MultiExpansion="true">
+                    <MudExpansionPanel Expanded="true" Text="Dados Pré Atendimento" Gutters="false" Style="padding:10px!important; margin-bottom:10px!important;
+                    border-radius: var(--mud-default-borderradius) !important" Class="mud-elevation-25">
+                        <MudGrid>
                             <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
                             <MudItem xs="12" sm="1" md="1">
                                 <MudTextField Label="Id" @bind-Value="ViewPreAtendimentoPlantao.Id" ReadOnly="true">Id</MudTextField>
@@ -50,24 +53,17 @@
                             <MudItem xs="12" sm="3" md="3">
                                 <MudTextField Label="Data do Pré Atendimento" @bind-Value="ViewPreAtendimentoPlantao.Ptd_datptd" ReadOnly="true">Data do Pré Atendimento</MudTextField>
                             </MudItem>
-                        }
-                    </MudGrid>
-                </MudExpansionPanel>
-                <MudExpansionPanel Text="Análise N2">
-                    <MudItem xs="12" sm="12" md="12">
-                        <MudTextField Label="Análise do N2" @bind-Value="ViewPreAtendimentoPlantao.Ptd_reton2" Lines="3">Retorno do N2</MudTextField>
-                    </MudItem>
-                </MudExpansionPanel>
-                <MudExpansionPanel Text="Gerar Atendimento N2">
-                    <MudGrid>
-                        @if ((_dadosListas is null || !_dadosListas.Any()) && nomeDadosListasCriticidade is null && nomeDadosListasTipoAtendimento is null
-                        && nomeDadosListasAnalistaN2 is null && dadosListasJiraCriado is null && dadosListasResolvidoPlantao is null && dadosListasResolveriaN1 is null
-                        && dadosListasResolveriaN1SeTeste is null && dadosListasEvolucaoN1 is null)
-                        {
-                            <MudText Typo="Typo.h6">Loading...</MudText>
-                        }
-                        else
-                        {
+                        </MudGrid>
+                    </MudExpansionPanel>
+                    <MudExpansionPanel Text="Análise N2" Gutters="false" Style="padding:10px!important; margin-bottom:10px!important;
+                    border-radius: var(--mud-default-borderradius) !important" Class="mud-elevation-25">
+                        <MudItem xs="12" sm="12" md="12">
+                            <MudTextField Label="Análise do N2" @bind-Value="ViewPreAtendimentoPlantao.Ptd_reton2" Lines="3">Retorno do N2</MudTextField>
+                        </MudItem>
+                    </MudExpansionPanel>
+                    <MudExpansionPanel Text="Gerar Atendimento N2" Gutters="false" Style="padding:10px!important; margin-bottom:10px!important;
+                    border-radius: var(--mud-default-borderradius) !important" Class="mud-elevation-25">
+                        <MudGrid>
                             <MudItem xs="12" sm="3" md="3">
                                 <MudSelect @bind-Value="categoriaAtendimentoNivel1Selected" Label="Categoria Nível 1" AdornmentColor="Color.Secondary" Clearable="true"
                                            AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
@@ -220,10 +216,10 @@
                             <MudItem xs="12" sm="2" md="2" Class="mr-0">
                                 <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Save" Color="Color.Dark" OnClick="GeraAtendimentoPlantao">Salvar</MudButton>
                             </MudItem>
-                        }
-                    </MudGrid>
-                </MudExpansionPanel>
-            </MudExpansionPanels>
+                        </MudGrid>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>
