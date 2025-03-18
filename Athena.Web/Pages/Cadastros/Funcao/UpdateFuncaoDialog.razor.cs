@@ -1,5 +1,6 @@
 ﻿using Athena.Web.Validators.FuncaoValidators;
 using Common.Requests;
+using Common.Responses;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -16,6 +17,30 @@ public partial class UpdateFuncaoDialog
     MudForm _form = default;
 
     private UpdateFuncaoValidator _validator = new();
+
+    private List<DadosListasResponse> _dadosListas = new List<DadosListasResponse>();
+
+    private List<string> nomeDadosListasRegistroAtivo = null;
+    private string dadoListaRegistroAtivoSelected = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UpdateFuncaoRequest.Fnc_ativo == "S")
+        {
+            dadoListaRegistroAtivoSelected = "SIM";
+        }
+        else
+        {
+            dadoListaRegistroAtivoSelected = "NAO";
+        }
+
+        var requestDadosListas = await _dadosListasServices.GetDadosListasAllAsync();
+        if (requestDadosListas.IsSuccessful)
+        {
+            _dadosListas = requestDadosListas.Data;
+        }
+        nomeDadosListasRegistroAtivo = _dadosListas.Where(dados => dados.Dal_tid_descri == "REGISTRO ATIVO").Select(dados => dados.Dal_valor).ToList();
+    }
 
     private async Task SubmitAsync()
     {
@@ -41,6 +66,19 @@ public partial class UpdateFuncaoDialog
         UpdateFuncaoRequest.Fnc_usualt = 1;
         UpdateFuncaoRequest.Fnc_datalt = DateTime.Now;
         UpdateFuncaoRequest.Fnc_usubdd = "LhnDialog";
+        UpdateFuncaoRequest.Fnc_descri = UpdateFuncaoRequest.Fnc_descri.ToUpper();
+
+        if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
+        {
+            if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+            {
+                UpdateFuncaoRequest.Fnc_ativo = "N";
+            }
+            else
+            {
+                UpdateFuncaoRequest.Fnc_ativo = "S";
+            }
+        }
 
         var response = await _funcaoServices.UpdateFuncaoAsync(UpdateFuncaoRequest);
         if (response.IsSuccessful)

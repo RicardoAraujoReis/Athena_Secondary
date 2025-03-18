@@ -91,11 +91,7 @@ public class UpdateDepartamentoCommandsHandler : IRequestHandler<UpdateDepartame
 
     public bool UpdateDepartamentoValidator(Departamento departamentoRequest, Departamento departamento)
     {
-        if (Convert.ToChar(departamentoRequest.Dpt_ativo.ToUpper()) != 'S')
-        {
-            return false;
-        }
-        else if (departamentoRequest.Dpt_ativo.Length > 1)
+        if (departamentoRequest.Dpt_ativo.Length > 1)
         {
             return false;
         }

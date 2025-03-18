@@ -43,10 +43,16 @@ public partial class UpdateClienteDialog
         }        
         
         var linhaNegocioAtual = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Id == UpdateClienteRequest.Cli_lhn_identi).FirstOrDefault();
-        linhaNegocioSelected = linhaNegocioAtual.Lhn_descri;
+        linhaNegocioSelected = linhaNegocioAtual.Lhn_descri;        
 
-        var statusAtualCliente = UpdateClienteRequest.Cli_ativo.ToUpper();
-        dadoListaRegistroAtivoSelected = statusAtualCliente;
+        if (UpdateClienteRequest.Cli_ativo == "S")
+        {
+            dadoListaRegistroAtivoSelected = "SIM";
+        }
+        else
+        {
+            dadoListaRegistroAtivoSelected = "NAO";
+        }
 
         var requestDadosListas = await _dadosListasServices.GetDadosListasAllAsync();
         if (requestDadosListas.IsSuccessful)

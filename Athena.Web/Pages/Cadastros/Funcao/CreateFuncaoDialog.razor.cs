@@ -44,6 +44,7 @@ public partial class CreateFuncaoDialog
         CreateFuncaoRequest.Fnc_datalt = null;
         CreateFuncaoRequest.Fnc_usubdd = "LhnDialog";
         CreateFuncaoRequest.Fnc_ativo = "S";
+        CreateFuncaoRequest.Fnc_descri = CreateFuncaoRequest.Fnc_descri.ToUpper();
 
         var response = await _funcaoServices.CreateFuncaoAsync(CreateFuncaoRequest);
         if (response.IsSuccessful)

@@ -9,14 +9,14 @@ public partial class LinhaNegocio
 {
     public List<LinhaNegocioResponse> linhaNegocios { get; set; } = new List<LinhaNegocioResponse>();
     private bool _loading = true;
-    private string searchLinhaNegocio = null;
-    private string filterByAtivo = null;
+    private string searchLinhaNegocio = null;    
     private LinhaNegocioResponse selectedItem = null;
     private string dataAlteracao = "---";
+    private string linhaNegocioAtiva = null;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadLinhaNegocioListAsync();
+        await LoadLinhaNegocioListAsync();        
     }
 
     private async Task LoadLinhaNegocioListAsync()
