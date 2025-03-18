@@ -4,20 +4,30 @@
             Editar Linha de Negócio
         </TitleContent>
         <DialogContent>
-            <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => UpdateLinhaNegocioRequest.Lhn_descri)"
-                        Variant="Variant.Outlined" Margin="Margin.Dense">
-                        Linha de Negócio
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_ativo" Label="Ativo" For="@(() => UpdateLinhaNegocioRequest.Lhn_ativo)"
-                        Variant="Variant.Outlined" Margin="Margin.Dense">
-                        Ativo
-                    </MudTextField>
-                </MudItem>
-            </MudGrid>                        
+            @if (nomeDadosListasStatus is null)
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateLinhaNegocioRequest.Lhn_descri" Label="Descrição da Linha de Negócio" For="@(() => UpdateLinhaNegocioRequest.Lhn_descri)"
+                                      Variant="Variant.Outlined" Margin="Margin.Dense">
+                            Linha de Negócio
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="dadoListaStatusSelected" Label="Ativo" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasStatus)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

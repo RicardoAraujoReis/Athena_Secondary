@@ -4,20 +4,30 @@
             Editar Função
         </TitleContent>
         <DialogContent>
-            <MudGrid>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateFuncaoRequest.Fnc_descri" Label="Descrição do Cliente" For="@(() => UpdateFuncaoRequest.Fnc_descri)"
-                        Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Função
-                    </MudTextField>
-                </MudItem>
-                <MudItem xs="12" sm="6" md="6">
-                    <MudTextField @bind-Value="UpdateFuncaoRequest.Fnc_ativo" Label="Ativo" For="@(() => UpdateFuncaoRequest.Fnc_ativo)"
-                        Margin="Margin.Dense" Variant="Variant.Outlined">
-                        Ativo
-                    </MudTextField>
-                </MudItem>
-            </MudGrid>  
+            @if (nomeDadosListasRegistroAtivo is null)
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="UpdateFuncaoRequest.Fnc_descri" Label="Descrição do Cliente" For="@(() => UpdateFuncaoRequest.Fnc_descri)"
+                                      Margin="Margin.Dense" Variant="Variant.Outlined">
+                            Função
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudSelect @bind-Value="dadoListaRegistroAtivoSelected" Label="Ativo" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasRegistroAtivo)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                </MudGrid>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancelar</MudButton>

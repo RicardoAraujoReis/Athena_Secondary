@@ -44,6 +44,7 @@ public partial class CreateDepartamentoDialog
         CreateDepartamentoRequest.Dpt_datalt = null;
         CreateDepartamentoRequest.Dpt_usubdd = "LhnDialog";
         CreateDepartamentoRequest.Dpt_ativo = "S";
+        CreateDepartamentoRequest.Dpt_descri = CreateDepartamentoRequest.Dpt_descri.ToUpper();
 
         var response = await _departamentoServices.CreateDepartamentoAsync(CreateDepartamentoRequest);
         if (response.IsSuccessful)

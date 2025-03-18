@@ -37,7 +37,14 @@
             <RowTemplate>
                 <MudTd DataLabel="Id">@context.Id</MudTd>
                 <MudTd DataLabel="Lhn_descri">@context.Lhn_descri</MudTd>
-                <MudTd DataLabel="Lhn_ativo">@context.Lhn_ativo</MudTd>
+                @if(@context.Lhn_ativo == "S")
+                {
+                    <MudTd DataLabel="Lhn_ativo">SIM</MudTd>
+                }
+                else
+                {
+                    <MudTd DataLabel="Lhn_ativo">NAO</MudTd>
+                }                
                 <MudTd DataLabel="Lhn_datcri">@context.Lhn_datcri</MudTd>
                 @if (@context.Lhn_datalt.ToString() == "01/01/0001 00:00:00")
                 {
