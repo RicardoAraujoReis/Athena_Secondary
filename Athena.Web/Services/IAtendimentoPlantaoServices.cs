@@ -12,5 +12,5 @@ public interface IAtendimentoPlantaoServices
     Task<ResponseWrapper<int>> DeleteAtendimentoPlantaoAsync(int id);
     Task<ResponseWrapper<AtendimentoPlantaoResponse>> GetAtendimentoPlantaoByIdAsync(int id);
     Task<ResponseWrapper<List<AtendimentoPlantaoResponse>>> GetAtendimentoPlantaoAllAsync();
-    //Task<ResponseWrapper<List<AtendimentoPlantaoResponse>>> GetAtendimentoPlantaoByParametersAsync(SearchAtendimentoPlantaoByParameters consulta);
+    Task<ResponseWrapper<List<AtendimentoPlantaoResponse>>> GetAtendimentoPlantaoByParametersAsync(SearchAtendimentoPlantaoByParameters consulta);
 }

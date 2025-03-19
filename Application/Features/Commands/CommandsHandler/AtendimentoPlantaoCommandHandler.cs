@@ -74,7 +74,8 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
                 Atd_datcri = request.UpdateAtendimentoPlantao.Atd_datcri,
                 Atd_datalt = request.UpdateAtendimentoPlantao.Atd_datalt,
                 Atd_linjir = request.UpdateAtendimentoPlantao.Atd_linjir,
-                Atd_verjir = request.UpdateAtendimentoPlantao.Atd_verjir
+                Atd_verjir = request.UpdateAtendimentoPlantao.Atd_verjir,
+                Atd_jirarl = request.UpdateAtendimentoPlantao.Atd_jirarl
             };            
 
             await _unitOfWork.WriteDataFor<AtendimentoPlantao>().UpdateAsync(updateAtendimentoPlantao);

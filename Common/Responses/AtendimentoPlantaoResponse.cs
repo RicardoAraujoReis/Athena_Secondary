@@ -38,4 +38,5 @@ public class AtendimentoPlantaoResponse
     public DateTime Atd_datalt { get; set; }
     public string? Atd_linjir { get; set; }
     public string? Atd_verjir { get; set; }
+    public string Atd_jirarl { get; set; }
 }

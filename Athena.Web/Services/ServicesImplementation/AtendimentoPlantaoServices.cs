@@ -49,11 +49,10 @@ public class AtendimentoPlantaoServices : IAtendimentoPlantaoServices
         return await response.ToResponse<int>();
     }
 
-    /*
+    
     public async Task<ResponseWrapper<List<AtendimentoPlantaoResponse>>> GetAtendimentoPlantaoByParametersAsync(SearchAtendimentoPlantaoByParameters consulta)
     {
         var response = await _httpClient.PostAsJsonAsync(AtendimentoPlantaoEndpoints.GetByParameters, consulta);
         return await response.ToResponse<List<AtendimentoPlantaoResponse>>();
     }
-    */
 }

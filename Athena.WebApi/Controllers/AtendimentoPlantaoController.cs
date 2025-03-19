@@ -2,6 +2,7 @@
 using Application.Features.Queries;
 using Athena.WebApi.Controllers.BaseApi;
 using Common.Requests;
+using Common.Requests.Searchs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -140,23 +141,29 @@ public class AtendimentoPlantaoController : BaseApiController
         }        
     }
 
-    [HttpGet("getbystatus")]
+    /// <summary>
+    /// Busca um Atendimento cadastrado de acordo com os parâmetros recebidos
+    /// </summary>
+    /// <param name="GetAtendimentoPlantaoByParametersAsync">Objeto com os campos necessários para busca dos Atendimentos</param>
+    /// <returns>IActionResult</returns>
+    /// <response code="200">Caso a busca seja feita com sucesso</response>
+    [HttpPost("getbyparameters")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAtendimentoPlantaoByStatusAsync(String status)
+    public async Task<IActionResult> GetAtendimentoPlantaoByParametersAsync([FromBody] SearchAtendimentoPlantaoByParameters filtro)
     {
         try
         {
-            var response = await Sender.Send(new GetAtendimentoPlantaoByStatus { AtendimentoByStatus = status });
+            var response = await Sender.Send(new GetAtendimentoPlantaoByParameters(filtro));
 
-            if (!response.IsSuccessful)
+            if (response.IsSuccessful)
             {
-                return NotFound(response);
+                return Ok(response);
             }
-            return Ok(response);
+            return BadRequest(response);
         }
         catch (Exception ex)
         {
             return BadRequest(ex);
-        }        
+        }
     }
 }

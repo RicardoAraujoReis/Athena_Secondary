@@ -33,7 +33,8 @@ public class AtendimentoPlantao : BaseEntity<int>
     public DateTime Atd_datcri { get; set; }
     public DateTime? Atd_datalt { get; set; }
     public string? Atd_linjir { get; set; }
-    public string? Atd_verjir { get; set; }    
+    public string? Atd_verjir { get; set; }
+    public string Atd_jirarl { get; set; }
     public virtual PreAtendimentoPlantao PreAtendimentoPlantao { get; set; }    
     public virtual List<ComentariosAtendimentoPlantao>? Comentarios { get; set; }
 
@@ -66,7 +67,8 @@ public class AtendimentoPlantao : BaseEntity<int>
         DateTime atd_datcri,
         DateTime atd_datalt,
         string atd_linjir,
-        string atd_verjir
+        string atd_verjir,
+        string atd_jirarl
     )
     {
         Id = id;
@@ -98,6 +100,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         Atd_datalt = atd_datalt;
         Atd_linjir = atd_linjir;
         Atd_verjir = atd_verjir;
+        Atd_jirarl = atd_jirarl;
 
         return this;
     }

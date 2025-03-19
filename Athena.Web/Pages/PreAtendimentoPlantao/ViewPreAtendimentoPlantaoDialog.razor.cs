@@ -257,6 +257,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
         atendimentoPlantaoRequest.Atd_ptd_identi = ViewPreAtendimentoPlantao.Id;
         atendimentoPlantaoRequest.Atd_usu_identi = ViewPreAtendimentoPlantao.Ptd_usu_identi;
         atendimentoPlantaoRequest.Atd_tipatd = dadoListaTipoAtendimentoSelected;
+        atendimentoPlantaoRequest.Atd_jirarl = ViewPreAtendimentoPlantao.Ptd_jirarl;
 
         var requestAtendimento = await _atendimentoPlantaoServices.CreateAtendimentoPlantaoAsync(atendimentoPlantaoRequest);
         if (requestAtendimento.IsSuccessful)
