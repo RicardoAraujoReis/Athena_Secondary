@@ -1,1 +1,169 @@
 ﻿@page "/consultaAtendimentoPlantao"
+@using Common.Requests.Searchs;
+
+<MudForm @ref="_form" Model="SearchAtendimentoPlantaoByParameters">
+    <MudCard Elevation="25">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudIcon Icon="@Icons.Material.Filled.Search"></MudIcon>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.body1">Consultar Atendimentos Plantão</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            @if ((_clientes == null || !_clientes.Any()) || (_linhaNegocios == null || !_linhaNegocios.Any()) || 
+            (nomeDadosListasTipoAtendimento == null || !nomeDadosListasTipoAtendimento.Any()) || (nomeDadosListasCriticidade == null ||
+            !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) || 
+            (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()) || (nomeDadosListasStatus == null || 
+            !nomeDadosListasStatus.Any())
+            )
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="statusSelected" Placeholder="Status Pré Atendimento" Adornment="Adornment.Start" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasStatus)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="linhaNegocioSelected" Placeholder="Linha de Negócio" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _linhaNegocios)
+                            {
+                                <MudSelectItem Value="@item.Lhn_descri">@item.Lhn_descri</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="clienteSelected" Placeholder="Cliente" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _clientes)
+                            {
+                                <MudSelectItem Value="@item.Cli_descri">@item.Cli_descri</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="tipoAtendimentoSelected" Placeholder="Tipo" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasTipoAtendimento)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="criticidadeSelected" Placeholder="Criticidade" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasCriticidade)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudSelect @bind-Value="analistaN1Selected" Placeholder="Analista N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasAnalistaN1)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudTextField @bind-Value="jira" Placeholder="Jira" Adornment="Adornment.Start"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudDatePicker Placeholder="Data Início" @bind-Date="dataInicioAtendimento" ShowToolbar="false" />
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudDatePicker Placeholder="Data Fim" @bind-Date="dataFimAtendimento" ShowToolbar="false" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="titulo" Placeholder="Título" Adornment="Adornment.Start" Lines="2"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" md="6">
+                        <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2"></MudTextField>
+                    </MudItem>
+                    <MudFab Class="mt-12 ml-5" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Label="Consultar" OnClick="SubmitAsync" />
+                </MudGrid>
+            }
+        </MudCardContent>
+    </MudCard>
+</MudForm>
+<MudCard Elevation="25" Class="mt-3">
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudIcon Icon="@Icons.Material.Filled.Preview"></MudIcon>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+            <MudText Typo="Typo.body1">Resultados</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @if (!sucessoConsulta)
+        {
+            <MudTable Items="atendimentos" Elevation="25" Dense="true" Hover="true">
+                <HeaderContent>
+                    <MudTh>Id</MudTh>
+                    <MudTh>Título</MudTh>
+                    <MudTh>Status</MudTh>
+                    <MudTh>Data Criação</MudTh>
+                    <MudTh>Data Alteração</MudTh>
+                    <MudTh>Ações</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="Atd_titulo">@context.Atd_titulo</MudTd>
+                    <MudTd DataLabel="Atd_status">@context.Atd_status</MudTd>
+                    <MudTd DataLabel="Atd_datcri">@context.Atd_datcri</MudTd>
+                    <MudTd DataLabel="Ptd_datalt">@context.Atd_datalt</MudTd>
+                    <MudTd DataLabel="Ações"></MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+        else
+        {
+            <MudTable Items="atendimentos" Elevation="25" Dense="true" Hover="true">
+                <HeaderContent>
+                    <MudTh>Id</MudTh>
+                    <MudTh>Título</MudTh>
+                    <MudTh>Status</MudTh>
+                    <MudTh>Data Criação</MudTh>
+                    <MudTh>Data Alteração</MudTh>
+                    <MudTh>Ações</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Id">@context.Id</MudTd>
+                    <MudTd DataLabel="Atd_titulo">@context.Atd_titulo</MudTd>
+                    <MudTd DataLabel="Atd_status">@context.Atd_status</MudTd>
+                    <MudTd DataLabel="Atd_datcri">@context.Atd_datcri</MudTd>
+                    @if (@context.Atd_datalt.ToString() == "01/01/0001 00:00:00")
+                    {
+                        <MudTd>@dataAlteracao</MudTd>
+                    }
+                    else
+                    {
+                        <MudTd DataLabel="Ptd_datalt">@context.Atd_datalt</MudTd>
+                    }
+                    <MudTd DataLabel="Ações">
+                        <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                            <MudMenuItem OnClick="(() => ViewAtendimentoPlantaoAsync(context.Id))">Visualizar</MudMenuItem>
+                        </MudMenu>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+    </MudCardContent>
+</MudCard>

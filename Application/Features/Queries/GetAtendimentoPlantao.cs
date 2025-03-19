@@ -1,4 +1,5 @@
-﻿using Common.Responses;
+﻿using Common.Requests.Searchs;
+using Common.Responses;
 using Common.Wrapper;
 using MediatR;
 using System;
@@ -19,7 +20,12 @@ public class GetAtendimentoPlantaoById : IRequest<ResponseWrapper<AtendimentoPla
     public int Id { get; set; }
 }
 
-public class GetAtendimentoPlantaoByStatus : IRequest<ResponseWrapper<List<AtendimentoPlantaoResponse>>>
+public class GetAtendimentoPlantaoByParameters : IRequest<ResponseWrapper<List<AtendimentoPlantaoResponse>>>
 {
-    public string AtendimentoByStatus { get; set; }
+    public SearchAtendimentoPlantaoByParameters Filtros { get; }
+
+    public GetAtendimentoPlantaoByParameters(SearchAtendimentoPlantaoByParameters filtros)
+    {
+        Filtros = filtros;
+    }
 }
