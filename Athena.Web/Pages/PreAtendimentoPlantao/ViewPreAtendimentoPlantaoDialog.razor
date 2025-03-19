@@ -140,9 +140,18 @@
                                     }
                                 </MudSelect>
                             </MudItem>
-                            <MudItem xs="12" sm="3" md="3">
-                                <MudTextField Label="Número do issue" @bind-Value="numeroIssueJira">Número do issue</MudTextField>
-                            </MudItem>
+                            @if (dadoListaJiraCriadoSelected == "SIM")
+                            {
+                                <MudItem xs="12" sm="3" md="3">
+                                    <MudTextField Label="Número do issue" @bind-Value="numeroIssueJira">Número do issue</MudTextField>
+                                </MudItem>
+                            }
+                            else
+                            {
+                                <MudItem xs="12" sm="3" md="3">
+                                    <MudTextField Label="Número do issue" @bind-Value="numeroIssueJira" Disabled="true">Número do issue</MudTextField>
+                                </MudItem>
+                            }
                             <MudItem xs="12" sm="3" md="3">
                                 <MudSelect @bind-Value="resolvidoPlantaoSelected" Label="Resolvido no Plantão" AdornmentColor="Color.Secondary" Clearable="true"
                                            AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">

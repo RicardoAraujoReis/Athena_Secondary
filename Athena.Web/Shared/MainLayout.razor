@@ -8,7 +8,7 @@
 <MudLayout>
     <MudAppBar Elevation="1" Dense="true" Color="Color.Tertiary">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToogle())"></MudIconButton>
-        <MudText Typo="Typo.h5" Class="ml-3">Athena</MudText>
+        <MudLink Href="/" Underline="Underline.None" Color="Color.Inherit"><MudText Typo="Typo.h5" Class="ml-3">Athena</MudText></MudLink>
         <MudSpacer />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
