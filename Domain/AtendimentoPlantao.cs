@@ -23,6 +23,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public string Atd_nomal2 { get; set; }
+    public string Atd_nomal1 { get; set; }
     public string Atd_status { get; set; }
     public string Atd_catnv1 { get; set; }
     public string Atd_catnv2 { get; set; }
@@ -57,6 +58,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         string atd_usubdd,
         DateTime atd_datatd,
         string atd_nomal2,
+        string atd_nomal1,
         string atd_status,
         string atd_catnv1,
         string atd_catnv2,
@@ -89,6 +91,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         Atd_usubdd = atd_usubdd;
         Atd_datatd = atd_datatd;
         Atd_nomal2 = atd_nomal2;
+        Atd_nomal1 = atd_nomal1;
         Atd_status = atd_status;
         Atd_catnv1 = atd_catnv1;
         Atd_catnv2 = atd_catnv2;

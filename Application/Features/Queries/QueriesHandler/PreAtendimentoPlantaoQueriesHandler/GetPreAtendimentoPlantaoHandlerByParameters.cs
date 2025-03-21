@@ -47,16 +47,16 @@ public class GetPreAtendimentoPlantaoHandlerByParameters : IRequestHandler<GetPr
             if (!string.IsNullOrWhiteSpace(request.Filtros.statusSelected))
             {
                 query = query.Where(p => p.Ptd_status == request.Filtros.statusSelected);
-            }            
+            }                        
 
-            if (request.Filtros.dataInicioPreAtendimento.HasValue)
+            if (request.Filtros.dataInicioPreAtendimento.HasValue && request.Filtros.dataFimPreAtendimento.HasValue)
             {
-                query = query.Where(p => p.Ptd_datcri >= request.Filtros.dataInicioPreAtendimento.Value);
+                query = query.Where(p => p.Ptd_datcri.Date >= request.Filtros.dataInicioPreAtendimento && p.Ptd_datcri.Date <= request.Filtros.dataFimPreAtendimento);
             }
 
-            if (request.Filtros.dataFimPreAtendimento.HasValue)
+            if (request.Filtros.dataInicioPreAtendimento.HasValue && !request.Filtros.dataFimPreAtendimento.HasValue)
             {
-                query = query.Where(p => p.Ptd_datcri <= request.Filtros.dataFimPreAtendimento.Value);
+                query = query.Where(p => p.Ptd_datcri.Date == request.Filtros.dataInicioPreAtendimento.Value);
             }
 
             if (!string.IsNullOrWhiteSpace(request.Filtros.resumo))

@@ -22,6 +22,7 @@ public partial class ConsultaAtendimentoPlantao
     public string tipoAtendimentoSelected = null;
     public string criticidadeSelected = null;
     public string analistaN1Selected = null;
+    public string analistaN2Selected = null;
     public string jira = null;
 
     private List<LinhaNegocioResponse> _linhaNegocios = new List<LinhaNegocioResponse>();
@@ -30,6 +31,7 @@ public partial class ConsultaAtendimentoPlantao
     private List<string> nomeDadosListasCriticidade = null;
     private List<string> nomeDadosListasTipoAtendimento = null;
     private List<string> nomeDadosListasAnalistaN1 = null;
+    private List<string> nomeDadosListasAnalistaN2 = null;
     private List<string> nomeDadosListasJiraRelacionado = null;
     private List<string> nomeDadosListasStatus = null;
 
@@ -73,6 +75,7 @@ public partial class ConsultaAtendimentoPlantao
         nomeDadosListasCriticidade = _dadosListas.Where(dados => dados.Dal_tid_descri == "CRITICIDADE").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasTipoAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasAnalistaN1 = _dadosListas.Where(dados => dados.Dal_tid_descri == "ANALISTA N1").Select(dados => dados.Dal_valor).ToList();
+        nomeDadosListasAnalistaN2 = _dadosListas.Where(dados => dados.Dal_tid_descri == "ANALISTA N2").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasJiraRelacionado = _dadosListas.Where(dados => dados.Dal_tid_descri == "JIRA RELACIONADO").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasStatus = _dadosListas.Where(dados => dados.Dal_tid_descri == "STATUS ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
     }
@@ -83,9 +86,13 @@ public partial class ConsultaAtendimentoPlantao
             (linhaNegocioSelected == null || !linhaNegocioSelected.Any()) && (clienteSelected == null || !clienteSelected.Any()) &&
             (dataInicioAtendimento == null) && (dataFimAtendimento == null) && (resumo == null || !resumo.Any()) &&
             (tipoAtendimentoSelected == null || !tipoAtendimentoSelected.Any()) && (analistaN1Selected == null || !analistaN1Selected.Any()) &&
-            (jira == null || !jira.Any()))
+            (jira == null || !jira.Any()) && (criticidadeSelected == null || !criticidadeSelected.Any()) && (analistaN2Selected == null || !analistaN2Selected.Any()))
         {
             _snackbar.Add("Falha ao validar o formulário, ao menos um filtro deve ser preenchido", Severity.Error);
+        }
+        else if (dataInicioAtendimento is null && dataFimAtendimento is not null)
+        {
+            _snackbar.Add("Falha ao validar o formulário, preencha a Data Início", Severity.Error);
         }
         else
         {
@@ -95,8 +102,11 @@ public partial class ConsultaAtendimentoPlantao
 
     public async Task Consulta()
     {
+        atendimentos = null;
+
         var linhaNegocioId = _linhaNegocios.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).
             Select(linhaNegocio => linhaNegocio.Id).FirstOrDefault();
+        
         var clienteId = _clientes.Where(cliente => cliente.Cli_descri == clienteSelected).Select(cliente => cliente.Id).FirstOrDefault();
 
         var filtros = new SearchAtendimentoPlantaoByParameters
@@ -112,6 +122,7 @@ public partial class ConsultaAtendimentoPlantao
             tipoAtendimentoSelected = tipoAtendimentoSelected,
             criticidadeSelected = criticidadeSelected,
             analistaN1Selected = analistaN1Selected,
+            analistaN2Selected = analistaN2Selected,
             jira = jira
         };
 
@@ -119,8 +130,17 @@ public partial class ConsultaAtendimentoPlantao
 
         if (resultado.IsSuccessful)
         {
-            atendimentos = resultado.Data;
-            sucessoConsulta = true;
+
+            if (resultado.Data.Count == 0)
+            {
+                _snackbar.Add("Nenhum registro encontrado para os parâmetros enviados", Severity.Error);
+                sucessoConsulta = false;
+            }
+            else
+            {
+                atendimentos = resultado.Data;
+                sucessoConsulta = true;
+            }
         }
         else
         {

@@ -14,7 +14,7 @@
         <MudCardContent>
             @if ((_clientes == null || !_clientes.Any()) || (_linhaNegocios == null || !_linhaNegocios.Any()) || 
             (nomeDadosListasTipoAtendimento == null || !nomeDadosListasTipoAtendimento.Any()) || (nomeDadosListasCriticidade == null ||
-            !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) || 
+            !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) || (nomeDadosListasAnalistaN2 == null || !nomeDadosListasAnalistaN2.Any()) ||
             (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()) || (nomeDadosListasStatus == null || 
             !nomeDadosListasStatus.Any())
             )
@@ -25,7 +25,10 @@
             {
                 <MudGrid>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start"></MudTextField>
+                        <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start" Clearable="true"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudTextField @bind-Value="titulo" Placeholder="Título" Adornment="Adornment.Start" Lines="1" Clearable="true"></MudTextField>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
                         <MudSelect @bind-Value="statusSelected" Placeholder="Status Pré Atendimento" Adornment="Adornment.Start" AdornmentColor="Color.Secondary" Clearable="true"
@@ -82,19 +85,25 @@
                         </MudSelect>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudTextField @bind-Value="jira" Placeholder="Jira" Adornment="Adornment.Start"></MudTextField>
+                        <MudSelect @bind-Value="analistaN2Selected" Placeholder="Analista N2" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in nomeDadosListasAnalistaN2)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudDatePicker Placeholder="Data Início" @bind-Date="dataInicioAtendimento" ShowToolbar="false" />
+                        <MudTextField @bind-Value="jira" Placeholder="Jira" Adornment="Adornment.Start" Clearable="true"></MudTextField>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudDatePicker Placeholder="Data Fim" @bind-Date="dataFimAtendimento" ShowToolbar="false" />
+                        <MudDatePicker Placeholder="Data Início" @bind-Date="dataInicioAtendimento" Clearable="true" ShowToolbar="false" />
                     </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
-                        <MudTextField @bind-Value="titulo" Placeholder="Título" Adornment="Adornment.Start" Lines="2"></MudTextField>
-                    </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
-                        <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2"></MudTextField>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudDatePicker Placeholder="Data Fim" @bind-Date="dataFimAtendimento" Clearable="true" ShowToolbar="false" />
+                    </MudItem>                    
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2" Clearable="true"></MudTextField>
                     </MudItem>
                     <MudFab Class="mt-12 ml-5" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Label="Consultar" OnClick="SubmitAsync" />
                 </MudGrid>

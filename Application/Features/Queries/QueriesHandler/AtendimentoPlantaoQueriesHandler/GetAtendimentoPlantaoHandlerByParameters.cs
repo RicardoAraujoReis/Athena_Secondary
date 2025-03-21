@@ -53,15 +53,15 @@ public class GetAtendimentoPlantaoHandlerByParameters : IRequestHandler<GetAtend
                 query = query.Where(p => p.Atd_status == request.Filtros.statusSelected);
             }
 
-            if (request.Filtros.dataInicioAtendimento.HasValue)
+            if(request.Filtros.dataInicioAtendimento.HasValue && request.Filtros.dataFimAtendimento.HasValue)
             {
-                query = query.Where(p => p.Atd_datcri >= request.Filtros.dataInicioAtendimento.Value);
+                query = query.Where(p => p.Atd_datcri.Date >= request.Filtros.dataInicioAtendimento && p.Atd_datcri.Date <= request.Filtros.dataFimAtendimento);
             }
 
-            if (request.Filtros.dataFimAtendimento.HasValue)
+            if (request.Filtros.dataInicioAtendimento.HasValue && !request.Filtros.dataFimAtendimento.HasValue)
             {
-                query = query.Where(p => p.Atd_datcri <= request.Filtros.dataFimAtendimento.Value);
-            }
+                query = query.Where(p => p.Atd_datcri.Date == request.Filtros.dataInicioAtendimento.Value);
+            }            
 
             if (!string.IsNullOrWhiteSpace(request.Filtros.resumo))
             {
@@ -100,6 +100,16 @@ public class GetAtendimentoPlantaoHandlerByParameters : IRequestHandler<GetAtend
             if (!string.IsNullOrWhiteSpace(request.Filtros.jira))
             {
                 query = query.Where(p => p.Atd_jirarl.Contains(request.Filtros.jira));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Filtros.analistaN1Selected))
+            {
+                query = query.Where(p => p.Atd_nomal1 == request.Filtros.analistaN1Selected);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Filtros.analistaN2Selected))
+            {
+                query = query.Where(p => p.Atd_nomal2 == request.Filtros.analistaN2Selected);
             }
 
             var result = query.ToList();

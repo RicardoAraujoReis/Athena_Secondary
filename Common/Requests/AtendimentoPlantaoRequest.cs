@@ -19,6 +19,7 @@ public class CreateAtendimentoPlantao {
     public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public string Atd_nomal2 { get; set; }
+    public string Atd_nomal1 { get; set; }
     public string Atd_status { get; set; }
     public string Atd_catnv1 { get; set; }
     public string Atd_catnv2 { get; set; }
@@ -53,6 +54,7 @@ public class UpdateAtendimentoPlantao
     public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public string Atd_nomal2 { get; set; }
+    public string Atd_nomal1 { get; set; }
     public string Atd_status { get; set; }
     public string Atd_catnv1 { get; set; }
     public string Atd_catnv2 { get; set; }
