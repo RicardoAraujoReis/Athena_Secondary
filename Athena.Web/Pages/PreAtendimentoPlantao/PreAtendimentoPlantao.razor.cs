@@ -149,7 +149,7 @@ public partial class PreAtendimentoPlantao
         var options = new DialogOptions
         {
             CloseButton = true,
-            MaxWidth = MaxWidth.Medium,
+            MaxWidth = MaxWidth.Large,
             FullWidth = true,
             BackdropClick = false
         };

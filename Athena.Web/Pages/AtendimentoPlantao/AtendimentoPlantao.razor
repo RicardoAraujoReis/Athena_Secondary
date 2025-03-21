@@ -11,8 +11,7 @@
     </MudCardHeader>
     <MudCardContent>
         <MudTable Items="@_atendimentosPlantao" Elevation="25" Dense="true" Hover="true" Loading="@_loading" LoadingProgressColor="Color.Dark">
-            <ToolBarContent>
-                <!--<MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" OnClick="(() => CreatePreAtendimentoPlantaoAsync())" />-->
+            <ToolBarContent>                
                 <MudFab Class="mr-4" Color="Color.Default" StartIcon="@Icons.Material.Filled.Refresh" Size="Size.Small" OnClick="(() => LoadAtendimentosAsync())" />
                 <MudSpacer />
                 <MudSpacer />
@@ -47,6 +46,7 @@
                 }
                 <MudTd DataLabel="Ações">
                     <MudMenu Icon="@Icons.Material.Filled.MoreVert" AriaLabel="Open user menu">
+                        <MudMenuItem OnClick="(() => ViewAtendimentoPlantaoAsync(context.Id))">Visualizar</MudMenuItem>
                         <MudMenuItem OnClick="(() => UpdateAtendimentoPlantaoAsync(context.Id))">Editar</MudMenuItem>
                     </MudMenu>
                 </MudTd>

@@ -239,6 +239,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
             atendimentoPlantaoRequest.Atd_verjir = ViewPreAtendimentoPlantao.Ptd_verjir;
         }
 
+        atendimentoPlantaoRequest.Atd_ptd_identi = ViewPreAtendimentoPlantao.Id;
         atendimentoPlantaoRequest.Atd_cli_identi = cliente.Id;
         atendimentoPlantaoRequest.Atd_evoln1 = evolucaoN1Selected;
         atendimentoPlantaoRequest.Atd_nomal2 = dadoListaAnalistaN2Selected;
@@ -253,7 +254,7 @@ public partial class ViewPreAtendimentoPlantaoDialog
         atendimentoPlantaoRequest.Atd_catnv2 = categoriaAtendimentoNivel2Selected;
         atendimentoPlantaoRequest.Atd_catnv3 = categoriaAtendimentoNivel3Selected;
         atendimentoPlantaoRequest.Atd_catnv4 = categoriaAtendimentoNivel4Selected;
-        atendimentoPlantaoRequest.Atd_observ = justificativaEvolucao;
+        atendimentoPlantaoRequest.Atd_jusevo = justificativaEvolucao;
         atendimentoPlantaoRequest.Atd_ptd_identi = ViewPreAtendimentoPlantao.Id;
         atendimentoPlantaoRequest.Atd_usu_identi = ViewPreAtendimentoPlantao.Ptd_usu_identi;
         atendimentoPlantaoRequest.Atd_tipatd = dadoListaTipoAtendimentoSelected;

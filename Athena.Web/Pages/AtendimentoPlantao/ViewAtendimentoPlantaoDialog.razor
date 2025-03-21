@@ -1,0 +1,109 @@
+﻿<MudForm @ref="_form" Model="ViewAtendimentoPlantao">
+    <MudDialog Style="padding-bottom: 20px;">
+        <TitleContent>
+            View Atendimento Plantão
+        </TitleContent>
+        <DialogContent>
+            @if (cliente is null && jiraRelacionado is null && clienteDescricao is null && criticidade is null &&
+            resolveriaN1 is null && resolveriaN1SeTeste is null && resolvidoPlantao is null)
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudExpansionPanels MultiExpansion="true">
+                    <MudExpansionPanel Expanded="true" Text="Dados Atendimento" Gutters="false" Style="padding:10px!important; margin-bottom:10px!important;
+                    border-radius: var(--mud-default-borderradius) !important" Class="mud-elevation-25">
+                        <MudGrid>
+                            <MudDivider DividerType="DividerType.FullWidth" Class="my-6" />
+                            <MudItem xs="12" sm="1" md="1">
+                                <MudTextField Label="Id" @bind-Value="ViewAtendimentoPlantao.Id" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="1" md="1">
+                                <MudTextField Label="Id Pré Atd" @bind-Value="ViewAtendimentoPlantao.Atd_ptd_identi" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="10" md="10">
+                                <MudTextField Label="Titulo" @bind-Value="ViewAtendimentoPlantao.Atd_titulo" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="12" md="12">
+                                <MudTextField Label="Resumo" @bind-Value="ViewAtendimentoPlantao.Atd_resumo" ReadOnly="true" Lines="3"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="12" md="12">
+                                <MudTextField Label="Resposta do N2" @bind-Value="ViewAtendimentoPlantao.Atd_respn2" ReadOnly="true" Lines="3"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Status" @bind-Value="ViewAtendimentoPlantao.Atd_status" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Tipo Atendimento" @bind-Value="ViewAtendimentoPlantao.Atd_tipatd" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Analista N1" @bind-Value="ViewAtendimentoPlantao.Atd_nomal1" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Analista N2" @bind-Value="ViewAtendimentoPlantao.Atd_nomal2" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cat. Nível 1" @bind-Value="ViewAtendimentoPlantao.Atd_catnv1" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cat. Nível 2" @bind-Value="ViewAtendimentoPlantao.Atd_catnv2" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cat. Nível 3" @bind-Value="ViewAtendimentoPlantao.Atd_catnv3" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cat. Nível 4" @bind-Value="ViewAtendimentoPlantao.Atd_catnv4" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Criticidade" @bind-Value="criticidade" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Cliente" @bind-Value="clienteDescricao" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Linha de Negócio" @bind-Value="linhaNegocio" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Jira Criado" @bind-Value="jiraCriado" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Jira Relacionado" @bind-Value="jiraRelacionado" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Nº Jira" @bind-Value="ViewAtendimentoPlantao.Atd_issue" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Link do Jira" @bind-Value="ViewAtendimentoPlantao.Atd_linjir" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Versão do Jira" @bind-Value="ViewAtendimentoPlantao.Atd_verjir" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Resolveria N1" @bind-Value="resolveriaN1" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Resolveria N1 Se Teste" @bind-Value="resolveriaN1SeTeste" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Resolvido no Plantão" @bind-Value="resolvidoPlantao" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Evolução N1" @bind-Value="ViewAtendimentoPlantao.Atd_evoln1" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="12" md="12">
+                                <MudTextField Label="Justificativa Evolução" @bind-Value="ViewAtendimentoPlantao.Atd_jusevo" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Data do Atendimento" @bind-Value="ViewAtendimentoPlantao.Atd_datatd" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                            <MudItem xs="12" sm="3" md="3">
+                                <MudTextField Label="Data de Alteração" @bind-Value="ViewAtendimentoPlantao.Atd_datalt" ReadOnly="true"></MudTextField>
+                            </MudItem>
+                        </MudGrid>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
+            }
+        </DialogContent>
+    </MudDialog>
+</MudForm>

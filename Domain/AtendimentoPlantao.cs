@@ -19,7 +19,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     public string? Atd_ren1hm { get; set; }
     public string Atd_resn1 { get; set; }
     public string? Atd_evoln1 { get; set; }
-    public string? Atd_observ { get; set; }
+    public string? Atd_jusevo { get; set; }
     public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public string Atd_nomal2 { get; set; }
@@ -41,7 +41,8 @@ public class AtendimentoPlantao : BaseEntity<int>
 
     public AtendimentoPlantao UpdateAtendimentoPlantao(
         int id,
-        int atd_usu_identi,        
+        int atd_usu_identi,
+        int atd_ptd_identi,
         int atd_cli_identi,
         string atd_titulo,
         string atd_tipatd,        
@@ -54,7 +55,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         string atd_ren1hm,
         string atd_resn1,
         string atd_evoln1,
-        string atd_observ,
+        string atd_jusevo,
         string atd_usubdd,
         DateTime atd_datatd,
         string atd_nomal2,
@@ -74,6 +75,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     )
     {
         Id = id;
+        Atd_ptd_identi = atd_ptd_identi;
         Atd_usu_identi = atd_usu_identi;
         Atd_cli_identi = atd_cli_identi;
         Atd_titulo = atd_titulo;
@@ -87,7 +89,7 @@ public class AtendimentoPlantao : BaseEntity<int>
         Atd_ren1hm = atd_ren1hm;
         Atd_resn1 = atd_resn1;
         Atd_evoln1 = atd_evoln1;
-        Atd_observ = atd_observ;
+        Atd_jusevo = atd_jusevo;
         Atd_usubdd = atd_usubdd;
         Atd_datatd = atd_datatd;
         Atd_nomal2 = atd_nomal2;
