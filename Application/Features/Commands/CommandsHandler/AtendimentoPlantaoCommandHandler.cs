@@ -49,6 +49,7 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
             {
                 Id = request.UpdateAtendimentoPlantao.Id,
                 Atd_titulo = request.UpdateAtendimentoPlantao.Atd_titulo,
+                Atd_ptd_identi = request.UpdateAtendimentoPlantao.Atd_ptd_identi,
                 Atd_cli_identi = request.UpdateAtendimentoPlantao.Atd_cli_identi,
                 Atd_tipatd = request.UpdateAtendimentoPlantao.Atd_tipatd,                
                 Atd_resumo = request.UpdateAtendimentoPlantao.Atd_resumo,
@@ -60,7 +61,7 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
                 Atd_ren1hm = request.UpdateAtendimentoPlantao.Atd_ren1hm,
                 Atd_resn1 = request.UpdateAtendimentoPlantao.Atd_resn1,
                 Atd_evoln1 = request.UpdateAtendimentoPlantao.Atd_evoln1,
-                Atd_observ = request.UpdateAtendimentoPlantao.Atd_observ,
+                Atd_jusevo = request.UpdateAtendimentoPlantao.Atd_jusevo,
                 Atd_usubdd = request.UpdateAtendimentoPlantao.Atd_usubdd,
                 Atd_datatd = request.UpdateAtendimentoPlantao.Atd_datatd,
                 Atd_nomal2 = request.UpdateAtendimentoPlantao.Atd_nomal2,

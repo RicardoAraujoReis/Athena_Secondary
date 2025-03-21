@@ -281,8 +281,7 @@ public partial class ConsultaPreAtendimentoPlantao
         var result = await dialog.Result;
 
         if (!result.Canceled)
-        {
-            //_snackbar.Add(result.Messages, Severity.Success);
+        {            
             await Consulta();
         }
     }

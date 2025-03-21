@@ -23,7 +23,7 @@ internal class AtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Atendi
         builder.Property(x => x.Atd_ren1hm).HasMaxLength(1).HasAnnotation("CustomAnnotation","Resolveria se o N1 tivesse testado em HOM? (1 - SIM / 0 - NÃO)");
         builder.Property(x => x.Atd_resn1).IsRequired().HasMaxLength(1).HasAnnotation("CustomAnnotation","Resolveria N1? (1 - SIM / 0 - NÃO)");
         builder.Property(x => x.Atd_evoln1).HasMaxLength(65).HasAnnotation("CustomAnnotation","Tema em que o N1 precisa evoluir");
-        builder.Property(x => x.Atd_observ).HasMaxLength(255).HasAnnotation("CustomAnnotation","Observação");
+        builder.Property(x => x.Atd_jusevo).HasMaxLength(255).HasAnnotation("CustomAnnotation","Observação");
         builder.Property(x => x.Atd_datatd).IsRequired().HasAnnotation("CustomAnnotation","Data do Plantão");
         builder.Property(x => x.Atd_nomal2).HasMaxLength(100).HasAnnotation("CustomAnnotation","Nome do analista N2 caso não seja o mesmo usuário a preencher o formulário");
         builder.Property(x => x.Atd_nomal1).HasMaxLength(100);

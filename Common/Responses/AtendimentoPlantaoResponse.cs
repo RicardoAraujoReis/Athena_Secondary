@@ -23,7 +23,7 @@ public class AtendimentoPlantaoResponse
     public string Atd_ren1hm { get; set; }
     public string Atd_resn1 { get; set; }
     public string Atd_evoln1 { get; set; }
-    public string Atd_observ { get; set; }
+    public string? Atd_jusevo { get; set; }
     public string Atd_usubdd { get; set; }
     public DateTime Atd_datatd { get; set; }
     public string Atd_nomal2 { get; set; }
