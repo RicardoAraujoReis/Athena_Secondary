@@ -19,5 +19,6 @@ public class SearchAtendimentoPlantaoByParameters
     public string tipoAtendimentoSelected { get; set; }
     public string criticidadeSelected { get; set; }
     public string analistaN1Selected { get; set; }
+    public string analistaN2Selected { get; set; }
     public string jira { get; set; }
 }

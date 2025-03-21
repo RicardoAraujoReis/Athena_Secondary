@@ -94,6 +94,10 @@ public partial class ConsultaPreAtendimentoPlantao
         {
             _snackbar.Add("Falha ao validar o formulário, ao menos um filtro deve ser preenchido", Severity.Error);
         }
+        else if (dataInicioPreAtendimento is null && dataFimPreAtendimento is not null)
+        {
+            _snackbar.Add("Falha ao validar o formulário, preencha a Data Início", Severity.Error);
+        }
         else
         {
             await Consulta();
@@ -102,6 +106,8 @@ public partial class ConsultaPreAtendimentoPlantao
 
     public async Task Consulta()
     {
+        preAtendimentos = null;
+
         var linhaNegocioId = _linhaNegocios.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id).FirstOrDefault();
         var clienteId = _clientes.Where(cliente => cliente.Cli_descri == clienteSelected).Select(cliente => cliente.Id).FirstOrDefault();
 
@@ -125,8 +131,16 @@ public partial class ConsultaPreAtendimentoPlantao
 
         if (resultado.IsSuccessful)
         {
-            preAtendimentos = resultado.Data;
-            sucessoConsulta = true;
+            if(resultado.Data.Count == 0)
+            {
+                _snackbar.Add("Nenhum registro encontrado para os parâmetros enviados", Severity.Error);
+                sucessoConsulta = false;
+            }
+            else
+            {
+                preAtendimentos = resultado.Data;
+                sucessoConsulta = true;
+            }            
         }
         else
         {

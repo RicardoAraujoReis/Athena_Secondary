@@ -91,7 +91,7 @@
                             }
                         </MudSelect>
                     </MudItem>
-                    if (dadoListaJiraRelacionadoSelected == "SIM")
+                    @if (dadoListaJiraRelacionadoSelected == "SIM")
                     {
                     <MudItem xs="12" sm="3" md="3">
                         <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_numjir" Label="Número do Jira" Margin="Margin.Dense"
@@ -111,7 +111,7 @@
                         </MudTextField>
                     </MudItem>
                     }
-                    if (dadoListaJiraRelacionadoSelected == "SIM")
+                    @if (dadoListaJiraRelacionadoSelected == "SIM")
                     {
                     <MudItem xs="12" sm="3" md="3">
                         <MudTextField @bind-Value="CreatePreAtendimentoPlantaoRequest.Ptd_linjir" Label="Link do Jira" Margin="Margin.Dense"

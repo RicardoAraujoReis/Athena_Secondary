@@ -152,7 +152,7 @@ public partial class CreatePreAtendimentoPlantaoDialog
             }
         }
 
-        if(string.IsNullOrWhiteSpace(dadoListaJiraRelacionadoSelected))
+        if(!string.IsNullOrWhiteSpace(dadoListaJiraRelacionadoSelected))
         {
             if (dadoListaJiraRelacionadoSelected.Equals("NAO"))
             {

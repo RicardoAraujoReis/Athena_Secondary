@@ -24,7 +24,10 @@
             {
                 <MudGrid>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start"></MudTextField>
+                        <MudTextField @bind-Value="id" Placeholder="Id" Adornment="Adornment.Start" Clearable="true"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="2" md="2">
+                        <MudTextField @bind-Value="titulo" Placeholder="Título" Adornment="Adornment.Start" Lines="1" Clearable="true"></MudTextField>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
                         <MudSelect @bind-Value="statusSelected" Placeholder="Status Pré Atendimento" Adornment="Adornment.Start" AdornmentColor="Color.Secondary" Clearable="true"
@@ -81,21 +84,18 @@
                         </MudSelect>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudTextField @bind-Value="jira" Placeholder="Jira" Adornment="Adornment.Start"></MudTextField>
+                        <MudTextField @bind-Value="jira" Placeholder="Jira" Adornment="Adornment.Start" Clearable="true"></MudTextField>
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudDatePicker Placeholder="Data Início" @bind-Date="dataInicioPreAtendimento" ShowToolbar="false" />
+                        <MudDatePicker Placeholder="Data Início" @bind-Date="dataInicioPreAtendimento" ShowToolbar="false" Clearable="true" />
                     </MudItem>
                     <MudItem xs="12" sm="2" md="2">
-                        <MudDatePicker Placeholder="Data Fim" @bind-Date="dataFimPreAtendimento" ShowToolbar="false" />
+                        <MudDatePicker Placeholder="Data Fim" @bind-Date="dataFimPreAtendimento" ShowToolbar="false" Clearable="true" />
+                    </MudItem>                    
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2" Clearable="true"></MudTextField>
                     </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
-                        <MudTextField @bind-Value="titulo" Placeholder="Título" Adornment="Adornment.Start" Lines="2"></MudTextField>
-                    </MudItem>
-                    <MudItem xs="12" sm="6" md="6">
-                        <MudTextField @bind-Value="resumo" Placeholder="Resumo" Adornment="Adornment.Start" Lines="2"></MudTextField>
-                    </MudItem>
-                    <MudFab Class="mt-12 ml-5" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Label="Consultar" OnClick="SubmitAsync" />
+                    <MudFab Class="mt-12 ml-5" Color="Color.Default" StartIcon="@Icons.Material.Filled.Search" Size="Size.Small" Clearable="true" Label="Consultar" OnClick="SubmitAsync" />
                 </MudGrid>
             }
         </MudCardContent>

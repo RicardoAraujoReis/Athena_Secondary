@@ -64,6 +64,7 @@ public class UpdateAtendimentoPlantaoCommandsHandler : IRequestHandler<UpdateAte
                 Atd_usubdd = request.UpdateAtendimentoPlantao.Atd_usubdd,
                 Atd_datatd = request.UpdateAtendimentoPlantao.Atd_datatd,
                 Atd_nomal2 = request.UpdateAtendimentoPlantao.Atd_nomal2,
+                Atd_nomal1 = request.UpdateAtendimentoPlantao.Atd_nomal1,
                 Atd_status = request.UpdateAtendimentoPlantao.Atd_status,
                 Atd_catnv1 = request.UpdateAtendimentoPlantao.Atd_catnv1,
                 Atd_catnv2 = request.UpdateAtendimentoPlantao.Atd_catnv2,
