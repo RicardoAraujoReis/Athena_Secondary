@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.DadosListasValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.DadosListasValidators;
 using Common.Enums;
 using Common.Requests;
 using Common.Responses;
@@ -47,7 +48,7 @@ public partial class UpdateDadosListasDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -64,24 +65,45 @@ public partial class UpdateDadosListasDialog
 
     private async Task SaveAsync()
     {
-        var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
+        string message = $"Confirma a atualização do registro?";
 
-        UpdateDadosListasRequest.Dal_usualt = 1;
-        UpdateDadosListasRequest.Dal_datalt = DateTime.Now;
-        UpdateDadosListasRequest.Dal_usubdd = "DalDialog";
-        UpdateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
-        UpdateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
-        UpdateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
+        var parameters = new DialogParameters
+        {
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
 
-        var response = await _dadosListasServices.UpdateDadosListasAsync(UpdateDadosListasRequest);
-        if (response.IsSuccessful)
+        var options = new DialogOptions
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar registro", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
         {
-            _snackbar.Add(response.Messages, Severity.Error);
+            var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
+
+            UpdateDadosListasRequest.Dal_usualt = 1;
+            UpdateDadosListasRequest.Dal_datalt = DateTime.Now;
+            UpdateDadosListasRequest.Dal_usubdd = "DalDialog";
+            UpdateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
+            UpdateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
+            UpdateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
+
+            var response = await _dadosListasServices.UpdateDadosListasAsync(UpdateDadosListasRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.PreAtendimentoPlantaoValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.PreAtendimentoPlantaoValidators;
 using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Components;
@@ -136,7 +137,7 @@ public partial class UpdatePreAtendimentoPlantaoDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -157,69 +158,90 @@ public partial class UpdatePreAtendimentoPlantaoDialog
 
     private async Task SaveAsync()
     {
-        UpdatePreAtendimentoPlantaoRequest.Ptd_usucri = UpdatePreAtendimentoPlantaoRequest.Ptd_usucri;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_usualt = 1;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_datptd = dataPreAtendimento.Value;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_datcri = UpdatePreAtendimentoPlantaoRequest.Ptd_datcri;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_datalt = DateTime.Now;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_usubdd = "PtdDialog";
-        UpdatePreAtendimentoPlantaoRequest.Ptd_usu_identi = 2; //DESENVOLVER RECURSO PARA RECUPERAR O USUÁRIO LOGADO
-        UpdatePreAtendimentoPlantaoRequest.Ptd_numatd = 1; //DESENVOLVER RECURSO PARA GRAVAR O NÚMERO DO ATENDIMENTO QUANDO ESTE FOR GERADO        
-        UpdatePreAtendimentoPlantaoRequest.Ptd_tipptd = dadoListaTipoPreAtendimentoSelected;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_nomal1 = dadoListaAnalistaN1Selected;
-        UpdatePreAtendimentoPlantaoRequest.Ptd_status = dadoListaStatusSelected;
+        string message = $"Confirma a atualiação do Pre Atendimento?";
 
-        if (!string.IsNullOrWhiteSpace(clienteSelected))
+        var parameters = new DialogParameters
         {
-            var cliente = _clientes.Where(cliente => cliente.Cli_descri == clienteSelected).Select(cliente => cliente.Id);
-            UpdatePreAtendimentoPlantaoRequest.Ptd_cli_identi = cliente.FirstOrDefault();
-        }
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
 
-        if (!string.IsNullOrWhiteSpace(dadoListaCriticidadeSelected))
+        var options = new DialogOptions
         {
-            if (dadoListaCriticidadeSelected.Equals("TRIVIAL"))
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar o Pre Atendimento", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdatePreAtendimentoPlantaoRequest.Ptd_usucri = UpdatePreAtendimentoPlantaoRequest.Ptd_usucri;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_usualt = 1;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_datptd = dataPreAtendimento.Value;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_datcri = UpdatePreAtendimentoPlantaoRequest.Ptd_datcri;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_datalt = DateTime.Now;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_usubdd = "PtdDialog";
+            UpdatePreAtendimentoPlantaoRequest.Ptd_usu_identi = 2; //DESENVOLVER RECURSO PARA RECUPERAR O USUÁRIO LOGADO
+            UpdatePreAtendimentoPlantaoRequest.Ptd_numatd = 1; //DESENVOLVER RECURSO PARA GRAVAR O NÚMERO DO ATENDIMENTO QUANDO ESTE FOR GERADO        
+            UpdatePreAtendimentoPlantaoRequest.Ptd_tipptd = dadoListaTipoPreAtendimentoSelected;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_nomal1 = dadoListaAnalistaN1Selected;
+            UpdatePreAtendimentoPlantaoRequest.Ptd_status = dadoListaStatusSelected;
+
+            if (!string.IsNullOrWhiteSpace(clienteSelected))
             {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "T";
+                var cliente = _clientes.Where(cliente => cliente.Cli_descri == clienteSelected).Select(cliente => cliente.Id);
+                UpdatePreAtendimentoPlantaoRequest.Ptd_cli_identi = cliente.FirstOrDefault();
             }
-            else if (dadoListaCriticidadeSelected.Equals("BAIXA"))
+
+            if (!string.IsNullOrWhiteSpace(dadoListaCriticidadeSelected))
             {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "B";
+                if (dadoListaCriticidadeSelected.Equals("TRIVIAL"))
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "T";
+                }
+                else if (dadoListaCriticidadeSelected.Equals("BAIXA"))
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "B";
+                }
+                else if (dadoListaCriticidadeSelected.Equals("MEDIA"))
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "M";
+                }
+                else if (dadoListaCriticidadeSelected.Equals("ALTA"))
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "A";
+                }
+                else
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "C";
+                }
             }
-            else if (dadoListaCriticidadeSelected.Equals("MEDIA"))
+
+            if (!string.IsNullOrWhiteSpace(dadoListaJiraRelacionadoSelected))
             {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "M";
+                if (dadoListaJiraRelacionadoSelected.Equals("NAO"))
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_jirarl = "N";
+                }
+                else
+                {
+                    UpdatePreAtendimentoPlantaoRequest.Ptd_jirarl = "S";
+                }
             }
-            else if (dadoListaCriticidadeSelected.Equals("ALTA"))
+
+            var response = await _preAtendimentoPlantaoServices.UpdatePreAtendimentoPlantaoAsync(UpdatePreAtendimentoPlantaoRequest);
+            if (response.IsSuccessful)
             {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "A";
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
             }
             else
             {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_critic = "C";
+                _snackbar.Add(response.Messages, Severity.Error);
             }
-        }
-
-        if (!string.IsNullOrWhiteSpace(dadoListaJiraRelacionadoSelected))
-        {
-            if (dadoListaJiraRelacionadoSelected.Equals("NAO"))
-            {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_jirarl = "N";
-            }
-            else
-            {
-                UpdatePreAtendimentoPlantaoRequest.Ptd_jirarl = "S";
-            }
-        }
-
-        var response = await _preAtendimentoPlantaoServices.UpdatePreAtendimentoPlantaoAsync(UpdatePreAtendimentoPlantaoRequest);
-        if (response.IsSuccessful)
-        {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
         }
     }
 

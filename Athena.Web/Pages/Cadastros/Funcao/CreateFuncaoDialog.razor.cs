@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.FuncaoValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.FuncaoValidators;
 using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -21,7 +22,7 @@ public partial class CreateFuncaoDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -38,23 +39,44 @@ public partial class CreateFuncaoDialog
 
     private async Task SaveAsync()
     {
-        CreateFuncaoRequest.Fnc_usucri = 1;
-        CreateFuncaoRequest.Fnc_usualt = null;
-        CreateFuncaoRequest.Fnc_datcri = DateTime.Now;
-        CreateFuncaoRequest.Fnc_datalt = null;
-        CreateFuncaoRequest.Fnc_usubdd = "LhnDialog";
-        CreateFuncaoRequest.Fnc_ativo = "S";
-        CreateFuncaoRequest.Fnc_descri = CreateFuncaoRequest.Fnc_descri.ToUpper();
+        string message = $"Confirma a criação da Função?";
 
-        var response = await _funcaoServices.CreateFuncaoAsync(CreateFuncaoRequest);
-        if (response.IsSuccessful)
+        var parameters = new DialogParameters
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            { nameof(Shared.CreateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
         {
-            _snackbar.Add(response.Messages, Severity.Error);
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<CreateConfirmationDialog>("Criar nova Função", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            CreateFuncaoRequest.Fnc_usucri = 1;
+            CreateFuncaoRequest.Fnc_usualt = null;
+            CreateFuncaoRequest.Fnc_datcri = DateTime.Now;
+            CreateFuncaoRequest.Fnc_datalt = null;
+            CreateFuncaoRequest.Fnc_usubdd = "FncDialog";
+            CreateFuncaoRequest.Fnc_ativo = "S";
+            CreateFuncaoRequest.Fnc_descri = CreateFuncaoRequest.Fnc_descri.ToUpper();
+
+            var response = await _funcaoServices.CreateFuncaoAsync(CreateFuncaoRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
     }
 

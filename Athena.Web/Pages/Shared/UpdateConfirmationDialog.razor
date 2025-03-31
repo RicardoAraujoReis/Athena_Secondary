@@ -1,0 +1,16 @@
+﻿<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-1">
+                Confirmar atualização do registro
+            </MudIcon>
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudText>@MessageConfirmation</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel" Color="Color.Primary">Não</MudButton>
+        <MudButton OnClick="Agreed" Color="Color.Error">Sim</MudButton>
+    </DialogActions>
+</MudDialog>
