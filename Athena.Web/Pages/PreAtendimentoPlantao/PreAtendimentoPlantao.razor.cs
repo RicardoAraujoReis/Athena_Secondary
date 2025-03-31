@@ -38,7 +38,7 @@ public partial class PreAtendimentoPlantao
         var options = new DialogOptions
         {
             CloseButton = true,
-            MaxWidth = MaxWidth.Medium,
+            MaxWidth = MaxWidth.ExtraLarge,
             FullWidth = true,
             BackdropClick = false
         };
@@ -90,7 +90,7 @@ public partial class PreAtendimentoPlantao
         var options = new DialogOptions
         {
             CloseButton = true,
-            MaxWidth = MaxWidth.Medium,
+            MaxWidth = MaxWidth.ExtraLarge,
             FullWidth = true,
             BackdropClick = false
         };

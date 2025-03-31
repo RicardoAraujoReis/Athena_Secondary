@@ -32,9 +32,63 @@ public partial class AtendimentoPlantao
         _loading = false;
     }
 
-    private async Task UpdateAtendimentoPlantaoAsync(int id)
+    private async Task UpdateAtendimentoPlantaoAsync(int atendimentoPlantaoId)
     {
+        var parameters = new DialogParameters();
 
+        var atendimentoToUpdate = _atendimentosPlantao.FirstOrDefault(atendimento => atendimento.Id == atendimentoPlantaoId);
+
+        parameters.Add(nameof(UpdateAtendimentoPlantaoDialog.UpdateAtendimentoPlantaoRequest), new UpdateAtendimentoPlantao
+        {
+            Id = atendimentoToUpdate.Id,
+            Atd_ptd_identi = atendimentoToUpdate.Atd_ptd_identi,
+            Atd_titulo = atendimentoToUpdate.Atd_titulo,
+            Atd_cli_identi = atendimentoToUpdate.Atd_cli_identi,
+            Atd_tipatd = atendimentoToUpdate.Atd_tipatd,
+            Atd_resumo = atendimentoToUpdate.Atd_resumo,
+            Atd_respn2 = atendimentoToUpdate.Atd_respn2,
+            Atd_crijir = atendimentoToUpdate.Atd_crijir,
+            Atd_issue = atendimentoToUpdate.Atd_issue,
+            Atd_critic = atendimentoToUpdate.Atd_critic,
+            Atd_resplt = atendimentoToUpdate.Atd_resplt,
+            Atd_ren1hm = atendimentoToUpdate.Atd_ren1hm,
+            Atd_resn1 = atendimentoToUpdate.Atd_resn1,
+            Atd_evoln1 = atendimentoToUpdate.Atd_evoln1,
+            Atd_jusevo = atendimentoToUpdate.Atd_jusevo,
+            Atd_usubdd = atendimentoToUpdate.Atd_usubdd,
+            Atd_datatd = atendimentoToUpdate.Atd_datatd,
+            Atd_nomal2 = atendimentoToUpdate.Atd_nomal2,
+            Atd_nomal1 = atendimentoToUpdate.Atd_nomal1,
+            Atd_status = atendimentoToUpdate.Atd_status,
+            Atd_catnv1 = atendimentoToUpdate.Atd_catnv1,
+            Atd_catnv2 = atendimentoToUpdate.Atd_catnv2,
+            Atd_catnv3 = atendimentoToUpdate.Atd_catnv3,
+            Atd_catnv4 = atendimentoToUpdate.Atd_catnv4,
+            Atd_usucri = atendimentoToUpdate.Atd_usucri,
+            Atd_usualt = atendimentoToUpdate.Atd_usualt,
+            Atd_datcri = atendimentoToUpdate.Atd_datcri,
+            Atd_datalt = atendimentoToUpdate.Atd_datalt,
+            Atd_linjir = atendimentoToUpdate.Atd_linjir,
+            Atd_verjir = atendimentoToUpdate.Atd_verjir,
+            Atd_jirarl = atendimentoToUpdate.Atd_jirarl
+        });
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.ExtraLarge,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateAtendimentoPlantaoDialog>("Editar Atendimento", parameters, options);
+
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await LoadAtendimentosAsync();
+        }
     }
 
     private async Task ViewAtendimentoPlantaoAsync(int idAtendimentoToView)

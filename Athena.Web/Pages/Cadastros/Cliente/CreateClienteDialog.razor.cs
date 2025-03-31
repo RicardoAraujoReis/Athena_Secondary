@@ -40,7 +40,7 @@ public partial class CreateClienteDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
