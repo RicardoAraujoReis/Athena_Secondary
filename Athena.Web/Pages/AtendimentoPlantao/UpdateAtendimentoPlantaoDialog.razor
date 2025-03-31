@@ -1,0 +1,266 @@
+﻿
+<MudForm @ref="_form" Model="UpdateAtendimentoPlantaoRequest" ValidationDelay="0">
+    <MudDialog>
+        <TitleContent>
+            Editar Atendimento
+        </TitleContent>
+        <DialogContent>
+            @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
+            (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
+            (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) || (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
+            {
+                <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+            }
+            else
+            {
+                <MudGrid>
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_titulo" Label="Título" Margin="Margin.Dense" Lines="1"
+                                      For="@(() => UpdateAtendimentoPlantaoRequest.Atd_titulo)"
+                                      Variant="Variant.Outlined">
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_resumo" Label="Resumo" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => UpdateAtendimentoPlantaoRequest.Atd_resumo)"
+                                      Variant="Variant.Outlined">
+                        </MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="categoriaAtendimentoNivel1Selected" Label="Categoria Nível 1" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _dadosListas.Where(x => x.Dal_aplicacao == linhaNegocio && x.Dal_tid_descri == "CATEGORIA NIVEL 1")
+                        .Select(x => x.Dal_valor))
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="categoriaAtendimentoNivel2Selected" Label="Categoria Nível 2" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _dadosListas.Where(x => x.Dal_aplicacao == linhaNegocio && x.Dal_tid_descri == "CATEGORIA NIVEL 2")
+                        .Select(x => x.Dal_valor))
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="categoriaAtendimentoNivel3Selected" Label="Categoria Nível 3" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _dadosListas.Where(x => x.Dal_aplicacao == linhaNegocio && x.Dal_tid_descri == "CATEGORIA NIVEL 3")
+                        .Select(x => x.Dal_valor))
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="categoriaAtendimentoNivel4Selected" Label="Categoria Nível 4" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _dadosListas.Where(x => x.Dal_aplicacao == linhaNegocio && x.Dal_tid_descri == "CATEGORIA NIVEL 4")
+                        .Select(x => x.Dal_valor))
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudDatePicker Label="Data do Atendimento" @bind-Date="dataAtendimento" ShowToolbar="false" />
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect T="int?" @bind-Value="linhaNegocioId" Label="Selecione a Linha de Negócio" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _linhaNegocios)
+                            {
+                                <MudSelectItem Value="@(item.Id as int?)">@item.Lhn_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="clienteSelected" Label="Selecione o Cliente" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in _clientes.Where(item => item.Cli_lhn_identi == linhaNegocioId))
+                            {
+                                <MudSelectItem Value="@item.Cli_descri">@item.Cli_descri.ToUpper()</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaStatusSelected" Label="Status Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasStatus)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaTipoPreAtendimentoSelected" Label="Tipo Atendimento" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasTipoPreAtendimento)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaCriticidadeSelected" Label="Criticidade" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasCriticidade)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaAnalistaN1Selected" Label="Analista N1" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção" Disabled="true">
+                            @foreach (var item in nomeDadosListasAnalistaN1)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaAnalistaN2Selected" Label="Analista N2" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção" Disabled="false">
+                            @foreach (var item in nomeDadosListasAnalistaN2)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaJiraCriadoSelected" Label="Jira Criado" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in dadosListasJiraCriado)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="dadoListaJiraRelacionadoSelected" Label="Jira Relacionado" AdornmentColor="Color.Secondary" Clearable="true" AnchorOrigin="Origin.BottomCenter"
+                                   Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in nomeDadosListasJiraRelacionado)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    @if (dadoListaJiraRelacionadoSelected == "SIM" || dadoListaJiraCriadoSelected == "SIM")
+                    {
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_issue" Label="Número do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_issue)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" ssm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_linjir)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_verjir)"
+                                          Variant="Variant.Outlined" Disabled="false">
+                            </MudTextField>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_issue" Label="Número do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_issue)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_linjir" Label="Link do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_linjir)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                            </MudTextField>
+                        </MudItem>
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_verjir" Label="Versão do Jira" Margin="Margin.Dense"
+                                          For="@(() => UpdateAtendimentoPlantaoRequest.Atd_verjir)"
+                                          Variant="Variant.Outlined" Disabled="true">
+                            </MudTextField>
+                        </MudItem>
+                    }
+                    <MudItem xs="12" sm="12" md="12">
+                        <MudTextField Label="Análise do N2" @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_respn2" Lines="3"></MudTextField>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="resolvidoPlantaoSelected" Label="Resolvido no Plantão" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in dadosListasResolvidoPlantao)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="resolveriaN1SeTesteSelected" Label="Resolveria N1 Se Teste Hom" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="false" RequiredError="Selecione uma opção">
+                            @foreach (var item in dadosListasResolveriaN1SeTeste)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="3" md="3">
+                        <MudSelect @bind-Value="resolveriaN1Selected" Label="Resolveria N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                   AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção">
+                            @foreach (var item in dadosListasResolveriaN1)
+                            {
+                                <MudSelectItem Value="@item">@item</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    @if (resolveriaN1Selected == "SIM")
+                    {
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="evolucaoN1Selected" Label="Evolução N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                       AnchorOrigin="Origin.BottomCenter" Required="true" RequiredError="Selecione uma opção" Disabled="false">
+                                @foreach (var item in dadosListasEvolucaoN1)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12" sm="9" md="9">
+                            <MudTextField Label="Justifique" @bind-Value="justificativaEvolucao" Required="true" RequiredError="Preencha o campo"></MudTextField>
+                        </MudItem>
+                    }
+                    else
+                    {
+                        <MudItem xs="12" sm="3" md="3">
+                            <MudSelect @bind-Value="evolucaoN1Selected" Label="Evolução N1" AdornmentColor="Color.Secondary" Clearable="true"
+                                       AnchorOrigin="Origin.BottomCenter" Required="false" Disabled="true">
+                                @foreach (var item in dadosListasEvolucaoN1)
+                                {
+                                    <MudSelectItem Value="@item">@item</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="12" sm="12" md="12">
+                        <MudTextField @bind-Value="UpdateAtendimentoPlantaoRequest.Atd_jusevo" Label="Justificativa Evolução" Margin="Margin.Dense" Lines="3"
+                                      For="@(() => UpdateAtendimentoPlantaoRequest.Atd_jusevo)"
+                                      Variant="Variant.Outlined">
+                        </MudTextField>
+                    </MudItem>
+                    }                    
+                </MudGrid>
+            }
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancelar</MudButton>
+            <MudButton Color="Color.Primary" OnClick="SubmitAsync" Disabled="!CheckForm()">Salvar</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>
