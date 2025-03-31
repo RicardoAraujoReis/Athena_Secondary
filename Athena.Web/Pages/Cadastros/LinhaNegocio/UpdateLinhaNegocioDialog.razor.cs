@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.LinhaNegocioValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.LinhaNegocioValidators;
 using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Components;
@@ -51,7 +52,7 @@ public partial class UpdateLinhaNegocioDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -67,31 +68,52 @@ public partial class UpdateLinhaNegocioDialog
     }
 
     private async Task SaveAsync()
-    {        
-        UpdateLinhaNegocioRequest.Lhn_usualt = 1;        
-        UpdateLinhaNegocioRequest.Lhn_datalt = DateTime.Now;
-        UpdateLinhaNegocioRequest.Lhn_usubdd = "LhnDialog";
-        
-        if(dadoListaStatusSelected == "SIM")
-        {
-            UpdateLinhaNegocioRequest.Lhn_ativo = "S";
-        }
-        else
-        {
-            UpdateLinhaNegocioRequest.Lhn_ativo = "N";
-        }
+    {
+        string message = $"Confirma a atualização da Linha de Negócio?";
 
-        var response = await _linhaNegocioServices.UpdateLinhaNegocioAsync(UpdateLinhaNegocioRequest);
-        if (response.IsSuccessful)
+        var parameters = new DialogParameters
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
         {
-            foreach (var message in response.Messages)
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar a Linha de Negócio", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdateLinhaNegocioRequest.Lhn_usualt = 1;
+            UpdateLinhaNegocioRequest.Lhn_datalt = DateTime.Now;
+            UpdateLinhaNegocioRequest.Lhn_usubdd = "LhnDialog";
+
+            if (dadoListaStatusSelected == "SIM")
             {
-                _snackbar.Add(message.ToString(), Severity.Error);
+                UpdateLinhaNegocioRequest.Lhn_ativo = "S";
+            }
+            else
+            {
+                UpdateLinhaNegocioRequest.Lhn_ativo = "N";
+            }
+
+            var response = await _linhaNegocioServices.UpdateLinhaNegocioAsync(UpdateLinhaNegocioRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                foreach (var messages in response.Messages)
+                {
+                    _snackbar.Add(messages.ToString(), Severity.Error);
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.DepartamentoValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.DepartamentoValidators;
 using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Components;
@@ -46,7 +47,7 @@ public partial class UpdateDepartamentoDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -63,32 +64,53 @@ public partial class UpdateDepartamentoDialog
 
     private async Task SaveAsync()
     {
-        UpdateDepartamentoRequest.Dpt_usualt = 1;
-        UpdateDepartamentoRequest.Dpt_datalt = DateTime.Now;
-        UpdateDepartamentoRequest.Dpt_usubdd = "LhnDialog";
-        UpdateDepartamentoRequest.Dpt_descri = UpdateDepartamentoRequest.Dpt_descri.ToUpper();
+        string message = $"Confirma a atualização do Departamento?";
 
-        if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
+        var parameters = new DialogParameters
         {
-            if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar departamento", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdateDepartamentoRequest.Dpt_usualt = 1;
+            UpdateDepartamentoRequest.Dpt_datalt = DateTime.Now;
+            UpdateDepartamentoRequest.Dpt_usubdd = "DptDialog";
+            UpdateDepartamentoRequest.Dpt_descri = UpdateDepartamentoRequest.Dpt_descri.ToUpper();
+
+            if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
             {
-                UpdateDepartamentoRequest.Dpt_ativo = "N";
+                if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+                {
+                    UpdateDepartamentoRequest.Dpt_ativo = "N";
+                }
+                else
+                {
+                    UpdateDepartamentoRequest.Dpt_ativo = "S";
+                }
+            }
+
+            var response = await _departamentoServices.UpdateDepartamentoAsync(UpdateDepartamentoRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
             }
             else
             {
-                UpdateDepartamentoRequest.Dpt_ativo = "S";
+                _snackbar.Add(response.Messages, Severity.Error);
             }
-        }
-
-        var response = await _departamentoServices.UpdateDepartamentoAsync(UpdateDepartamentoRequest);
-        if (response.IsSuccessful)
-        {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
         }
     }
 

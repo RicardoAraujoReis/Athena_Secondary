@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.ClienteValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.ClienteValidators;
 using common.Requests;
 using Common.Requests;
 using Common.Responses;
@@ -57,30 +58,51 @@ public partial class CreateClienteDialog
 
     private async Task SaveAsync()
     {
-        CreateClienteRequest.Cli_usucri = 1;
-        CreateClienteRequest.Cli_usualt = null;
-        CreateClienteRequest.Cli_datcri = DateTime.Now;
-        CreateClienteRequest.Cli_datalt = null;
-        CreateClienteRequest.Cli_usubdd = "LhnDialog";
-        CreateClienteRequest.Cli_ativo = "S";
-        CreateClienteRequest.Cli_descri = CreateClienteRequest.Cli_descri.ToUpper();
+        string message = $"Confirma a criação do cliente?";
 
-        if (!string.IsNullOrWhiteSpace(linhaNegocioSelected))
+        var parameters = new DialogParameters
         {
-            var linhaNegocioId = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id);
-            CreateClienteRequest.Cli_lhn_identi = linhaNegocioId.FirstOrDefault();
-        }
+            { nameof(Shared.CreateConfirmationDialog.MessageConfirmation), message },
+        };
 
-        var response = await _clienteServices.CreateClienteAsync(CreateClienteRequest);
-        if (response.IsSuccessful)
+        var options = new DialogOptions
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<CreateConfirmationDialog>("Criar novo cliente", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
         {
-            _snackbar.Add(response.Messages, Severity.Error);
-        }
+            CreateClienteRequest.Cli_usucri = 1;
+            CreateClienteRequest.Cli_usualt = null;
+            CreateClienteRequest.Cli_datcri = DateTime.Now;
+            CreateClienteRequest.Cli_datalt = null;
+            CreateClienteRequest.Cli_usubdd = "LhnDialog";
+            CreateClienteRequest.Cli_ativo = "S";
+            CreateClienteRequest.Cli_descri = CreateClienteRequest.Cli_descri.ToUpper();
+
+            if (!string.IsNullOrWhiteSpace(linhaNegocioSelected))
+            {
+                var linhaNegocioId = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id);
+                CreateClienteRequest.Cli_lhn_identi = linhaNegocioId.FirstOrDefault();
+            }
+
+            var response = await _clienteServices.CreateClienteAsync(CreateClienteRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
+        }            
     }
 
     private void Cancel() => MudDialog.Cancel();

@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.TipoDadosListasValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.TipoDadosListasValidators;
 using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -21,7 +22,7 @@ public partial class CreateTipoDadosListasDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -38,22 +39,43 @@ public partial class CreateTipoDadosListasDialog
 
     private async Task SaveAsync()
     {
-        CreateTipoDadosListasRequest.Tid_usucri = 1;
-        CreateTipoDadosListasRequest.Tid_usualt = null;
-        CreateTipoDadosListasRequest.Tid_datcri = DateTime.Now;
-        CreateTipoDadosListasRequest.Tid_datalt = null;
-        CreateTipoDadosListasRequest.Tid_usubdd = "TidDialog";
-        CreateTipoDadosListasRequest.Tid_descri = CreateTipoDadosListasRequest.Tid_descri.ToUpper();
+        string message = $"Confirma a criação do Tipo Dado Lista?";
 
-        var response = await _tipoDadosListasServices.CreateTipoDadosListasAsync(CreateTipoDadosListasRequest);
-        if (response.IsSuccessful)
+        var parameters = new DialogParameters
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            { nameof(Shared.CreateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
         {
-            _snackbar.Add(response.Messages, Severity.Error);
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<CreateConfirmationDialog>("Criar novo Tipo Dado Lista", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            CreateTipoDadosListasRequest.Tid_usucri = 1;
+            CreateTipoDadosListasRequest.Tid_usualt = null;
+            CreateTipoDadosListasRequest.Tid_datcri = DateTime.Now;
+            CreateTipoDadosListasRequest.Tid_datalt = null;
+            CreateTipoDadosListasRequest.Tid_usubdd = "TidDialog";
+            CreateTipoDadosListasRequest.Tid_descri = CreateTipoDadosListasRequest.Tid_descri.ToUpper();
+
+            var response = await _tipoDadosListasServices.CreateTipoDadosListasAsync(CreateTipoDadosListasRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
     }
 

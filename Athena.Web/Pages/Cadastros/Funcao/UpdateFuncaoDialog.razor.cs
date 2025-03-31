@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.FuncaoValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.FuncaoValidators;
 using Common.Requests;
 using Common.Responses;
 using Microsoft.AspNetCore.Components;
@@ -46,7 +47,7 @@ public partial class UpdateFuncaoDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -63,32 +64,53 @@ public partial class UpdateFuncaoDialog
 
     private async Task SaveAsync()
     {
-        UpdateFuncaoRequest.Fnc_usualt = 1;
-        UpdateFuncaoRequest.Fnc_datalt = DateTime.Now;
-        UpdateFuncaoRequest.Fnc_usubdd = "LhnDialog";
-        UpdateFuncaoRequest.Fnc_descri = UpdateFuncaoRequest.Fnc_descri.ToUpper();
+        string message = $"Confirma a atualização da Função?";
 
-        if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
+        var parameters = new DialogParameters
         {
-            if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar a Função", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdateFuncaoRequest.Fnc_usualt = 1;
+            UpdateFuncaoRequest.Fnc_datalt = DateTime.Now;
+            UpdateFuncaoRequest.Fnc_usubdd = "FncDialog";
+            UpdateFuncaoRequest.Fnc_descri = UpdateFuncaoRequest.Fnc_descri.ToUpper();
+
+            if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
             {
-                UpdateFuncaoRequest.Fnc_ativo = "N";
+                if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+                {
+                    UpdateFuncaoRequest.Fnc_ativo = "N";
+                }
+                else
+                {
+                    UpdateFuncaoRequest.Fnc_ativo = "S";
+                }
+            }
+
+            var response = await _funcaoServices.UpdateFuncaoAsync(UpdateFuncaoRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
             }
             else
             {
-                UpdateFuncaoRequest.Fnc_ativo = "S";
+                _snackbar.Add(response.Messages, Severity.Error);
             }
-        }
-
-        var response = await _funcaoServices.UpdateFuncaoAsync(UpdateFuncaoRequest);
-        if (response.IsSuccessful)
-        {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
         }
     }
 

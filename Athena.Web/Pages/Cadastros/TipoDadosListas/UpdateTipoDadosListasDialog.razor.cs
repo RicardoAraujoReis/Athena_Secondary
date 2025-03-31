@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.TipoDadosListasValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.TipoDadosListasValidators;
 using Common.Requests;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -21,7 +22,7 @@ public partial class UpdateTipoDadosListasDialog
     {
         await _form.Validate();
 
-        if (_form.IsValid)
+        if (CheckForm())
         {
             await SaveAsync();
         }
@@ -38,19 +39,40 @@ public partial class UpdateTipoDadosListasDialog
 
     private async Task SaveAsync()
     {
-        UpdateTipoDadosListasRequest.Tid_usualt = 1;
-        UpdateTipoDadosListasRequest.Tid_datalt = DateTime.Now;
-        UpdateTipoDadosListasRequest.Tid_usubdd = "DalDialog";
+        string message = $"Confirma a atualização do Tipo Dado Lista?";
 
-        var response = await _tipoDadosListasServices.UpdateTipoDadosListasAsync(UpdateTipoDadosListasRequest);
-        if (response.IsSuccessful)
+        var parameters = new DialogParameters
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
         {
-            _snackbar.Add(response.Messages, Severity.Error);
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar o Tipo Dado Lista", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdateTipoDadosListasRequest.Tid_usualt = 1;
+            UpdateTipoDadosListasRequest.Tid_datalt = DateTime.Now;
+            UpdateTipoDadosListasRequest.Tid_usubdd = "DalDialog";
+
+            var response = await _tipoDadosListasServices.UpdateTipoDadosListasAsync(UpdateTipoDadosListasRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
     }
 

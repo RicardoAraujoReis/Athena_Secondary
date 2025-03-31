@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.ClienteValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.ClienteValidators;
 using common.Requests;
 using Common.Requests;
 using Common.Responses;
@@ -82,39 +83,60 @@ public partial class UpdateClienteDialog
     }
 
     private async Task SaveAsync()
-    {        
-        UpdateClienteRequest.Cli_usualt = 1;        
-        UpdateClienteRequest.Cli_datalt = DateTime.Now;
-        UpdateClienteRequest.Cli_usubdd = "LhnDialog";
-        UpdateClienteRequest.Cli_descri = UpdateClienteRequest.Cli_descri.ToUpper();
+    {
+        string message = $"Confirma a atualização do cliente?";
 
-        if (!string.IsNullOrWhiteSpace(linhaNegocioSelected))
+        var parameters = new DialogParameters
         {
-            var linhaNegocioId = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id);
-            UpdateClienteRequest.Cli_lhn_identi = linhaNegocioId.FirstOrDefault();
-        }
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
 
-        if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
+        var options = new DialogOptions
         {
-            if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar cliente", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            UpdateClienteRequest.Cli_usualt = 1;
+            UpdateClienteRequest.Cli_datalt = DateTime.Now;
+            UpdateClienteRequest.Cli_usubdd = "CliDialog";
+            UpdateClienteRequest.Cli_descri = UpdateClienteRequest.Cli_descri.ToUpper();
+
+            if (!string.IsNullOrWhiteSpace(linhaNegocioSelected))
             {
-                UpdateClienteRequest.Cli_ativo = "N";
+                var linhaNegocioId = _linhasNegocio.Where(linhaNegocio => linhaNegocio.Lhn_descri == linhaNegocioSelected).Select(linhaNegocio => linhaNegocio.Id);
+                UpdateClienteRequest.Cli_lhn_identi = linhaNegocioId.FirstOrDefault();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dadoListaRegistroAtivoSelected))
+            {
+                if (dadoListaRegistroAtivoSelected.Equals("NAO"))
+                {
+                    UpdateClienteRequest.Cli_ativo = "N";
+                }
+                else
+                {
+                    UpdateClienteRequest.Cli_ativo = "S";
+                }
+            }
+
+            var response = await _clienteServices.UpdateClienteAsync(UpdateClienteRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
             }
             else
             {
-                UpdateClienteRequest.Cli_ativo = "S";
+                _snackbar.Add(response.Messages, Severity.Error);
             }
-        }
-
-        var response = await _clienteServices.UpdateClienteAsync(UpdateClienteRequest);
-        if (response.IsSuccessful)
-        {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
-        }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
         }
     }
 

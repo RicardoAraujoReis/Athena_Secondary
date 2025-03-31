@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.AtendimentoPlantaoValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.AtendimentoPlantaoValidators;
 using Athena.Web.Validators.ClienteValidators;
 using Common.Requests;
 using Common.Responses;
@@ -222,85 +223,106 @@ public partial class UpdateAtendimentoPlantaoDialog
     }
 
     private async Task SaveAsync()
-    {        
-        UpdateAtendimentoPlantaoRequest.Atd_tipatd = dadoListaTipoPreAtendimentoSelected;
-        UpdateAtendimentoPlantaoRequest.Atd_status = dadoListaStatusSelected;                
-        UpdateAtendimentoPlantaoRequest.Atd_catnv1 = categoriaAtendimentoNivel1Selected;
-        UpdateAtendimentoPlantaoRequest.Atd_catnv2 = categoriaAtendimentoNivel2Selected;
-        UpdateAtendimentoPlantaoRequest.Atd_catnv3 = categoriaAtendimentoNivel3Selected;
-        UpdateAtendimentoPlantaoRequest.Atd_catnv4 = categoriaAtendimentoNivel4Selected;        
-        UpdateAtendimentoPlantaoRequest.Atd_critic = dadoListaCriticidadeSelected;
-        UpdateAtendimentoPlantaoRequest.Atd_evoln1 = evolucaoN1Selected;        
-        UpdateAtendimentoPlantaoRequest.Atd_nomal2 = dadoListaAnalistaN2Selected;
-        UpdateAtendimentoPlantaoRequest.Atd_nomal1 = dadoListaAnalistaN1Selected;        
-        UpdateAtendimentoPlantaoRequest.Atd_usualt = 2;        
-        UpdateAtendimentoPlantaoRequest.Atd_datalt = DateTime.Now;        
+    {
+        string message = $"Confirma a atualização do Atendimento?";
 
-        if (dadoListaJiraCriadoSelected == "SIM")
+        var parameters = new DialogParameters
         {
-            UpdateAtendimentoPlantaoRequest.Atd_crijir = "S";
-        }
-        else
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_crijir = "N";
-        }
-                 
-        if(resolvidoPlantaoSelected == "SIM")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_resplt = "S";
-        }
-        else
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_resplt = "N";
-        }
+            { nameof(Shared.UpdateConfirmationDialog.MessageConfirmation), message },
+        };
 
-        if(resolveriaN1SeTesteSelected == "SIM")
+        var options = new DialogOptions
         {
-            UpdateAtendimentoPlantaoRequest.Atd_ren1hm = "S";
-        }
-        else
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_ren1hm = "N";
-        }
-        
-        if(resolveriaN1Selected == "SIM")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_resn1 = "S";
-        }
-        else
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_resn1 = "N";
-        }
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
 
-        if (dadoListaCriticidadeSelected == "TRIVIAL")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_critic = "T";
-        }
-        else if (dadoListaCriticidadeSelected == "BAIXA")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_critic = "B";
-        }
-        else if (dadoListaCriticidadeSelected == "MEDIA")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_critic = "M";
-        }
-        else if (dadoListaCriticidadeSelected == "ALTA")
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_critic = "A";
-        }
-        else
-        {
-            UpdateAtendimentoPlantaoRequest.Atd_critic = "C";
-        }
+        var dialog = _dialogService.Show<UpdateConfirmationDialog>("Atualizar o Atendimento", parameters, options);
+        var result = await dialog.Result;
 
-        var request = await _atendimentoPlantaoServices.UpdateAtendimentoPlantaoAsync(UpdateAtendimentoPlantaoRequest);
-        if (request.IsSuccessful)
+        if (!result.Canceled)
         {
-            _snackbar.Add("Atendimento atualizado com sucesso", Severity.Success);
-        }
-        else
-        {
-            _snackbar.Add("Falha ao atualizar o Atendimento", Severity.Error);
+            UpdateAtendimentoPlantaoRequest.Atd_tipatd = dadoListaTipoPreAtendimentoSelected;
+            UpdateAtendimentoPlantaoRequest.Atd_status = dadoListaStatusSelected;
+            UpdateAtendimentoPlantaoRequest.Atd_catnv1 = categoriaAtendimentoNivel1Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_catnv2 = categoriaAtendimentoNivel2Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_catnv3 = categoriaAtendimentoNivel3Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_catnv4 = categoriaAtendimentoNivel4Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_critic = dadoListaCriticidadeSelected;
+            UpdateAtendimentoPlantaoRequest.Atd_evoln1 = evolucaoN1Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_nomal2 = dadoListaAnalistaN2Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_nomal1 = dadoListaAnalistaN1Selected;
+            UpdateAtendimentoPlantaoRequest.Atd_usualt = 2;
+            UpdateAtendimentoPlantaoRequest.Atd_datalt = DateTime.Now;
+
+            if (dadoListaJiraCriadoSelected == "SIM")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_crijir = "S";
+            }
+            else
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_crijir = "N";
+            }
+
+            if (resolvidoPlantaoSelected == "SIM")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_resplt = "S";
+            }
+            else
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_resplt = "N";
+            }
+
+            if (resolveriaN1SeTesteSelected == "SIM")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_ren1hm = "S";
+            }
+            else
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_ren1hm = "N";
+            }
+
+            if (resolveriaN1Selected == "SIM")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_resn1 = "S";
+            }
+            else
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_resn1 = "N";
+            }
+
+            if (dadoListaCriticidadeSelected == "TRIVIAL")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_critic = "T";
+            }
+            else if (dadoListaCriticidadeSelected == "BAIXA")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_critic = "B";
+            }
+            else if (dadoListaCriticidadeSelected == "MEDIA")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_critic = "M";
+            }
+            else if (dadoListaCriticidadeSelected == "ALTA")
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_critic = "A";
+            }
+            else
+            {
+                UpdateAtendimentoPlantaoRequest.Atd_critic = "C";
+            }
+
+            var request = await _atendimentoPlantaoServices.UpdateAtendimentoPlantaoAsync(UpdateAtendimentoPlantaoRequest);
+            if (request.IsSuccessful)
+            {
+                _snackbar.Add("Atendimento atualizado com sucesso", Severity.Success);
+            }
+            else
+            {
+                _snackbar.Add("Falha ao atualizar o Atendimento", Severity.Error);
+            }
         }
 
         MudDialog.Close();            

@@ -1,4 +1,5 @@
-﻿using Athena.Web.Validators.DadosListasValidators;
+﻿using Athena.Web.Pages.Shared;
+using Athena.Web.Validators.DadosListasValidators;
 using Common.Enums;
 using Common.Requests;
 using Common.Responses;
@@ -63,28 +64,49 @@ public partial class CreateDadosListasDialog
 
     private async Task SaveAsync()
     {
-        var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
+        string message = $"Confirma a criação do registro?";
 
-        CreateDadosListasRequest.Dal_usucri = 1;
-        CreateDadosListasRequest.Dal_usualt = null;
-        CreateDadosListasRequest.Dal_datcri = DateTime.Now;
-        CreateDadosListasRequest.Dal_datalt = null;
-        CreateDadosListasRequest.Dal_usubdd = "DalDialog";
-        CreateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
-        CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
-        CreateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
-        CreateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
-
-        var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
-        if (response.IsSuccessful)
+        var parameters = new DialogParameters
         {
-            _snackbar.Add(response.Messages, Severity.Success);
-            MudDialog.Close();
+            { nameof(Shared.CreateConfirmationDialog.MessageConfirmation), message },
+        };
+
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            BackdropClick = false
+        };
+
+        var dialog = _dialogService.Show<CreateConfirmationDialog>("Criar novo registro", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            var tipoDadosListasId = _tiposDadosListas.Where(tipo => tipo.Tid_descri == tipoDadosListasSelected).Select(tipo => tipo.Id);
+
+            CreateDadosListasRequest.Dal_usucri = 1;
+            CreateDadosListasRequest.Dal_usualt = null;
+            CreateDadosListasRequest.Dal_datcri = DateTime.Now;
+            CreateDadosListasRequest.Dal_datalt = null;
+            CreateDadosListasRequest.Dal_usubdd = "DalDialog";
+            CreateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
+            CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
+            CreateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
+            CreateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
+
+            var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
+            if (response.IsSuccessful)
+            {
+                _snackbar.Add(response.Messages, Severity.Success);
+                MudDialog.Close();
+            }
+            else
+            {
+                _snackbar.Add(response.Messages, Severity.Error);
+            }
         }
-        else
-        {
-            _snackbar.Add(response.Messages, Severity.Error);
-        }        
     }
 
     private void Cancel() => MudDialog.Cancel();
