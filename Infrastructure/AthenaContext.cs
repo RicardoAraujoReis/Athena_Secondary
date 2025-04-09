@@ -48,5 +48,7 @@ public class AthenaContext : DbContext
 
     public DbSet<DadosListas> DadosListas { get; set; }
 
-    public DbSet<TipoDadosListas> TipoDadosListas { get; set; }    
+    public DbSet<TipoDadosListas> TipoDadosListas { get; set; }
+
+    public DbSet<PainelGeralBigNumbers> PainelGeralBigNumbers { get; set; }
 }

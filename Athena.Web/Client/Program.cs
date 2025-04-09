@@ -35,6 +35,7 @@ namespace Athena.Web
             builder.Services.AddScoped<IDadosListasServices, DadosListasServices>();
             builder.Services.AddScoped<IPreAtendimentoPlantaoServices, PreAtendimentoPlantaoServices>();
             builder.Services.AddScoped<IAtendimentoPlantaoServices, AtendimentoPlantaoServices>();
+            builder.Services.AddScoped<IPainelGeralBigNumbersServices, PainelGeralBigNumbersServices>();
 
             await builder.Build().RunAsync();
         }
