@@ -7,7 +7,10 @@
         <DialogContent>
             @if ((_clientes == null || !_clientes.Any()) || (nomeDadosListasTipoPreAtendimento == null || !nomeDadosListasTipoPreAtendimento.Any()) ||
             (nomeDadosListasCriticidade == null || !nomeDadosListasCriticidade.Any()) || (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) ||
-            (nomeDadosListasAnalistaN1 == null || !nomeDadosListasAnalistaN1.Any()) || (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()))
+            (nomeDadosListasAnalistaN2 == null || !nomeDadosListasAnalistaN2.Any()) || (nomeDadosListasJiraRelacionado == null || !nomeDadosListasJiraRelacionado.Any()) ||
+            (nomeDadosListasStatus == null || !nomeDadosListasStatus.Any()) || (dadosListasResolvidoPlantao == null || !dadosListasResolvidoPlantao.Any()) ||
+            (dadosListasResolveriaN1 == null || dadosListasResolveriaN1.Any()) || (dadosListasEvolucaoN1 == null || dadosListasEvolucaoN1.Any()) ||
+            (dadosListasJiraCriado == null || dadosListasJiraCriado.Any()))
             {
                 <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
             }

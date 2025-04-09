@@ -13,6 +13,9 @@ public partial class UpdateAtendimentoPlantaoDialog
     [Parameter]
     public UpdateAtendimentoPlantao UpdateAtendimentoPlantaoRequest { get; set; } = new();
 
+    private UpdatePreAtendimentoPlantao updatePreAtendimentoPlantao { get; set; } = new();
+    private PreAtendimentoPlantaoResponse preAtendimentoPlantao { get; set; } = new();
+
     [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; }
 
@@ -25,11 +28,11 @@ public partial class UpdateAtendimentoPlantaoDialog
 
     private List<DadosListasResponse> _dadosListas = new List<DadosListasResponse>();
 
-    private List<string> nomeDadosListasCriticidade = null;
-    private string dadoListaCriticidadeSelected = null;
-
     private List<string> nomeDadosListasTipoPreAtendimento = null;
     private string dadoListaTipoPreAtendimentoSelected = null;
+
+    private List<string> nomeDadosListasCriticidade = null;
+    private string dadoListaCriticidadeSelected = null;    
 
     private List<string> nomeDadosListasAnalistaN1 = null;
     private string dadoListaAnalistaN1Selected = null;
@@ -178,6 +181,15 @@ public partial class UpdateAtendimentoPlantaoDialog
             dadoListaJiraRelacionadoSelected = "NAO";
         }
 
+        if(UpdateAtendimentoPlantaoRequest.Atd_crijir == "S")
+        {
+            dadoListaJiraCriadoSelected = "SIM";
+        }
+        else
+        {
+            dadoListaJiraCriadoSelected = "NAO";
+        }
+
         nomeDadosListasCriticidade = _dadosListas.Where(dados => dados.Dal_tid_descri == "CRITICIDADE").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasTipoPreAtendimento = _dadosListas.Where(dados => dados.Dal_tid_descri == "TIPO ATENDIMENTO").Select(dados => dados.Dal_valor).ToList();
         nomeDadosListasAnalistaN1 = _dadosListas.Where(dados => dados.Dal_tid_descri == "ANALISTA N1").Select(dados => dados.Dal_valor).ToList();
@@ -191,6 +203,7 @@ public partial class UpdateAtendimentoPlantaoDialog
         dadosListasJiraCriado = _dadosListas.Where(dados => dados.Dal_tid_descri == "JIRA CRIADO").Select(dados => dados.Dal_valor).ToList();
         dadoListaTipoPreAtendimentoSelected = UpdateAtendimentoPlantaoRequest.Atd_tipatd;
         dadoListaAnalistaN1Selected = UpdateAtendimentoPlantaoRequest.Atd_nomal1;
+        dadoListaAnalistaN2Selected = UpdateAtendimentoPlantaoRequest.Atd_nomal2;
         dadoListaStatusSelected = UpdateAtendimentoPlantaoRequest.Atd_status;
         evolucaoN1Selected = UpdateAtendimentoPlantaoRequest.Atd_evoln1;
         categoriaAtendimentoNivel1Selected = UpdateAtendimentoPlantaoRequest.Atd_catnv1;
@@ -317,7 +330,20 @@ public partial class UpdateAtendimentoPlantaoDialog
             var request = await _atendimentoPlantaoServices.UpdateAtendimentoPlantaoAsync(UpdateAtendimentoPlantaoRequest);
             if (request.IsSuccessful)
             {
-                _snackbar.Add("Atendimento atualizado com sucesso", Severity.Success);
+                if(dadoListaStatusSelected == "FINALIZADO")
+                {
+                    AtualizaPreAtendimento();
+                    _snackbar.Add("Atendimento finalizado com sucesso", Severity.Success);
+                    _snackbar.Add("Pré Atendimento finalizado com sucesso", Severity.Success);
+                }
+                else if(dadoListaStatusSelected != "ABERTO" && dadoListaStatusSelected != "FINALIZADO")
+                {
+                    AtualizaPreAtendimento();
+                }
+                else
+                {
+                    _snackbar.Add("Atendimento atualizado com sucesso", Severity.Success);
+                }                                
             }
             else
             {
@@ -326,6 +352,54 @@ public partial class UpdateAtendimentoPlantaoDialog
         }
 
         MudDialog.Close();            
+    }
+
+    private async Task AtualizaPreAtendimento()
+    {
+        var preAtendimentoPlantaoToFind = await _preAtendimentoPlantaoServices.GetPreAtendimentoPlantaoByIdAsync(UpdateAtendimentoPlantaoRequest.Atd_ptd_identi);
+
+        if (preAtendimentoPlantaoToFind.IsSuccessful)
+        {
+            preAtendimentoPlantao = preAtendimentoPlantaoToFind.Data;
+        }
+
+        updatePreAtendimentoPlantao = new UpdatePreAtendimentoPlantao
+        {
+            Id = preAtendimentoPlantao.Id,
+            Ptd_cli_identi = preAtendimentoPlantao.Ptd_cli_identi,
+            Ptd_usu_identi = preAtendimentoPlantao.Ptd_usu_identi,
+            Ptd_titulo = preAtendimentoPlantao.Ptd_titulo,
+            Ptd_datptd = preAtendimentoPlantao.Ptd_datptd,
+            Ptd_tipptd = preAtendimentoPlantao.Ptd_tipptd,
+            Ptd_critic = preAtendimentoPlantao.Ptd_critic,
+            Ptd_resumo = preAtendimentoPlantao.Ptd_resumo,
+            Ptd_numcha = preAtendimentoPlantao.Ptd_numcha,
+            Ptd_jirarl = preAtendimentoPlantao.Ptd_jirarl,
+            Ptd_numjir = preAtendimentoPlantao.Ptd_numjir,
+            Ptd_diagn1 = preAtendimentoPlantao.Ptd_diagn1,
+            Ptd_reton2 = preAtendimentoPlantao.Ptd_reton2,
+            Ptd_observ = preAtendimentoPlantao.Ptd_observ,
+            Ptd_nomal1 = preAtendimentoPlantao.Ptd_nomal1,
+            Ptd_numatd = preAtendimentoPlantao.Ptd_numatd,
+            Ptd_usucri = preAtendimentoPlantao.Ptd_usucri,
+            Ptd_usualt = preAtendimentoPlantao.Ptd_usualt,
+            Ptd_datcri = preAtendimentoPlantao.Ptd_datcri,
+            Ptd_datalt = preAtendimentoPlantao.Ptd_datalt,
+            Ptd_usubdd = preAtendimentoPlantao.Ptd_usubdd,
+            Ptd_linjir = preAtendimentoPlantao.Ptd_linjir,
+            Ptd_verjir = preAtendimentoPlantao.Ptd_verjir,
+            Ptd_status = UpdateAtendimentoPlantaoRequest.Atd_status
+        };
+
+        var updatePreAtendimentoRequest = await _preAtendimentoPlantaoServices.UpdatePreAtendimentoPlantaoAsync(updatePreAtendimentoPlantao);
+        if (updatePreAtendimentoRequest.IsSuccessful)
+        {
+            _snackbar.Add("Status do Pré Atendimento atualizado com sucesso", Severity.Success);
+        }
+        else
+        {
+            _snackbar.Add("Falha ao atualizar o status do Pré Atendimento", Severity.Error);
+        }
     }
 
     private void Cancel() => MudDialog.Cancel();

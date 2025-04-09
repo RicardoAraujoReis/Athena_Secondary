@@ -1,13 +1,69 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
+@if (PainelGeralBigNumbersResponse is null)
+{
+    <MudProgressCircular Size="Size.Medium" Color="Color.Dark" Indeterminate="true"></MudProgressCircular>
+}
+else
+{
+    <MudGrid Spacing="2">
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.ShowChart" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Total de Atendimentos").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Total de Atendimentos").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.CalendarMonth" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Total de Atendimentos / Mês").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Total de Atendimentos / Mês").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.Balance" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Média Mensal").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Média Mensal").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.Done" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Resolvidos no Plantão").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Resolvidos no Plantão").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.FileOpen" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Issues Abertos").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Issues Abertos").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4" lg="2">
+            <MudPaper Class="pa-4 d-flex flex-column align-center text-center" Elevation="4">
+                <MudIcon Icon="@Icons.Material.Filled.Link" Size="Size.Large" Color="Color.Primary" />
+                <MudTypography Variant="H4" Class="mt-2">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Issues relacionados").Select(x => x.Value).FirstOrDefault()</MudTypography>
+                <MudTypography Variant="Body2" Color="TextSecondary">@PainelGeralBigNumbersResponse.Where(x => x.Label == "Issues relacionados").Select(x => x.Label).FirstOrDefault()</MudTypography>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+}
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new Blazor App, powered by MudBlazor and the .NET 8.</MudText>
-
-<MudAlert Severity="Severity.Normal">
-    You can find documentation and examples on our website here:
-    <MudLink Href="https://mudblazor.com" Target="_blank" Typo="Typo.body2" Color="Color.Primary">
-        <b>www.mudblazor.com</b>
-    </MudLink>
-</MudAlert>
+<MudGrid Class="mt-1">
+    <MudItem xs="12" sm="6" md="6">
+        <MudPaper Class="doc-section-component-container">
+            <MudChart ChartType="ChartType.Bar" ChartSeries="@_series" @bind-SelectedIndex="_index" XAxisLabels="@_xAxisLabels"
+                      Width="@_width" Height="@_height"></MudChart>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="6">
+        <MudPaper Class="doc-section-component-container">
+            <MudChart ChartType="ChartType.Bar" ChartSeries="@_series" @bind-SelectedIndex="_index" XAxisLabels="@_xAxisLabels"
+                      Width="@_width" Height="@_height"></MudChart>
+        </MudPaper>
+    </MudItem>
+</MudGrid>

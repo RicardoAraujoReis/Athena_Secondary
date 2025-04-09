@@ -1,0 +1,46 @@
+CREATE OR ALTER VIEW BIG_NUMBERS
+WITH SCHEMABINDING
+AS
+SELECT
+--TOTAL ATENDIMENTOS
+(SELECT 
+   COUNT(*)   
+   FROM 
+      Athena.AtendimentoPlantao) AS TOTAL_ATENDIMENTOS,
+--TOTAL DE ATENDIMENTOS DO MÊS
+(SELECT
+   COUNT(*)
+   FROM
+      Athena.AtendimentoPlantao
+   WHERE 1=1
+      AND MONTH(Atd_datatd) = MONTH(CURRENT_TIMESTAMP)) AS TOTAL_ATENDIMENTOS_MES,
+--MEDIA MENSAL DOS ATENDIMENTOS
+(SELECT AVG(QUANTIDADE) FROM 
+(
+	SELECT 
+	   COUNT(*) AS QUANTIDADE   
+	   FROM 
+		  Athena.AtendimentoPlantao
+	   GROUP BY YEAR(Atd_datatd), MONTH(Atd_datatd)
+) AS MEDIA) AS MEDIA_MENSAL_ATENDIMENTOS,
+--RESOLVIDOS NO PLANTÃO
+(SELECT
+   COUNT(*)
+   FROM
+      Athena.AtendimentoPlantao
+   WHERE 1=1
+      AND Atd_resplt = 'S') AS RESOLVIDOS_PLANTAO,
+--ISSUES ABERTOS
+(SELECT
+   COUNT(*)
+   FROM
+      Athena.AtendimentoPlantao
+   WHERE 1=1
+      AND Atd_crijir = 'S') AS ISSUES_ABERTOS,
+--ISSUES RELACIONADOS
+(SELECT
+   COUNT(*)
+   FROM
+      Athena.AtendimentoPlantao
+   WHERE 1=1
+      AND Atd_jirarl = 'S') AS ISSUES_RELACIONADOS;

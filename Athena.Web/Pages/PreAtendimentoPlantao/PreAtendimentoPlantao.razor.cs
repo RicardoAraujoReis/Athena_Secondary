@@ -57,52 +57,59 @@ public partial class PreAtendimentoPlantao
     {
         var parameters = new DialogParameters();
 
-        var preAtendimentoToUpdate = preAtendimentos.FirstOrDefault(preAtendimento => preAtendimento.Id == preAtendimentoPlantaoId);
+        var preAtendimentoToUpdate = preAtendimentos.Where(preAtendimento => preAtendimento.Id == preAtendimentoPlantaoId).FirstOrDefault();
 
-        parameters.Add(nameof(UpdatePreAtendimentoPlantaoDialog.UpdatePreAtendimentoPlantaoRequest), new UpdatePreAtendimentoPlantao
+        if(preAtendimentoToUpdate.Ptd_status == "ATENDIMENTO GERADO" || preAtendimentoToUpdate.Ptd_status == "FINALIZADO")
         {
-            Id = preAtendimentoPlantaoId,
-            Ptd_datptd = preAtendimentoToUpdate.Ptd_datptd,
-            Ptd_usu_identi = preAtendimentoToUpdate.Ptd_usu_identi,
-            Ptd_cli_identi = preAtendimentoToUpdate.Ptd_cli_identi,
-            Ptd_tipptd = preAtendimentoToUpdate.Ptd_tipptd,
-            Ptd_critic = preAtendimentoToUpdate.Ptd_critic,
-            Ptd_titulo = preAtendimentoToUpdate.Ptd_titulo,
-            Ptd_resumo = preAtendimentoToUpdate.Ptd_resumo,
-            Ptd_numcha = preAtendimentoToUpdate.Ptd_numcha,
-            Ptd_jirarl = preAtendimentoToUpdate.Ptd_jirarl,
-            Ptd_numjir = preAtendimentoToUpdate.Ptd_numjir,
-            Ptd_diagn1 = preAtendimentoToUpdate.Ptd_diagn1,
-            Ptd_status = preAtendimentoToUpdate.Ptd_status,
-            Ptd_reton2 = preAtendimentoToUpdate.Ptd_reton2,
-            Ptd_observ = preAtendimentoToUpdate.Ptd_observ,
-            Ptd_nomal1 = preAtendimentoToUpdate.Ptd_nomal1,
-            Ptd_numatd = preAtendimentoToUpdate.Ptd_numatd,
-            Ptd_usubdd = preAtendimentoToUpdate.Ptd_usubdd,
-            Ptd_datcri = preAtendimentoToUpdate.Ptd_datcri,
-            Ptd_datalt = preAtendimentoToUpdate.Ptd_datalt,
-            Ptd_usucri = preAtendimentoToUpdate.Ptd_usucri,
-            Ptd_usualt = preAtendimentoToUpdate.Ptd_usualt,
-            Ptd_linjir = preAtendimentoToUpdate.Ptd_linjir,
-            Ptd_verjir = preAtendimentoToUpdate.Ptd_verjir
-        });
-
-        var options = new DialogOptions
-        {
-            CloseButton = true,
-            MaxWidth = MaxWidth.ExtraLarge,
-            FullWidth = true,
-            BackdropClick = false
-        };
-
-        var dialog = _dialogService.Show<UpdatePreAtendimentoPlantaoDialog>("Editar Pré Atendimento", parameters, options);
-
-        var result = await dialog.Result;
-
-        if (!result.Canceled)
-        {
-            await LoadPreAtendimentoPlantaoAsync();
+            _snackbar.Add("Registro não pode ser alterado", Severity.Info);            
         }
+        else
+        {
+            parameters.Add(nameof(UpdatePreAtendimentoPlantaoDialog.UpdatePreAtendimentoPlantaoRequest), new UpdatePreAtendimentoPlantao
+            {
+                Id = preAtendimentoPlantaoId,
+                Ptd_datptd = preAtendimentoToUpdate.Ptd_datptd,
+                Ptd_usu_identi = preAtendimentoToUpdate.Ptd_usu_identi,
+                Ptd_cli_identi = preAtendimentoToUpdate.Ptd_cli_identi,
+                Ptd_tipptd = preAtendimentoToUpdate.Ptd_tipptd,
+                Ptd_critic = preAtendimentoToUpdate.Ptd_critic,
+                Ptd_titulo = preAtendimentoToUpdate.Ptd_titulo,
+                Ptd_resumo = preAtendimentoToUpdate.Ptd_resumo,
+                Ptd_numcha = preAtendimentoToUpdate.Ptd_numcha,
+                Ptd_jirarl = preAtendimentoToUpdate.Ptd_jirarl,
+                Ptd_numjir = preAtendimentoToUpdate.Ptd_numjir,
+                Ptd_diagn1 = preAtendimentoToUpdate.Ptd_diagn1,
+                Ptd_status = preAtendimentoToUpdate.Ptd_status,
+                Ptd_reton2 = preAtendimentoToUpdate.Ptd_reton2,
+                Ptd_observ = preAtendimentoToUpdate.Ptd_observ,
+                Ptd_nomal1 = preAtendimentoToUpdate.Ptd_nomal1,
+                Ptd_numatd = preAtendimentoToUpdate.Ptd_numatd,
+                Ptd_usubdd = preAtendimentoToUpdate.Ptd_usubdd,
+                Ptd_datcri = preAtendimentoToUpdate.Ptd_datcri,
+                Ptd_datalt = preAtendimentoToUpdate.Ptd_datalt,
+                Ptd_usucri = preAtendimentoToUpdate.Ptd_usucri,
+                Ptd_usualt = preAtendimentoToUpdate.Ptd_usualt,
+                Ptd_linjir = preAtendimentoToUpdate.Ptd_linjir,
+                Ptd_verjir = preAtendimentoToUpdate.Ptd_verjir
+            });
+
+            var options = new DialogOptions
+            {
+                CloseButton = true,
+                MaxWidth = MaxWidth.ExtraLarge,
+                FullWidth = true,
+                BackdropClick = false
+            };
+
+            var dialog = _dialogService.Show<UpdatePreAtendimentoPlantaoDialog>("Editar Pré Atendimento", parameters, options);
+
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+                await LoadPreAtendimentoPlantaoAsync();
+            }
+        }        
     }
 
     private async Task DeletePreAtendimentoPlantaoAsync(int idPtdToDConfirm)
@@ -149,7 +156,7 @@ public partial class PreAtendimentoPlantao
         var options = new DialogOptions
         {
             CloseButton = true,
-            MaxWidth = MaxWidth.Large,
+            MaxWidth = MaxWidth.ExtraLarge,
             FullWidth = true,
             BackdropClick = false
         };

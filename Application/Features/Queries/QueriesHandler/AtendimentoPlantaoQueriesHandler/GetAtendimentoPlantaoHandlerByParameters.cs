@@ -65,7 +65,7 @@ public class GetAtendimentoPlantaoHandlerByParameters : IRequestHandler<GetAtend
 
             if (!string.IsNullOrWhiteSpace(request.Filtros.resumo))
             {
-                query = query.Where(p => p.Atd_resumo.ToUpper().Contains(request.Filtros.resumo.ToUpper()));
+                query = query.Where(p => p.Atd_resumo.ToUpper().Contains(request.Filtros.resumo.ToUpper()));//IMPLEMENTAR CONSULTA COMBINADA COM A RESPOSTA DO N2 E DIAGNÓSTICO DO N1
             }
 
             if (!string.IsNullOrWhiteSpace(request.Filtros.tipoAtendimentoSelected))
