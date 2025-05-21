@@ -14,6 +14,7 @@ public class Cliente : BaseEntity<int>
     public int Cli_lhn_identi { get; set; }
     public virtual LinhaNegocio LinhaNegocio { get; set; }    
     public virtual List<PreAtendimentoPlantao> PreAtendimentos { get; set; }
+    public virtual List<AtendimentoPlantao> AtendimentosPlantao { get; set; }
 
     public Cliente UpdateCliente(
         int id, 

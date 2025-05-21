@@ -31,5 +31,11 @@ internal class ClienteConfiguration : IEntityTypeConfiguration<Cliente>
             .HasForeignKey(x => x.Ptd_cli_identi)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("Ptd_cli_identi");
+
+        builder.HasMany(x => x.AtendimentosPlantao)
+            .WithOne(x => x.Cliente)
+            .HasForeignKey(x => x.Atd_cli_identi)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasConstraintName("Atd_cli_identi");
     }
 }

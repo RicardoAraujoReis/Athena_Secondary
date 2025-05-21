@@ -1,6 +1,6 @@
 ﻿using Athena.Web.Endpoints;
 using Athena.Web.Extensions;
-using Common.Responses;
+using Common.Responses.PainelGeral;
 using Common.Wrapper;
 using System.Net.Http;
 

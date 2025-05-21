@@ -47,6 +47,12 @@ internal class AtendimentoPlantaoConfiguration : IEntityTypeConfiguration<Atendi
             .WithOne(x => x.AtendimentoPlantao)
             .HasForeignKey<AtendimentoPlantao>(x => x.Atd_ptd_identi)
             .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("Atd_ptd_identi");                
+            .HasConstraintName("Atd_ptd_identi");
+
+        builder.HasOne(x => x.Cliente)
+            .WithMany(x => x.AtendimentosPlantao)
+            .HasForeignKey(x => x.Atd_cli_identi)
+            .OnDelete(DeleteBehavior.NoAction)
+            .HasConstraintName("Atd_cli_identi");
     }
 }

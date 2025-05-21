@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Responses;
+namespace Common.Responses.PainelGeral;
 
 public class PainelGeralBigNumbersResponse
 {

@@ -36,6 +36,7 @@ public class AtendimentoPlantao : BaseEntity<int>
     public string? Atd_linjir { get; set; }
     public string? Atd_verjir { get; set; }
     public string Atd_jirarl { get; set; }
+    public virtual Cliente Cliente { get; set; }
     public virtual PreAtendimentoPlantao PreAtendimentoPlantao { get; set; }    
     public virtual List<ComentariosAtendimentoPlantao>? Comentarios { get; set; }
 

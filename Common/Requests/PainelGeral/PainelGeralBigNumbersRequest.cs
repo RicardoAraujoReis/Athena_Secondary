@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Requests;
+namespace Common.Requests.PainelGeral;
 
 public class CreatePainelGeralBigNumbersRequest
 {

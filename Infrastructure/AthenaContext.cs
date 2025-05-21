@@ -1,6 +1,7 @@
 ﻿using Athena.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Models.PainelGeral;
 
 namespace Athena.Data;
 
@@ -51,4 +52,6 @@ public class AthenaContext : DbContext
     public DbSet<TipoDadosListas> TipoDadosListas { get; set; }
 
     public DbSet<PainelGeralBigNumbers> PainelGeralBigNumbers { get; set; }
+
+    public DbSet<PainelGeralGraficos> PainelGeralGraficos { get; set; }
 }
