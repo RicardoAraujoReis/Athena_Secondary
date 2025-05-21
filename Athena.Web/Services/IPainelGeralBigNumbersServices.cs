@@ -1,4 +1,4 @@
-﻿using Common.Responses;
+﻿using Common.Responses.PainelGeral;
 using Common.Wrapper;
 
 namespace Athena.Web.Services;

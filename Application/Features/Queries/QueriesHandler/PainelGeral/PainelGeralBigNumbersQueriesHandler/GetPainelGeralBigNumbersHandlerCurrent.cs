@@ -1,15 +1,10 @@
-﻿using Common.Responses;
-using Common.Wrapper;
+﻿using Common.Wrapper;
 using Mapster;
 using MediatR;
-using Athena.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Models.PainelGeral;
+using Common.Responses.PainelGeral;
 
-namespace Application.Features.Queries.QueriesHandler.PainelGeralBigNumbersQueriesHandler;
+namespace Application.Features.Queries.QueriesHandler.PainelGeral.PainelGeralBigNumbersQueriesHandler;
 
 public class GetPainelGeralBigNumbersCurrentHandler : IRequestHandler<GetPainelGeralBigNumbersCurrent, ResponseWrapper<List<PainelGeralBigNumbersResponse>>>
 {

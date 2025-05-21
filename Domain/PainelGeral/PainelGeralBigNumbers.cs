@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Athena.Models;
+namespace Models.PainelGeral;
 
 public class PainelGeralBigNumbers : BaseEntity<int>
 {
