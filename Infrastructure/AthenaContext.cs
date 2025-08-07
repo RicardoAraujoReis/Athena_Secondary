@@ -15,7 +15,7 @@ public class AthenaContext : DbContext
     {
     }
 
-    private string connectionString = "server=METAORA0727\\SERVER_REIS;database=Athena;user=sa;password=MEUnome1994*;TrustServerCertificate=True";
+    private string connectionString = "server=METAORA0856;database=Athena;user=sa;password=MEUnome1994*;TrustServerCertificate=True";
 
     //Aplicando as configurações de acesso ao banco de dados
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
