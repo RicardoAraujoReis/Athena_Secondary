@@ -94,7 +94,7 @@ public partial class CreateDadosListasDialog
             CreateDadosListasRequest.Dal_tid_descri = tipoDadosListasSelected;
             CreateDadosListasRequest.Dal_valor = CreateDadosListasRequest.Dal_valor.ToUpper();
             CreateDadosListasRequest.Dal_tid_identi = tipoDadosListasId.FirstOrDefault();
-            CreateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;
+            CreateDadosListasRequest.Dal_aplicacao = aplicacaoSelected;            
 
             var response = await _dadosListasServices.CreateDadosListasAsync(CreateDadosListasRequest);
             if (response.IsSuccessful)

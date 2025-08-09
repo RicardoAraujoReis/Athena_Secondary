@@ -21,12 +21,30 @@ public class CreateDadosListasCommandsHandler : IRequestHandler<CreateDadosLista
     }
 
     public async Task<ResponseWrapper<int>> Handle(CreateDadosListasCommand request, CancellationToken cancellationToken)
-    {
+    {        
         var DadosListas = request.CreateDadosListas.Adapt<DadosListas>();
+
+        if (IsDuplicated(DadosListas))
+        {
+            return new ResponseWrapper<int>().Failed("Registro já existente");
+        }
+
         await _unitOfWork.WriteDataFor<DadosListas>().AddAsync(DadosListas);
         await _unitOfWork.CommitAsync(cancellationToken);
 
         return new ResponseWrapper<int>().Success(DadosListas.Id, "Registro criado com sucesso.");
+    }
+
+    private bool IsDuplicated(DadosListas request)
+    {       
+        var existingRecord = _unitOfWork.ReadDataFor<DadosListas>().Entities.Where(
+            d => d.Dal_valor.ToLower() == request.Dal_valor.ToLower() &&
+                 d.Dal_aplicacao.ToLower() == request.Dal_aplicacao.ToLower() &&
+                 d.Dal_tid_identi == request.Dal_tid_identi
+        );
+
+        if (existingRecord.Any()) { return true; }
+        else { return false;  }    
     }
 }
 
@@ -57,7 +75,7 @@ public class UpdateDadosListasCommandsHandler : IRequestHandler<UpdateDadosLista
                 Dal_datalt = request.UpdateDadosListas.Dal_datalt,
                 Dal_usucri = request.UpdateDadosListas.Dal_usucri,
                 Dal_usualt = request.UpdateDadosListas.Dal_usualt
-            };                           
+            };
 
             await _unitOfWork.WriteDataFor<DadosListas>().UpdateAsync(updateDadosListas);
             await _unitOfWork.CommitAsync(cancellationToken);
